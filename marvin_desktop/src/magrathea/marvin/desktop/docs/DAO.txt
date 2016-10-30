@@ -1,0 +1,20 @@
+1 - Model a basic class ( Ex. User)
+2 - Getters & Setters
+3 - Generate Equals from ID
+    Generate hashcode from atributes except for ID and booleans.
+
+1 - Implement library of model
+
+
+1 - Interface Dao
+2 - Interface modelDAO (methods of class persistence) extends DAO
+3 - Interface ProviderModelDAO implement modelDAO
+4 - Implement ProviderModelDAO ( ex. DerbyUserDAO )
+
+
+
+
+CREDITS
+=======
+https://www.youtube.com/watch?v=t5zTEj473hs , Almas Baimagambetov , 
+JavaFX MVC + JDBC + DAO + DI: Library Loan System.

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="AnchorPane" prefHeight="400.0" prefWidth="600.0" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="magrathea.marvin.desktop.controller.UserController" >
+    <TextField onAction="#onSearch" />
+    <ChoiceBox fx:id="choiceBox"/>
+    
+    <ListView fx:id="listView"/>
+    <Button text="TODO"/>
+    <Button text="TODO2"/>
+    
+    
+</VBox>
