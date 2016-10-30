@@ -59,7 +59,7 @@ public class Marvin_desktop extends Application {
         
         userDAO.close();
         
-        System.exit(0);        
+        System.exit(0); 
         */
     }
 }
