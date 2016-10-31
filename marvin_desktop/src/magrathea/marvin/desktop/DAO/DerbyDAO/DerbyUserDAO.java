@@ -22,7 +22,6 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
 
     private static final List<User> EMPTY = new ArrayList<>();
     
-
     @Override
     public long insertUser(User user) {
         try {
@@ -92,6 +91,7 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
         
         try {
             return dbAccess.query(con, "SELECT * FROM \"User\" WHERE " + whereClause, 
+                    // proces a row from result to a bean
                     new BeanListHandler<User>(User.class), valueClause);
         } catch (Exception e) {
             e.printStackTrace();

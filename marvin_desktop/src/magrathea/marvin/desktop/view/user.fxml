@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox id="AnchorPane" prefHeight="400.0" prefWidth="600.0" 
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="magrathea.marvin.desktop.controller.UserController" >
-    <TextField onAction="#onSearch" />
-    <ChoiceBox fx:id="choiceBox"/>
+<!-- Ver http://gluonhq.com/labs/scene-builder/ IDE FOR CONTROLS IN JAVAFX-->
+
+
+<VBox id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.controller.UserController">
+   <Label text="User">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Label>
+    <TextField onAction="#onSearch" promptText="Insert a filter" />
+    <ChoiceBox fx:id="choiceBox">
+      <VBox.margin>
+         <Insets bottom="5.0" top="5.0" />
+      </VBox.margin>
+   </ChoiceBox>
     
-    <ListView fx:id="listView"/>
-    <Button text="TODO"/>
-    <Button text="TODO2"/>
-    
-    
-</VBox>
+          <ListView fx:id="listView" />
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <children>
+          <Button text="ACTION1">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </Button>
+          <Button text="ACTION2">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </Button>
+      </children>
+   </HBox>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+
+      </VBox>
