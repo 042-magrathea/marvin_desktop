@@ -6,14 +6,11 @@
 package magrathea.marvin.desktop.DAO.DerbyDAO;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 import magrathea.marvin.desktop.DAO.model.UserDAO;
 import magrathea.marvin.desktop.DAO.model.UserSearchType;
 import magrathea.marvin.desktop.model.User;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -21,41 +18,10 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
  *
  * @author boscalent
  */
-public class DerbyUserDAO implements UserDAO {
+public class DerbyUserDAO extends DerbyDAO implements UserDAO {
 
-    private Connection con;
-    private QueryRunner dbAccess = new QueryRunner();   // Trhead Safe Query from Apache DBUtils
     private static final List<User> EMPTY = new ArrayList<>();
-
-    @Override
-    public void setup() throws Exception {
-        // Create the DB
-        con = DriverManager.getConnection("jdbc:derby://localhost:1527/users;create=true");
-        
-        dbAccess.update(con, 
-                "CREATE TABLE \"User\" ( id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY"
-                + " (START WITH 1, INCREMENT BY 1), nickname VARCHAR(255), password VARCHAR(255), "
-                + " email VARCHAR(255), administrator BOOLEAN );"
-        );
-                
-                
-
-    }
-
-    @Override
-    public void connect() throws Exception {
-        // Don't create the DB
-        con = DriverManager.getConnection("jdbc:derby://localhost:1527/users");
-    }
-
-    @Override
-    public void close() throws Exception {
-        con.close();
-        try {
-            DriverManager.getConnection("jdbc:derby://localhost:1527/users;shutdown=true");
-        } catch (Exception e) {
-        }
-    }
+    
 
     @Override
     public long insertUser(User user) {
@@ -143,5 +109,4 @@ public class DerbyUserDAO implements UserDAO {
         }
         return EMPTY;
     }
-
 }

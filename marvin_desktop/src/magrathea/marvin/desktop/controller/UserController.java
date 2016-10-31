@@ -34,7 +34,7 @@ public class UserController {
     }
     
     public void initialize(){
-        choiceBox.getItems().setAll( UserSearchType.values());      // ENUM values
+        choiceBox.getItems().setAll( UserSearchType.values() );     // ENUM values
         choiceBox.getSelectionModel().selectFirst();                // Only select one item
         
     }

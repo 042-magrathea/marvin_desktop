@@ -14,7 +14,6 @@ import magrathea.marvin.desktop.library.UserLibrary;
  * Magrathea group
  * Project Marvin
  * App Desktop
- * @author Iván Cañizares Gómez
  */
 public class Marvin_desktop extends Application {
 

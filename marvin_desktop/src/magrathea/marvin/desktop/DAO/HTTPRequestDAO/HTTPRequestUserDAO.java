@@ -14,7 +14,7 @@ import magrathea.marvin.desktop.model.User;
  *
  * @author boscalent
  */
-public class HTTPRequestUserDAO implements UserDAO {
+public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
 
     @Override
     public long insertUser(User user) {
@@ -45,23 +45,4 @@ public class HTTPRequestUserDAO implements UserDAO {
         throw new UnsupportedOperationException("Not supported yet."); 
         //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void setup() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void connect() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void close() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
