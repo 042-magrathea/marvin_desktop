@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.DAO.DerbyDAO;
+package magrathea.marvin.desktop.user.dao.DerbyDAO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import magrathea.marvin.desktop.DAO.model.UserDAO;
-import magrathea.marvin.desktop.DAO.model.UserSearchType;
-import magrathea.marvin.desktop.model.User;
+import magrathea.marvin.desktop.app.dao.DerbyDAO.DerbyDAO;
+import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserSearchType;
+import magrathea.marvin.desktop.user.model.User;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -28,7 +29,8 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
             long id = dbAccess.insert(con,
                     "INSERT INTO \"User\"(nickname,password,email,administrator)"
                     + " VALUES (?,?,?,?)", new ScalarHandler<BigDecimal>(),
-                    user.getNickname(), user.getPassword(), user.getEmail(), user.isAdministrator()
+                    user.getNickname(), user.getPassword(), user.getEmail(), 
+                    user.isAdministrator()
             ).longValue();
             return id;
         } catch (Exception e) {
@@ -40,8 +42,11 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
     @Override
     public boolean updateUser(User user) {
         try {
-            dbAccess.update(con, "UPDATE \"User\" SET nickname=?,password=?,email=?,administrator=? WHERE id=?",
-                    user.getNickname(), user.getPassword(), user.getEmail(), user.isAdministrator(), user.getId());
+            dbAccess.update(con, 
+                    "UPDATE \"User\" SET nickname=?,password=?,email=?,administrator=? "
+                            + "WHERE id=?",
+                    user.getNickname(), user.getPassword(), user.getEmail(), 
+                    user.isAdministrator(), user.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,7 +107,7 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
     @Override
     public List<User> findAll() {
         try {
-            return dbAccess.query("SELECT * FROM \"User\"",  
+            return dbAccess.query(con, "SELECT * FROM \"User\"",  
                     new BeanListHandler<User>(User.class));
         } catch (Exception e) {
             e.printStackTrace();

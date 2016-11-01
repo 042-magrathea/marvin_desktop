@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.DAO.HTTPRequestDAO;
+package magrathea.marvin.desktop.app.dao.HTTPRequestDAO;
 
-import magrathea.marvin.desktop.DAO.DAO;
+import magrathea.marvin.desktop.app.dao.DAO;
 
 /**
  *

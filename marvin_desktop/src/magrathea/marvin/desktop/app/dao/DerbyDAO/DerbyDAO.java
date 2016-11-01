@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.DAO.DerbyDAO;
+package magrathea.marvin.desktop.app.dao.DerbyDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import magrathea.marvin.desktop.DAO.DAO;
+import magrathea.marvin.desktop.app.dao.DAO;
 import org.apache.commons.dbutils.QueryRunner;
 
 /**

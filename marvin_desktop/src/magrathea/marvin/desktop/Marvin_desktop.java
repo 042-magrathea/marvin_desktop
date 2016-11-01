@@ -4,11 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import magrathea.marvin.desktop.DAO.DerbyDAO.DerbyUserDAO;
-import magrathea.marvin.desktop.DAO.model.UserDAO;
-import magrathea.marvin.desktop.controller.UserController;
+import magrathea.marvin.desktop.user.dao.DerbyDAO.DerbyUserDAO;
+import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.controller.UserController;
 
-import magrathea.marvin.desktop.library.UserLibrary;
+import magrathea.marvin.desktop.user.service.UserService;
 
 /**
  * Magrathea group
@@ -22,8 +22,8 @@ public class Marvin_desktop extends Application {
         // TODO: return new HTTPRequestUserDAO();
     }
     
-    private UserLibrary buildModel(){
-        return new UserLibrary(buildDAO());
+    private UserService buildModel(){
+        return new UserService(buildDAO());
     }
     
     private UserController buildController(Stage stage){
@@ -33,7 +33,7 @@ public class Marvin_desktop extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "view/user.fxml"));
+                        "user/view/user.fxml"));
         loader.setControllerFactory(t -> buildController(stage));
         
         stage.setScene( new Scene(loader.load()));
@@ -50,7 +50,7 @@ public class Marvin_desktop extends Application {
         
         userDAO.setup();
 
-        UserLibrary userModel = new UserLibrary(userDAO);
+        UserService userModel = new UserService(userDAO);
 
         userModel.addNewUser("ARNAU", "1234","arnau@magrathea.com", true);
         userModel.addNewUser("IVÁN", "2345","ivan@magrathea.com", true);

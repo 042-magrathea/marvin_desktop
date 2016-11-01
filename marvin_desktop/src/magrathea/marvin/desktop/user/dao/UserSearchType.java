@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.DAO.model;
+package magrathea.marvin.desktop.user.dao;
 
 /**
  *

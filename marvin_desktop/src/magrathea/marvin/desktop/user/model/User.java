@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.model;
+package magrathea.marvin.desktop.user.model;
 
 import java.util.Objects;
 
@@ -18,10 +18,28 @@ public class User {
     private String password;  // only for user of the app
     private String email;
     private boolean administrator;
-
     
+    /*
+    private final SimpleLongProperty id;
+    private final SimpleStringProperty nickname;
+    private final SimpleStringProperty password;
+    private final SimpleStringProperty email;
+    private final SimpleBooleanProperty administrator;
+    
+    private User(long id, String nickname, String password, String email, boolean administrator){
+        this.id = new SimpleLongProperty(id);
+        this.nickname = new SimpleStringProperty(nickname);
+        this.password = new SimpleStringProperty(password);
+        this.email = new SimpleStringProperty(email);
+        this.administrator = new SimpleBooleanProperty(administrator);
+    }
+*/
+    
+    public User(){
+    }
     
     // Equals & HashCode
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -42,10 +60,7 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return this.id == other.id;
     }
 
     @Override
@@ -64,7 +79,8 @@ public class User {
         builder.append('}');
         return builder.toString();
     }
-        
+    
+ 
     // Getters & Setters
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}
@@ -80,5 +96,6 @@ public class User {
     
     public boolean isAdministrator() {return administrator;}
     public void setAdministrator(boolean administrator) {
-        this.administrator = administrator;}
+        this.administrator = administrator;}   
+    
 }

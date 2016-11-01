@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.DAO.HTTPRequestDAO;
+package magrathea.marvin.desktop.user.dao.HTTPRequest;
 
 import java.util.List;
-import magrathea.marvin.desktop.DAO.model.UserDAO;
-import magrathea.marvin.desktop.DAO.model.UserSearchType;
-import magrathea.marvin.desktop.model.User;
+import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserSearchType;
+import magrathea.marvin.desktop.user.dao.UserSearchType;
+import magrathea.marvin.desktop.user.model.User;
 
 /**
  *
