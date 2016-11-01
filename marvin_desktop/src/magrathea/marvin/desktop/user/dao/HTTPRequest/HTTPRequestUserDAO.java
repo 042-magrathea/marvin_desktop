@@ -67,7 +67,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
 
             // PARSER
-            JsonArray jarray = getArrayFromJson(in, "users");
+            JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
 
             // MAKE OBJECTS
             return makeUsersFromJson(jarray);
@@ -108,14 +108,18 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
      * Processa el JSON i retorna un array JSON per construïr els objectes
      *
      * @param in Reader que retorna la connexió
-     * @param node Nom de la classe dels objectes ("users"...)
+     * @param node Nom del objectes JSON o null si es un array
      * @return un array d'objectes Json.
      */
     private JsonArray getArrayFromJson(Reader in, String node) {
+        JsonArray jarray = null;
         JsonElement jelement = new JsonParser().parse(in);
-        //JsonObject jobject = jelement.getAsJsonObject();
-        //JsonArray jarray = jobject.getAsJsonArray(node);
-        JsonArray jarray = jelement.getAsJsonArray();
+        if ( node != null){
+            JsonObject jobject = jelement.getAsJsonObject();
+            jarray = jobject.getAsJsonArray(node);
+        } else {
+            jarray = jelement.getAsJsonArray();
+        }
         return jarray;
     }
 
