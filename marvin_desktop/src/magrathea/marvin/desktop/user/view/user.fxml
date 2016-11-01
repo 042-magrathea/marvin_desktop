@@ -14,7 +14,10 @@
 
 <!-- Ver http://gluonhq.com/labs/scene-builder/ IDE FOR CONTROLS IN JAVAFX-->
 
-<VBox id="AnchorPane" prefHeight="510.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.user.controller.UserController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" 
+      id="AnchorPane" prefHeight="510.0" 
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" 
+      fx:controller="magrathea.marvin.desktop.user.controller.UserController">
     <Label text="User">
         <font>
             <Font name="System Bold" size="24.0" />
@@ -41,7 +44,7 @@
     
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
         <children>
-            <Button text="ACTION1">
+            <Button text="Send Mail" fx:id="sendMail"  onAction="#onSendMail">
                 <HBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>

@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.app.dao.HTTPRequestDAO;
 
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
 import magrathea.marvin.desktop.app.dao.DAO;
 
 /**
@@ -13,21 +11,27 @@ import magrathea.marvin.desktop.app.dao.DAO;
  */
 public class HTTPRequestDAO implements DAO {
 
+    protected HttpURLConnection con;
+    
     @Override
     public void setup() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // No populated DB from here
     }
 
     @Override
     public void connect() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+       // WebService with differents url 
+    }
+    
+    public void connect(URL url, Proxy proxy ) throws Exception {
+        if ( proxy == null ){proxy = Proxy.NO_PROXY;}           // direct con
+        con = (HttpURLConnection) url.openConnection( proxy );  // default: No proxy        
     }
 
     @Override
     public void close() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        if ( con != null ){
+            con.disconnect();
+        }
     }
 }

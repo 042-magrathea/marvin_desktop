@@ -5,14 +5,10 @@
 
 1 - Implement library of model
 
-
 1 - Interface Dao
 2 - Interface modelDAO (methods of class persistence) extends DAO
 3 - Interface ProviderModelDAO implement modelDAO
 4 - Implement ProviderModelDAO ( ex. DerbyUserDAO )
-
-
-
 
 CREDITS
 =======

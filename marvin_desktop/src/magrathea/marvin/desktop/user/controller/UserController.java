@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.user.controller;
 
 import javafx.collections.FXCollections;
@@ -47,12 +42,14 @@ public class UserController {
         
         listView.getItems().setAll(service.getAll());
         
+        // COLUMNS
         UserId.setCellValueFactory(new PropertyValueFactory<>("id"));
         Nickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
         Password.setCellValueFactory(new PropertyValueFactory<>("password"));
         Email.setCellValueFactory(new PropertyValueFactory<>("email"));
         Administrator.setCellValueFactory(new PropertyValueFactory<>("administrator"));
         
+        // TABLE MODEL
         ObservableList<User> users = FXCollections.observableArrayList( service.getAll() );
         userTable.setEditable(true);
         userTable.setItems( users );
@@ -63,5 +60,18 @@ public class UserController {
     public void onSearch( ActionEvent event){
         String param = ((TextField) event.getSource()).getText();
         listView.getItems().setAll(service.search(choiceBox.getValue(), param));
+    }
+    
+    public void onSendMail( ActionEvent event){
+        if ( userTable.getSelectionModel().getSelectedItem() != null ){
+            if (userTable.getSelectionModel().getSelectedItem().getEmail() != null ){
+                String mail = userTable.getSelectionModel().getSelectedItem().getEmail();
+                System.out.println("mailto:" + mail);
+            } else {
+                System.err.println("ERROR: USER with NULL mail");
+            }
+        } else {
+            System.err.println("ERROR: NO select USER");
+        }        
     }
 }

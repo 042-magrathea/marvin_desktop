@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import magrathea.marvin.desktop.user.dao.DerbyDAO.DerbyUserDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
 import magrathea.marvin.desktop.user.controller.UserController;
+import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 
 import magrathea.marvin.desktop.user.service.UserService;
 
@@ -18,8 +19,8 @@ import magrathea.marvin.desktop.user.service.UserService;
 public class Marvin_desktop extends Application {
 
     private UserDAO buildDAO(){
-        return new DerbyUserDAO();
-        // TODO: return new HTTPRequestUserDAO();
+        //return new DerbyUserDAO();
+        return new HTTPRequestUserDAO();
     }
     
     private UserService buildModel(){
@@ -39,9 +40,7 @@ public class Marvin_desktop extends Application {
         stage.setScene( new Scene(loader.load()));
         stage.show();
     }
-    
-    
-    
+       
     public static void main(String[] args) throws Exception {
         launch(args);
         
