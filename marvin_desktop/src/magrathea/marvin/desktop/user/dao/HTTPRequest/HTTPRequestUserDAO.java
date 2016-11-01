@@ -4,10 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.HttpURLConnection;
+import java.io.UnsupportedEncodingException;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -54,11 +53,42 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     @Override
     public List<User> findAll() {
         try {
+            // URL
             URL url = new URL("http://192.168.1.123/magrathea/userRequest.php");
+
+            // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
+            params.put("param1", "Magrathera Marvin v.01");
+            params.put("param2", "getAllUser");
+            params.put("param3", "Prototip");               // exemple
+            byte[] postDataBytes = putParams(params);       // aux. make POST
 
-            params.put("param", "Magrathera Marvin v.01 - GetAllUsers");
+            // GET READER FROM CONN (SUPER)
+            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
 
+            // PARSER
+            JsonArray jarray = getArrayFromJson(in, "users");
+
+            // MAKE OBJECTS
+            return makeUsersFromJson(jarray);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            con.disconnect();
+        }
+        return EMPTY;
+    }
+
+    /**
+     * Construeix el missatge POST per enviar al servidor PHP
+     *
+     * @param params paràmetres del webservice
+     * @return un byte[] amb els paràmetres
+     */
+    private byte[] putParams(Map<String, Object> params) {
+        byte[] postDataBytes = null;
+        try {
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String, Object> param : params.entrySet()) {
                 if (postData.length() != 0) {
@@ -68,44 +98,44 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
                 postData.append('=');
                 postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
             }
-            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type",
-                    "application/x-www-form-urlencoded");
-            con.setRequestProperty("Content-Length",
-                    String.valueOf(postDataBytes.length));
-            con.setDoOutput(true);
-            con.getOutputStream().write(postDataBytes);
-
-            Reader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-
-            JsonElement jelement = new JsonParser().parse(in);
-            JsonObject jobject = jelement.getAsJsonObject();
-            JsonArray jarray = jobject.getAsJsonArray("users");
-
-            List<User> users = new ArrayList<>();
-            User user;
-            for (int i = 0; i < jarray.size(); i++) {
-                JsonObject jsonobject = jarray.get(i).getAsJsonObject();
-                user = new User();
-                user.setId(jsonobject.get("idUser").getAsLong());
-                user.setNickname(jsonobject.get("publicName").getAsString());
-                user.setPassword(jsonobject.get("password").getAsString());
-                user.setEmail(jsonobject.get("e-mail").getAsString());
-                user.setAdministrator(jsonobject.get("administrator").getAsBoolean());
-
-                users.add(user);
-            }
-
-            return users;
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            con.disconnect();
+            postDataBytes = postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException ex) {
         }
-        return EMPTY;
+        return postDataBytes;
+    }
+
+    /**
+     * Processa el JSON i retorna un array JSON per construïr els objectes
+     *
+     * @param in Reader que retorna la connexió
+     * @param node Nom de la classe dels objectes ("users"...)
+     * @return un array d'objectes Json.
+     */
+    private JsonArray getArrayFromJson(Reader in, String node) {
+        JsonElement jelement = new JsonParser().parse(in);
+        JsonObject jobject = jelement.getAsJsonObject();
+        JsonArray jarray = jobject.getAsJsonArray(node);
+        return jarray;
+    }
+
+    /**
+     * Construeix objectes tipus User
+     * @param jarray  JsonArray amb objectes User en json
+     * @return List<User> que es pot retornar a la capa de servei
+     */
+    private List<User> makeUsersFromJson(JsonArray jarray) {
+        List<User> users = new ArrayList<>();
+        User user;
+        for (int i = 0; i < jarray.size(); i++) {
+            JsonObject jsonobject = jarray.get(i).getAsJsonObject();
+            user = new User();
+            user.setId(jsonobject.get("idUser").getAsLong());
+            user.setNickname(jsonobject.get("publicName").getAsString());
+            user.setPassword(jsonobject.get("password").getAsString());
+            user.setEmail(jsonobject.get("e-mail").getAsString());
+            user.setAdministrator(jsonobject.get("administrator").getAsBoolean());
+            users.add(user);
+        }
+        return users;
     }
 }
