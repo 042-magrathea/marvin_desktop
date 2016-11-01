@@ -54,7 +54,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     public List<User> findAll() {
         try {
             // URL
-            URL url = new URL("http://192.168.1.123/magrathea/UserQuery.php");
+            URL url = new URL("http://192.168.1.123/magrathea/usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();

@@ -9,7 +9,7 @@ De momento en el método buildDAO() de Marvin_desktop (main) se puede elegir
 un proveedor DAO ( HTTPRequest o DERBY).
 
 Para usar DERBY en Netbeans, en servicios activar el server...
-Para usar HTTPREQUEST hay que cambiar la dirección del archivo UserQuery.php
+Para usar HTTPREQUEST hay que cambiar la dirección del archivo usersQuery.php
 a un servidor controlado. La dirección se encuentra en el método findAll de
 HTTPRequestUserDAO.
 
