@@ -54,14 +54,14 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     public List<User> findAll() {
         try {
             // URL
-            URL url = new URL("http://192.168.1.123/magrathea/userRequest.php");
+            URL url = new URL("http://192.168.1.123/magrathea/UserQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
-            params.put("param1", "Magrathera Marvin v.01");
-            params.put("param2", "getAllUser");
-            params.put("param3", "Prototip");               // exemple
-            byte[] postDataBytes = putParams(params);       // aux. make POST
+            params.put("user", "LOGIN_USER");               // User has rights?
+            //params.put("param2", "getAllUser");
+            //params.put("param3", "Prototip");             
+            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
