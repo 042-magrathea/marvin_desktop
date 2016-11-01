@@ -24,7 +24,7 @@ public class Marvin_desktop extends Application {
     }
     
     private UserService buildModel(){
-        return new UserService(buildDAO());
+        return new UserService( buildDAO() );
     }
     
     private UserController buildController(Stage stage){

@@ -54,7 +54,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     public List<User> findAll() {
         try {
             // URL
-            URL url = new URL("http://192.168.1.123/magrathea/usersQuery.php");
+            URL url = new URL("http://192.168.1.123/magrathea/marvin_server-master/usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
@@ -113,8 +113,9 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
      */
     private JsonArray getArrayFromJson(Reader in, String node) {
         JsonElement jelement = new JsonParser().parse(in);
-        JsonObject jobject = jelement.getAsJsonObject();
-        JsonArray jarray = jobject.getAsJsonArray(node);
+        //JsonObject jobject = jelement.getAsJsonObject();
+        //JsonArray jarray = jobject.getAsJsonArray(node);
+        JsonArray jarray = jelement.getAsJsonArray();
         return jarray;
     }
 
