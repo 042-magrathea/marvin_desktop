@@ -137,8 +137,11 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             user.setId(jsonobject.get("idUser").getAsLong());
             user.setNickname(jsonobject.get("publicName").getAsString());
             user.setPassword(jsonobject.get("password").getAsString());
-            user.setEmail(jsonobject.get("e-mail").getAsString());
-            user.setAdministrator(jsonobject.get("administrator").getAsBoolean());
+            user.setEmail(jsonobject.get("eMail").getAsString());
+            // getAsBoolean falla, fico el if
+            // user.setAdministrator(jsonobject.get("administrator").getAsBoolean());
+            user.setAdministrator((jsonobject.get("administrator").getAsInt() != 0));
+            
             users.add(user);
         }
         return users;

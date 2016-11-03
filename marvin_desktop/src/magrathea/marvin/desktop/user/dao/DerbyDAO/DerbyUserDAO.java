@@ -42,7 +42,7 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
     @Override
     public boolean updateUser(User user) {
         try {
-            dbAccess.update(con, 
+            dbAccess.update(con,
                     "UPDATE \"User\" SET nickname=?,password=?,email=?,administrator=? "
                             + "WHERE id=?",
                     user.getNickname(), user.getPassword(), user.getEmail(), 
