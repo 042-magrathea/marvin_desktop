@@ -97,6 +97,7 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
             tournament.setId(jsonobject.get("idTOURNAMENT").getAsLong());
             tournament.setName("Tournament " + i );
             
+            ///////////// PRIZES
             //JsonObject objectPrize = jsonobject.getAsJsonObject("prizes");
             JsonArray arrayPrize = jsonobject.getAsJsonArray("prizes");
             List<Prize> prizes = new ArrayList<>(arrayPrize.size());
@@ -111,6 +112,22 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
                 //prizes.add(order, prize);
             }
             tournament.setPrizes(prizes);
+            
+            ////////////// USERS
+            //JsonObject objectPrize = jsonobject.getAsJsonObject("prizes");
+            JsonArray arrayUsers = jsonobject.getAsJsonArray("users");
+            List<User> users = new ArrayList<>(arrayUsers.size());
+            User user = null;
+            for ( int j = 0; j < arrayUsers.size(); j++){
+                JsonObject jsonUser = arrayUsers.get(j).getAsJsonObject();
+                user = new User();
+                user.setId(jsonUser.get("idUSER").getAsLong());
+                user.setNickname(jsonUser.get("name").getAsString());
+                users.add(user);
+            }
+            tournament.setUsers(users);
+            
+            //////////
             
             tournaments.add(tournament);
         }
