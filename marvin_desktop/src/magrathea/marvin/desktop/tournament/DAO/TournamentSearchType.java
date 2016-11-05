@@ -10,5 +10,5 @@ package magrathea.marvin.desktop.tournament.DAO;
  * @author boscalent
  */
 public enum TournamentSearchType {
-    
+    NAME, STATE
 }

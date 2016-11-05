@@ -14,6 +14,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import magrathea.marvin.desktop.app.dao.DAO;
+import magrathea.marvin.desktop.tournament.DAO.HTTPRequest.HTTPRequestTournamentDAO;
 import magrathea.marvin.desktop.user.dao.DerbyDAO.DerbyUserDAO;
 import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
@@ -24,6 +26,10 @@ import magrathea.marvin.desktop.user.dao.UserDAO;
  */
 public class Main extends Application {
 
+    // SERVER (TODO: move to preferences)
+    public static final String SERVER = 
+            "http://192.168.1.123/magrathea/marvin_server-master/";
+    
     // Creating a static root to pass to the controller
     private static BorderPane root = new BorderPane();
 
@@ -32,9 +38,23 @@ public class Main extends Application {
         return root;
     }
     
-    public static UserDAO buildDAO(){
-        //return new DerbyUserDAO();
-        return new HTTPRequestUserDAO();
+    // TODO: Refactor code
+    @SuppressWarnings("unchecked")
+    public static <T extends DAO> T buildDAO(String type){
+        DAO dao = null;
+        
+        switch(type){
+            case "User": 
+                //dao = new DerbyUserDAO();
+                dao = new HTTPRequestUserDAO();
+                break;
+            case "Tournament":
+                dao = new HTTPRequestTournamentDAO();
+                break;
+            default:
+                System.err.println("DAO NOT IMPLEMENTED");
+        }
+        return (T)dao;
     }
 
     @Override

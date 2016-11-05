@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
 import magrathea.marvin.desktop.user.dao.UserSearchType;
@@ -53,8 +54,8 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     @Override
     public List<User> findAll() {
         try {
-            // URL
-            URL url = new URL("http://192.168.1.123/magrathea/marvin_server-master/usersQuery.php");
+            // URL (TODO: fix URL server as Constant)
+            URL url = new URL( Main.SERVER + "usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();

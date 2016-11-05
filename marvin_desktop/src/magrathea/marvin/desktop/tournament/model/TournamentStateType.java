@@ -10,5 +10,5 @@ package magrathea.marvin.desktop.tournament.model;
  * @author boscalent
  */
 public enum TournamentStateType {
-    
+    ACTIVED, FINISHED, CANCELLED, CLOSED, CALLED; // ? TODO: Select correct types
 }
