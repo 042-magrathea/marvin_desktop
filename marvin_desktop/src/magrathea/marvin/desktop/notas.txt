@@ -16,3 +16,6 @@ HTTPRequestUserDAO.
 En HTTPRequest solo funciona el que cargue los datos.
 En Derby se pueden filtrar los datos de la lista superior introduciendo un filtro,
 un texto a filtrar (más enter). Los cambios solo se aplican en la lista superior.
+
+- Se crea la clase modelo: +equals/hashCode, +toString +getters/setters
+- Se crea la interface DAO del modelo.

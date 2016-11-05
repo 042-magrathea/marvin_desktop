@@ -19,22 +19,6 @@ public class User {
     private String email;
     private boolean administrator;
     
-    /*
-    private final SimpleLongProperty id;
-    private final SimpleStringProperty nickname;
-    private final SimpleStringProperty password;
-    private final SimpleStringProperty email;
-    private final SimpleBooleanProperty administrator;
-    
-    private User(long id, String nickname, String password, String email, boolean administrator){
-        this.id = new SimpleLongProperty(id);
-        this.nickname = new SimpleStringProperty(nickname);
-        this.password = new SimpleStringProperty(password);
-        this.email = new SimpleStringProperty(email);
-        this.administrator = new SimpleBooleanProperty(administrator);
-    }
-*/
-    
     public User(){
     }
     
@@ -80,7 +64,6 @@ public class User {
         return builder.toString();
     }
     
- 
     // Getters & Setters
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}

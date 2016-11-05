@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import magrathea.marvin.desktop.user.dao.DerbyDAO.DerbyUserDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
-import magrathea.marvin.desktop.user.controller.UserController;
+import magrathea.marvin.desktop.user.controller.UserController_old;
 import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 
 import magrathea.marvin.desktop.user.service.UserService;
@@ -16,7 +16,8 @@ import magrathea.marvin.desktop.user.service.UserService;
  * Project Marvin
  * App Desktop
  */
-public class Marvin_desktop extends Application {
+@Deprecated
+public class Marvin_desktop_old extends Application {
 
     private UserDAO buildDAO(){
         //return new DerbyUserDAO();
@@ -24,17 +25,17 @@ public class Marvin_desktop extends Application {
     }
     
     private UserService buildModel(){
-        return new UserService( buildDAO() );
+        return new UserService(buildDAO());
     }
     
-    private UserController buildController(Stage stage){
-        return new UserController(buildModel(), stage);
+    private UserController_old buildController(Stage stage){
+        return new UserController_old(buildModel(), stage);
     }
     
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "user/view/user.fxml"));
+                        "user/view/user_old.fxml"));
         loader.setControllerFactory(t -> buildController(stage));
         
         stage.setScene( new Scene(loader.load()));

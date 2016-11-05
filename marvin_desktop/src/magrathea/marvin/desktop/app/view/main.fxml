@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="mainMenu" prefHeight="600.0" prefWidth="1024" 
+            xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label 
+            layoutX="251.0" 
+            layoutY="227.0" 
+            text="Marvin MainMenu">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
