@@ -1,17 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.user.dao;
 
 import java.util.List;
 import magrathea.marvin.desktop.app.dao.DAO;
 import magrathea.marvin.desktop.user.model.User;
 
+// TODO: These methods (Typical CRUD) can be a separate class?
+// And implement params with generics (All classDAO do the same)
 /**
- *
- * @author boscalent
+ * Concrete DAO implementation for User
+ * @author Iván Cañizares Gómez
  */
 public interface UserDAO extends DAO {
     public long insertUser(User user);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.app;
 
 import java.io.IOException;
@@ -21,32 +16,50 @@ import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
 
 /**
- *
- * @author boscalent
+ * Desktop App starting point
+ * @author Iván Cañizares Gómez
  */
 public class Main extends Application {
-
-    // SERVER (TODO: move to preferences)
+    // TODO: move to preferences. Look for external preferences file
+    // Study the possibility of configuration in the installation process.
+    /**
+     * URL point to a folder with php webservices 
+     */     
     public static final String SERVER = 
             "http://192.168.1.123/magrathea/marvin_server-master/";
     
-    // Creating a static root to pass to the controller
+    // TODO: move to Aux. graphic class. Candidate to Singleton.
+    /**
+     * Creating a static root to pass to the controller
+     * this JavaFX pane change for different components
+     * It's guided by the mainMenuApp
+     */
     private static BorderPane root = new BorderPane();
 
-    // Just a root getter for the controller to use
+    // TODO: move to Aux. graphic class (with BorderPane root)
+    /**
+     * Just a root getter for use by a controller
+     */     
     public static BorderPane getRoot() {
         return root;
     }
     
-    // TODO: Refactor code to concurrent Singleton
-    // for return only a DAO for type.
+    // TODO: Refactor code to a concurrent Singleton
+    // Probably needs a Factory and instanced like 
+    // buidDAO.getConcreteDAOImplementation()
+    /**
+     * Generic DAO provider of concrete class implementation
+     * @param <T>
+     * @param type // ENUM of DAO
+     * @return concrete DAO
+     */ 
     @SuppressWarnings("unchecked")
     public static <T extends DAO> T buildDAO(String type){
         DAO dao = null;
         
         switch(type){
-            case "User": 
-                //dao = new DerbyUserDAO();
+            case "User":                                // select one
+                //dao = new DerbyUserDAO();             // Only for User test
                 dao = new HTTPRequestUserDAO();
                 break;
             case "Tournament":
@@ -58,31 +71,45 @@ public class Main extends Application {
         return (T)dao;
     }
 
+    // TODO: Make a factory with all resource data
+    // TODO: Extract constants like app size
+    /**
+     * Starting point of the application. Load two FXML resources.
+     * One for the mainMenuBar, another for the first root pane. In this case
+     * main.fxml, the main menu screen
+     * @see desktop screen map for reference
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // loading FXML resources
-
+        
+        // Loading FXML resources 
         URL menuBarUrl = getClass().getResource("view/mainMenuBar.fxml");
         MenuBar bar = FXMLLoader.load(menuBarUrl);
 
-        URL paneOneUrl = getClass().getResource("view/main.fxml");
-        AnchorPane paneOne = FXMLLoader.load(paneOneUrl);
+        URL centerPaneURL = getClass().getResource("view/main.fxml");
+        AnchorPane centerPane = FXMLLoader.load(centerPaneURL);
 
-        // constructing our scene using the static root
+        // Constructing our scene using the static root
         root.setTop(bar);
-        root.setCenter(paneOne);
-
-        Scene scene = new Scene(root, 1024, 768);
+        root.setCenter(centerPane);
+        Scene scene = new Scene(root, 1024, 768);        // fixed size for prototype
         scene.getStylesheets()
-                .add(getClass().getResource("view/marvin.css")
+                .add(getClass().getResource("view/marvin.css")  // not in prototype
                         .toExternalForm());
-
+        
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
     
+    /**
+     * Only for a IDE that can't throw a JavaFX App directly (start), 
+     * Netbeans don't need this
+     * @param args 
+     */
     public static void main(String[] args) {
-    launch(args);
-  }
+        launch(args);
+    }
 }

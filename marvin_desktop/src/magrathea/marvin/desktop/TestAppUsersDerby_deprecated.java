@@ -12,16 +12,16 @@ import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 import magrathea.marvin.desktop.user.service.UserService;
 
 /**
- * Magrathea group
- * Project Marvin
- * App Desktop
+ * Magrathea group - Project Marvin
+ * App Desktop - Only for test DAO with different provider (Derby)
+ * In User CRUD
  */
 @Deprecated
-public class Marvin_desktop_old extends Application {
+public class TestAppUsersDerby_deprecated extends Application {
 
     private UserDAO buildDAO(){
-        //return new DerbyUserDAO();
-        return new HTTPRequestUserDAO();
+        return new DerbyUserDAO();
+        // return new HTTPRequestUserDAO();
     }
     
     private UserService buildModel(){

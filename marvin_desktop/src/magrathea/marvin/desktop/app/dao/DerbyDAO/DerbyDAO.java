@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.app.dao.DerbyDAO;
 
 import java.sql.Connection;
@@ -11,17 +6,18 @@ import magrathea.marvin.desktop.app.dao.DAO;
 import org.apache.commons.dbutils.QueryRunner;
 
 /**
- *
- * @author boscalent
+ * Concrete implementation of DAO for a local DerbyDB, !Only for a test purpose
+ * @See HTTPRequestDAO
+ * @author Iván Cañizares Gómez
  */
 public class DerbyDAO implements DAO{
     
     protected Connection con;
-    protected QueryRunner dbAccess = new QueryRunner();   // Trhead Safe Query from Apache DBUtils
+    protected QueryRunner dbAccess = new QueryRunner();   // Thread Safe Query
     
     @Override
     public void setup() throws Exception {
-        // Create the DB
+        // Create the DB and the table User for make tests
         con = DriverManager.getConnection("jdbc:derby://localhost:1527/users;create=true");
         
         dbAccess.update(con, 
@@ -42,7 +38,6 @@ public class DerbyDAO implements DAO{
         con.close();
         try {
             DriverManager.getConnection("jdbc:derby://localhost:1527/users;shutdown=true");
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 }

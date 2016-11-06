@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.tournament.DAO.HTTPRequest;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.internal.LinkedTreeMap;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
@@ -28,35 +22,36 @@ import magrathea.marvin.desktop.tournament.model.Tournament;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * Concrete DAO implementation for Tournament Class
+ * @author Iván Cañizares Gómez
  */
 public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements TournamentDAO {
 
+    // dummy List for null returns
     private static final List<Tournament> EMPTY = new ArrayList<>();
 
     @Override
     public long insertTournament(Tournament tournament) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public boolean updateTournament(Tournament tournament) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public boolean deleteTournament(Tournament tournament) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public List<Tournament> findTournamentByProperty(TournamentSearchType searchType, Object tournament) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
@@ -85,7 +80,18 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
 
         return EMPTY;
     }
-
+    
+    // TODO: Refactor the process of make attribute class (Users & Prizes)
+    // Maybe a service class for process JSON arrays of class without inner class
+    // that return a List for fill the List attribute.
+    // LIKE List<users> JsonService.parseUsers(JsonArray ja)
+    // this method then join all the stuff
+    /**
+     * Parser of Json for Tournaments
+     * Process Tournament and their Prizes & Users
+     * @param jarray
+     * @return 
+     */
     private List<Tournament> makeTournamentsFromJson(JsonArray jarray) {
         List<Tournament> tournaments = new ArrayList<>();
         Tournament tournament;
@@ -93,12 +99,10 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
             JsonObject jsonobject = jarray.get(i).getAsJsonObject();
 
             tournament = new Tournament();
-
             tournament.setId(jsonobject.get("idTOURNAMENT").getAsLong());
             tournament.setName("Tournament " + i );
             
-            ///////////// PRIZES
-            //JsonObject objectPrize = jsonobject.getAsJsonObject("prizes");
+            // PRIZES --> Move to Json Service
             JsonArray arrayPrize = jsonobject.getAsJsonArray("prizes");
             List<Prize> prizes = new ArrayList<>(arrayPrize.size());
             Prize prize = null;
@@ -109,12 +113,11 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
                 prize.setName(jsonPrize.get("name").getAsString());
                 prizes.add(prize);
                 //int order = jsonPrize.get("position").getAsInt();
-                //prizes.add(order, prize);
+                //prizes.add(order, prize);  // !NOT in prototype
             }
             tournament.setPrizes(prizes);
             
-            ////////////// USERS
-            //JsonObject objectPrize = jsonobject.getAsJsonObject("prizes");
+            // USERS --> Move to Json Service
             JsonArray arrayUsers = jsonobject.getAsJsonArray("users");
             List<User> users = new ArrayList<>(arrayUsers.size());
             User user = null;
@@ -126,17 +129,18 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
                 users.add(user);
             }
             tournament.setUsers(users);
-            
-            //////////
-            
             tournaments.add(tournament);
         }
         return tournaments;
     }
 
-    // TODO: MOVE THIS METHOD TO HTTPRequestDAO 
-    // is generic IS GENERIC FOR ALL QUERYS with
-    // POST parameters.
+    // TODO: Move this method to HTTPRequestDAO 
+    // is generic for all query with POST parameters.
+    /**
+     * Binay UTF-8 encode for POST params stuff
+     * @param params
+     * @return 
+     */
     private byte[] putParams(Map<String, Object> params) {
         byte[] postDataBytes = null;
         try {
@@ -155,6 +159,12 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
         return postDataBytes;
     }
 
+    /**
+     * First parse on JsonData to JsonArray
+     * @param in
+     * @param node if the data contain a root object
+     * @return JsonArray of Objects for the invoker class parser
+     */
     private JsonArray getArrayFromJson(Reader in, String node) {
         JsonArray jarray = null;
         JsonElement jelement = new JsonParser().parse(in);

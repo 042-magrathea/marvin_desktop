@@ -4,9 +4,11 @@ import java.util.List;
 import magrathea.marvin.desktop.app.dao.DAO;
 import magrathea.marvin.desktop.tournament.model.Tournament;
 
+// TODO: These methods (Typical CRUD) can be a separate class?
+// And implement params with generics (All classDAO do the same)
 /**
- *
- * @author boscalent
+ * Concrete DAO implementation for Tournament
+ * @author Iván Cañizares Gómez
  */
 public interface TournamentDAO extends DAO {
     public long insertTournament(Tournament tournament);

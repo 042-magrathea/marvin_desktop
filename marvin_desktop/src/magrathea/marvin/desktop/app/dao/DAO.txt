@@ -1,16 +1,23 @@
-1 - Model a basic class ( Ex. User)
+1 - Model a basic class (ex. User)
 2 - Getters & Setters
 3 - Generate Equals from ID
-    Generate hashcode from atributes except for ID and booleans.
+    Generate hashcode from attributes except for ID and booleans.
 
 1 - Implement library of model
 
-1 - Interface Dao
+1 - Interface DAO
 2 - Interface modelDAO (methods of class persistence) extends DAO
 3 - Interface ProviderModelDAO implement modelDAO
 4 - Implement ProviderModelDAO ( ex. DerbyUserDAO )
 
 CREDITS
 =======
-https://www.youtube.com/watch?v=t5zTEj473hs , Almas Baimagambetov , 
-JavaFX MVC + JDBC + DAO + DI: Library Loan System.
+JavaFX Library Loan System.
+https://www.youtube.com/watch?v=t5zTEj473hs , Almas Baimagambetov.
+
+NOTES
+=====
+We add a Service Layer for other requests than DAO 
+    (Service layer for data implemented in php server).
+We add two DAO providers: JavaDerby and a HTTPRequest System.
+TODO: Refactorize DAO with a FactoryDAO

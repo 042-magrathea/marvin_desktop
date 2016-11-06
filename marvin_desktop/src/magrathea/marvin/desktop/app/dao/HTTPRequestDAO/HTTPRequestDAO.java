@@ -9,23 +9,37 @@ import java.net.URL;
 import magrathea.marvin.desktop.app.dao.DAO;
 
 /**
- *
- * @author boscalent
+ * Concrete implementation of DAO for a PHP server WebService 
+ * @author Iván Cañizares Gómez
  */
 public class HTTPRequestDAO implements DAO {
 
     protected HttpURLConnection con;
     
     @Override
-    public void setup() throws Exception {
-        // No populated DB from here
-    }
+    public void setup() throws Exception { /* No populated DB from here */ }
 
+    /**
+     * WebService with differents URL
+     * @see Connect to a server Address + phpfile
+     * @throws Exception 
+     */
     @Override
-    public void connect() throws Exception {
-       // WebService with differents url 
-    }
+    public void connect() throws Exception {}
     
+    // TODO: Refactor for single responsibility principle: One method for 
+    // construct the request and other for do the connection, make a connection 
+    // in a diferent thread and wait for return a Reader (future).
+    /**
+     * Aux method specific for POST request nature.
+     * Make the header of the message, adds the parameters of the query and do 
+     * the connection, wait for a response in a Reader object that return.
+     * @param url
+     * @param proxy
+     * @param postDataBytes
+     * @return
+     * @throws Exception 
+     */
     public Reader connect(URL url, Proxy proxy, byte[] postDataBytes) throws Exception {
         if ( proxy == null ){proxy = Proxy.NO_PROXY;}           // direct con
         con = (HttpURLConnection) url.openConnection( proxy );  // default: No proxy

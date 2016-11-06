@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.tournament.DAO;
 
 /**
- *
- * @author boscalent
+ * Only contain fields that can be filter of the given class
+ * STATE refers to another ENUM
+ * @author Iván Cañizares Gómez
+ * see TournamentStateType.java
  */
 public enum TournamentSearchType {
     NAME, STATE
