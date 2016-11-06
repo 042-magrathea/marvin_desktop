@@ -19,8 +19,9 @@ import magrathea.marvin.desktop.tournament.service.TournamentService;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * Controller for Tournament Menu View
+ * Call Service layer for stuff
+ * @author Iván Cañizares Gómez
  */
 public class TournamentController {
 
@@ -42,7 +43,6 @@ public class TournamentController {
     }
 
     public void initialize() {
-
         listTournaments.getItems().setAll(service.getAll());
         listTournaments.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -90,14 +90,10 @@ public class TournamentController {
         Tournament tournament = listTournaments.getSelectionModel().getSelectedItem();
         
         try {
-            //URL fakeResultURL = getClass()
-            //        .getResource("/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml");
-            //AnchorPane fakeResultPane = FXMLLoader.load(fakeResultURL);
+            // Loader resource
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation( getClass()
                     .getResource("/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml"));
-            
-            
             
             Window parentWindows = Main.getRoot().getScene().getWindow();
                         
@@ -106,18 +102,17 @@ public class TournamentController {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner( parentWindows );
             
-            // FIXTO to auxiliar method for center in parent stage
+            // TODO: Move to auxiliar method for center modal in parent stage
             dialogStage.setX(
                     (( parentWindows.getWidth() - 600) /2) + parentWindows.getX());
             dialogStage.setY(
                     (( parentWindows.getHeight()- 400) /2) + parentWindows.getY());
             dialogStage.setResizable(false);
             
-            //AnchorPane fakeResultPane = (AnchorPane) loader.load();
             Scene scene = new Scene((AnchorPane) loader.load());
             dialogStage.setScene(scene);
             
-            // Set controller
+            // Set controller and pass parameter (initialize can't do this job)
             TournamentFakeResultController controller = loader.<TournamentFakeResultController>getController();
             controller.setTournament(tournament);
                                     

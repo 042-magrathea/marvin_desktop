@@ -17,8 +17,9 @@ import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
 
 /**
- *
- * @author boscalent
+ * Controller for User Menu View
+ * Call Service layer for stuff
+ * @author Iván Cañizares Gómez
  */
 public class UserController {
 
@@ -37,14 +38,14 @@ public class UserController {
         this.service = new UserService( Main.buildDAO("User") );
     }
 
-    @Deprecated
+    @Deprecated // Only for version one panel 
     public UserController(UserService service, Stage stage) {
         this.service = service;
     }
 
     public void initialize() {
         choiceBox.getItems().setAll(UserSearchType.values());     // ENUM values
-        choiceBox.getSelectionModel().selectFirst();               // Only select one item
+        choiceBox.getSelectionModel().selectFirst();              // Only select one item
 
         listView.getItems().setAll(service.getAll());
 

@@ -10,6 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!-- 
+    Tournament view.
+    @author: Iván Cañizares Gómez
+    TODO: Refactor all style annotations in a css file. Like padding and margin
+    TODO: Refactor all hardcode Strings for i18N
+    TODO: Extract constants into a class and apply by code in controller
+          Like the Height and Width of the AnchorPane (equal for all views)
+          that use the root center pane.
+-->
+
 <AnchorPane id="tournamentMenu" prefHeight="668.0" prefWidth="1024.0" 
             xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="magrathea.marvin.desktop.tournament.controller.TournamentController">

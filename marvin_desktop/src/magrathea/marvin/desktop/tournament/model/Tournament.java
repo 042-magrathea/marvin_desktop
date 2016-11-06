@@ -5,8 +5,8 @@ import java.util.Objects;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * Pojo class for DAO - Partial implementation for prototype
+ * @author Iván Cañizares Gómez
  */
 public class Tournament {
     private long id;
@@ -23,10 +23,9 @@ public class Tournament {
     
     /**
      * TODO: Tournament STATE
-     * Logics for assign boolean states from DB
-     * Can move to setter?
+     * @param state
      */
-    public void changeTournamentState(){};
+    public void changeTournamentStateTo(TournamentStateType state){};
     
     // Equals & HashCode
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.user.dao.DerbyDAO;
 
 import java.math.BigDecimal;
@@ -16,8 +11,9 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 /**
- *
- * @author boscalent
+ * User DAO Implementation for DerbyDB
+ * Used for test DAO with diferents providers and test stuff locally
+ * @author Iván Cañizares Gómez
  */
 public class DerbyUserDAO extends DerbyDAO implements UserDAO {
 

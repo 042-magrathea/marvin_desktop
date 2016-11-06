@@ -1,9 +1,3 @@
-/*
- * Capa de Servicio
- * ================
- * Sirve al controller para que la inyecte en la vista.
- * Solicita datos al modelo (una implementación DAO)
- */
 package magrathea.marvin.desktop.user.service;
 
 import java.util.List;
@@ -12,8 +6,9 @@ import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * Service layer
+ * Prepare the different Request and others for User
+ * @author Iván Cañizares Gómez
  */
 public class UserService {
     

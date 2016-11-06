@@ -13,7 +13,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!-- Ver http://gluonhq.com/labs/scene-builder/ IDE FOR CONTROLS IN JAVAFX-->
+<!-- 
+    User view. Demo with listView amb table with columns stuff
+    @author: Iván Cañizares Gómez
+    TODO: Refactor all style annotations in a css file. Like padding and margin
+    TODO: Refactor all hardcode Strings for i18N
+    TODO: Extract constants into a class and apply by code in controller
+          Like the Height and Width of the AnchorPane (equal for all views)
+          that use the root center pane.
+-->
 
 <AnchorPane styleClass="background" 
             xmlns="http://javafx.com/javafx/8.0.65" 

@@ -12,7 +12,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.TableColumn?> 
 
-<!-- Ver http://gluonhq.com/labs/scene-builder/ IDE FOR CONTROLS IN JAVAFX-->
+<!-- 
+    User view. Demo with listView amb table with columns stuff
+    @author: Iván Cañizares Gómez
+    @deprecated
+    TODO: DESTROY, derby works in user.fxml
+-->
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" 
       id="AnchorPane" prefHeight="510.0" 

@@ -20,8 +20,8 @@ import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * Concrete DAO implementation for User Class
+ * @author Iván Cañizares Gómez
  */
 public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
 
@@ -30,39 +30,39 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     @Override
     public long insertUser(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public boolean updateUser(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public boolean deleteUser(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public List<User> findUsersByProperty(UserSearchType searchType, Object user) {
         throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        // TODO: Implement
     }
 
     @Override
     public List<User> findAll() {
         try {
-            // URL (TODO: fix URL server as Constant)
+            // URL
             URL url = new URL( Main.SERVER + "usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("user", "LOGIN_USER");               // User has rights?
-            //params.put("param2", "getAllUser");
+            //params.put("param2", "getAllUser");           // !DON'T NEED, ONLY TEST
             //params.put("param3", "Prototip");             
-            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
+            byte[] postDataBytes = putParams(params);       // AUX. POST Method
 
             // GET READER FROM CONN (SUPER)
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
@@ -81,11 +81,12 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         return EMPTY;
     }
 
+    // TODO: Move this method to HTTPRequestDAO 
+    // is generic for all query with POST parameters.
     /**
-     * Construeix el missatge POST per enviar al servidor PHP
-     *
-     * @param params paràmetres del webservice
-     * @return un byte[] amb els paràmetres
+     * Binay UTF-8 encode for POST params stuff
+     * @param params
+     * @return 
      */
     private byte[] putParams(Map<String, Object> params) {
         byte[] postDataBytes = null;
@@ -106,11 +107,10 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     }
 
     /**
-     * Processa el JSON i retorna un array JSON per construïr els objectes
-     *
-     * @param in Reader que retorna la connexió
-     * @param node Nom del objectes JSON o null si es un array
-     * @return un array d'objectes Json.
+     * First parse on JsonData to JsonArray
+     * @param in
+     * @param node if the data contain a root object
+     * @return JsonArray of Objects for the invoker class parser
      */
     private JsonArray getArrayFromJson(Reader in, String node) {
         JsonArray jarray = null;
@@ -124,10 +124,16 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         return jarray;
     }
 
+    // TODO: Refactor the process of make attribute class 
+    // Maybe a service class for process JSON arrays of class without inner class
+    // that return a List for fill the List attribute.
+    // LIKE List<Tournaments> JsonService.parseUsers(JsonArray ja)
+    // this method then join all the stuff
     /**
-     * Construeix objectes tipus User
-     * @param jarray  JsonArray amb objectes User en json
-     * @return List<User> que es pot retornar a la capa de servei
+     * Parser of Json for Users
+     * Process Users
+     * @param jarray
+     * @return 
      */
     private List<User> makeUsersFromJson(JsonArray jarray) {
         List<User> users = new ArrayList<>();

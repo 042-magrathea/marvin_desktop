@@ -3,8 +3,8 @@ package magrathea.marvin.desktop.tournament.model;
 import java.util.Objects;
 
 /**
- *
- * @author boscalent
+ * Pojo class for DAO - Partial implementation for prototype
+ * @author Iván Cañizares Gómez
  */
 public class Prize {
     private long id;

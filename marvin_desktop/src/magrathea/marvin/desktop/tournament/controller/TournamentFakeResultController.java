@@ -1,45 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.tournament.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.tournament.model.Prize;
 import magrathea.marvin.desktop.tournament.model.Tournament;
-import magrathea.marvin.desktop.tournament.service.TournamentService;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * TODO: !DESTROY !Only for prototype
+ * Modal Windows with fake result and prize assignment
+ * @author Iván Cañizares Gómez
  */
 public class TournamentFakeResultController {
-    private TournamentService service = null;
-    private Tournament tournament;
     
     @FXML
     ListView<String> listFake = null;
     
-    // REFACTOR TO SINGLETON
-    public TournamentFakeResultController() {
-        service = new TournamentService( Main.buildDAO("Tournament") );
-    }
+    public TournamentFakeResultController() {}
     
     public void initialize(){
     }
     
-    public void setTournament(Tournament tournament){
-        this.tournament = tournament;
-        
-        //listFake.getItems().addAll(tournament.getUsers());
+    /**
+     * Call by the controller of the parent Scene for pass the param
+     * and do the stuff
+     * @param tournament 
+     */
+    public void setTournament(Tournament tournament){        
         List<User> users = tournament.getUsers();
         List<Prize> prizes = tournament.getPrizes();
         Collections.shuffle(users);     // Random order

@@ -16,8 +16,9 @@ import magrathea.marvin.desktop.user.service.UserService;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
- *
- * @author boscalent
+ * Controller for User Menu View
+ * Call Service layer for stuff
+ * @author Iván Cañizares Gómez
  */
 @Deprecated
 public class UserController_old {
