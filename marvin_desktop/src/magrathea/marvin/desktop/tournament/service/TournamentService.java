@@ -6,6 +6,7 @@
 package magrathea.marvin.desktop.tournament.service;
 
 import java.util.List;
+import javafx.fxml.FXMLLoader;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.tournament.model.Tournament;
 
@@ -16,7 +17,7 @@ import magrathea.marvin.desktop.tournament.model.Tournament;
 public class TournamentService {
     private final TournamentDAO tournamentDAO; // DI
     
-    public TournamentService( TournamentDAO tournamentDAO ){
+    public TournamentService(TournamentDAO tournamentDAO ){
         this.tournamentDAO = tournamentDAO;
         try{
             this.tournamentDAO.connect();

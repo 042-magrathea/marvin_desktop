@@ -38,7 +38,8 @@ public class Main extends Application {
         return root;
     }
     
-    // TODO: Refactor code
+    // TODO: Refactor code to concurrent Singleton
+    // for return only a DAO for type.
     @SuppressWarnings("unchecked")
     public static <T extends DAO> T buildDAO(String type){
         DAO dao = null;
