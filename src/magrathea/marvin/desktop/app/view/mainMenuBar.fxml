@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+
+<!-- 
+    Select the different options in the App.
+    The controller call different view in the action pane
+    @author: Iván Cañizares Gómez
+    TODO: Change menu style for Ribbon style like design
+    TODO: Refactor all style annotations in a css file. Like padding and margin
+    TODO: Refactor all hardcode Strings for i18N
+-->
+
+<MenuBar id="mainMenuBar" 
+         prefHeight="100.0" 
+         prefWidth="1024" 
+         xmlns="http://javafx.com/javafx/8.0.65" 
+         xmlns:fx="http://javafx.com/fxml/1" 
+         fx:controller="magrathea.marvin.desktop.app.controller.MainMenuBarController">
+    <menus>
+    <Menu mnemonicParsing="false" text="Marvin">
+      <items>
+        <MenuItem fx:id="displayMain" mnemonicParsing="false" onAction="#switchToMain" text="View main" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Tournament">
+      <items>
+        <MenuItem fx:id="displayTournament" mnemonicParsing="false" onAction="#switchToTournament" text="View Tournament" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="User">
+      <items>
+        <MenuItem fx:id="displayUser" mnemonicParsing="false" onAction="#switchToUser" text="View User" />
+      </items>
+      <items>
+        <MenuItem fx:id="insertUser" mnemonicParsing="false" onAction="#switchToInsertUser" text="Insert new User" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- Ver http://gluonhq.com/labs/scene-builder/ IDE FOR CONTROLS IN JAVAFX-->
+
+<AnchorPane styleClass="background" 
+            xmlns="http://javafx.com/javafx/8.0.65" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="magrathea.marvin.desktop.user.controller.InsertUserController">
+   <children>
+      <VBox id="AnchorPane" prefHeight="668" prefWidth="1024">
+          <Label text="Insert new user">
+              <font>
+                  <Font name="System Bold" size="24.0" />
+              </font>
+            <padding>
+               <Insets bottom="50.0" />
+            </padding>
+          </Label>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="Nickname">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="nicknameField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's nickname"/>
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="Name">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="nameField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's complete name"/>
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="phone">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="phoneField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's phone number"/>
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="email">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="emailField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's email address"/>
+            </children>
+         </HBox> 
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="password">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="passwordField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's password"/>
+            </children>
+         </HBox> 
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="confirm password">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="passConfirmationField" prefHeight="26.0" prefWidth="342.0" promptText="Insert it again"/>
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="public description">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="pubDescField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's public description"/>
+            </children>
+         </HBox> 
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="private description">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="privDescField" prefHeight="26.0" prefWidth="342.0" promptText="Insert user's private description"/>
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="prefered language">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <ChoiceBox fx:id="languageBox" prefHeight="26.0" prefWidth="154.0">
+                  <HBox.margin>
+                     <Insets right="15.0" />
+                  </HBox.margin>
+                </ChoiceBox>
+            </children>
+         </HBox>
+        <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label prefWidth="170.0" text="user role">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <ChoiceBox fx:id="roleBox" prefHeight="26.0" prefWidth="154.0">
+                  <HBox.margin>
+                     <Insets right="15.0" />
+                  </HBox.margin>
+                </ChoiceBox>
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label text="User agree's to receiving comercial advises from administrator?">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+                <CheckBox fx:id="addsCheckbox" />
+            </children>
+         </HBox>
+         <HBox prefHeight="39.0" prefWidth="590.0">
+            <children>
+                <Label fx:id="showResult" text="">
+                    <font>
+                        <Font name="System" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" />
+                    </padding>
+                </Label>
+            </children>
+         </HBox>
+         
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+              <children>
+                  <Button fx:id="createUser" onAction="#onCreateUser" text="Create user">
+                      <HBox.margin>
+                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </HBox.margin>
+                  </Button>
+                  <Button styleClass="label" text="ACTION2">
+                      <HBox.margin>
+                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </HBox.margin>
+                  </Button>
+              </children>
+          </HBox>
+          <padding>
+              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+          </padding>
+      </VBox>
+   </children>
+</AnchorPane>
