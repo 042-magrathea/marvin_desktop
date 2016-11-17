@@ -1,0 +1,52 @@
+package magrathea.marvin.desktop.user.service;
+
+import java.util.List;
+import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserSearchType;
+import magrathea.marvin.desktop.user.model.User;
+
+/**
+ * Service layer
+ * Prepare the different Request and others for User
+ * @author Iván Cañizares Gómez
+ */
+public class UserService {
+    
+    private final UserDAO userDAO; // DI
+    
+    public UserService( UserDAO userDAO ){
+        this.userDAO = userDAO;
+        try{
+            this.userDAO.connect();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void addNewUser(String nickName, String password, 
+            String email, boolean administrator){
+        User user = new User();
+        user.setNickname(nickName);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setAdministrator(administrator);
+        
+        userDAO.insertUser(user);
+    }
+    
+    public List<User> search(UserSearchType searchType, String value){
+        return userDAO.findUsersByProperty(searchType, value);
+    }
+    
+    public List<User> getAll(){
+        return userDAO.findAll();
+    }
+    
+    public void close(){
+        try {
+            userDAO.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}
