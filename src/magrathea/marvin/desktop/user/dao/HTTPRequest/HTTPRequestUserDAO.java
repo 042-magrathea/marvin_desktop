@@ -71,7 +71,8 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
 
             JsonObject jObject = jarray.get(0).getAsJsonObject();
             // MAKE OBJECTS
-            return jObject.get("0").getAsLong();
+            System.out.println(jObject.get("insertionId").getAsLong());
+            return jObject.get("insertionId").getAsLong();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -149,6 +150,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
                 postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
             }
             postDataBytes = postData.toString().getBytes("UTF-8");
+
         } catch (UnsupportedEncodingException ex) {
         }
         return postDataBytes;

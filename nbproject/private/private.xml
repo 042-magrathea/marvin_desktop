@@ -7,9 +7,10 @@
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/service/UserService.java</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/controller/UserController.java</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/Main.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/view/insertUser.fxml</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/controller/InsertUserController.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/tournament/model/Tournament.java</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/UserDAO.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/dao/HTTPRequestDAO/HTTPRequestDAO.java</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/HTTPRequest/HTTPRequestUserDAO.java</file>
         </group>
     </open-files>

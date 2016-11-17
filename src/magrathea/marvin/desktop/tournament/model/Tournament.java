@@ -18,6 +18,8 @@ public class Tournament {
     private List<Prize> prizes;
     private List<User> users;
     
+    // TODO: add new fields name, publicDes, privateDes, date
+    
     public Tournament(){
     }
     
