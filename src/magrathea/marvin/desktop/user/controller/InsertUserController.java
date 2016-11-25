@@ -3,10 +3,13 @@ package magrathea.marvin.desktop.user.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -31,7 +34,7 @@ public class InsertUserController {
             passwordField, passConfirmationField, pubDescField, privDescField;
     @FXML private Label showResult; 
     @FXML private CheckBox addsCheckbox;
-    
+    @FXML private Button createUserButton;
     
     
     private UserService service = null;
@@ -47,11 +50,21 @@ public class InsertUserController {
 
     public void initialize() {
         
+        ChangeListener focusChangeListener = new ChangeListener<Boolean>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                inputDataValidation();
+            }    
+            
+        };
+        
+        passConfirmationField.focusedProperty().addListener(focusChangeListener);
         languageBox.getItems().setAll(PreferedLanguage.values());     // ENUM values
         languageBox.getSelectionModel().selectFirst();               // Only select one item
         roleBox.getItems().setAll(UserRole.values());     // ENUM values
         roleBox.getSelectionModel().selectFirst();               // Only select one item
-        
+        createUserButton.disableProperty().set(true);
         
     }
 
@@ -83,4 +96,25 @@ public class InsertUserController {
         }
                
     }
+    
+    private boolean inputDataValidation() {
+        if (passConfirmationField != null && passConfirmationField.getText().toString().equals(passwordField.getText().toString())) {
+            
+            
+            passwordField.styleProperty().setValue("-fx-border-color: red ; -fx-border-width: 2px ;");
+            
+            
+            showResult.setText("\"password\" and \"confirma password\" does not match, please confirm password");
+            
+            return false;
+        } else if(passwordField == null && passConfirmationField == null) {
+            
+        }
+        
+        createUserButton.disableProperty().set(false);
+        
+        return true;
+    }
+
+
 }

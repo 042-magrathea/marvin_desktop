@@ -26,7 +26,7 @@ public class Main extends Application {
      * URL point to a folder with php webservices 
      */     
     public static final String SERVER = 
-            "http://localhost/";
+            "http://marvin-server.duckdns.org/";
     
     // TODO: move to Aux. graphic class. Candidate to Singleton.
     /**

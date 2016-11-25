@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DerbyUserDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.dao.DerbyDAO</a> &gt; <span class="el_source">DerbyUserDAO.java</span></div><h1>DerbyUserDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package magrathea.marvin.desktop.user.dao.DerbyDAO;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import magrathea.marvin.desktop.app.dao.DerbyDAO.DerbyDAO;
+import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserSearchType;
+import magrathea.marvin.desktop.user.model.User;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+
+/**
+ *
+ * @author boscalent
+ */
+<span class="nc" id="L22">public class DerbyUserDAO extends DerbyDAO implements UserDAO {</span>
+
+<span class="nc" id="L24">    private static final List&lt;User&gt; EMPTY = new ArrayList&lt;&gt;();</span>
+    
+    @Override
+    public long insertUser(User user) {
+        try {
+<span class="nc" id="L29">            long id = dbAccess.insert(con,</span>
+                    &quot;INSERT INTO \&quot;User\&quot;(nickname,password,email,administrator)&quot;
+                    + &quot; VALUES (?,?,?,?)&quot;, new ScalarHandler&lt;BigDecimal&gt;(),
+<span class="nc" id="L32">                    user.getNickname(), user.getPassword(), user.getEmail(), </span>
+<span class="nc" id="L33">                    user.isAdministrator()</span>
+<span class="nc" id="L34">            ).longValue();</span>
+<span class="nc" id="L35">            return id;</span>
+<span class="nc" id="L36">        } catch (Exception e) {</span>
+<span class="nc" id="L37">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L39">        return -1L;</span>
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        try {
+<span class="nc" id="L45">            dbAccess.update(con,</span>
+                    &quot;UPDATE \&quot;User\&quot; SET nickname=?,password=?,email=?,administrator=? &quot;
+                            + &quot;WHERE id=?&quot;,
+<span class="nc" id="L48">                    user.getNickname(), user.getPassword(), user.getEmail(), </span>
+<span class="nc" id="L49">                    user.isAdministrator(), user.getId());</span>
+<span class="nc" id="L50">        } catch (Exception e) {</span>
+<span class="nc" id="L51">            e.printStackTrace();</span>
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">        return true;</span>
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        try {
+<span class="nc" id="L59">            dbAccess.update(con, &quot;DELETE FROM \&quot;User\&quot; WHERE id =?&quot;, user.getId());</span>
+
+<span class="nc" id="L61">        } catch (Exception e) {</span>
+<span class="nc" id="L62">            e.printStackTrace();</span>
+<span class="nc" id="L63">        }</span>
+<span class="nc" id="L64">        return true;</span>
+    }
+
+    @Override
+    public List&lt;User&gt; findUsersByProperty(UserSearchType searchType, Object value) {
+<span class="nc" id="L69">        String whereClause = &quot;&quot;;</span>
+<span class="nc" id="L70">        String valueClause = &quot;&quot;;</span>
+        
+<span class="nc bnc" id="L72" title="All 6 branches missed.">        switch (searchType){</span>
+            case ID:
+<span class="nc" id="L74">                whereClause = &quot;id = ?&quot;;</span>
+<span class="nc" id="L75">                valueClause = value.toString();</span>
+<span class="nc" id="L76">                break;</span>
+            case NICKNAME:
+<span class="nc" id="L78">                whereClause = &quot;nickname LIKE ?&quot;;</span>
+<span class="nc" id="L79">                valueClause = &quot;%&quot; + value.toString() + &quot;%&quot;;</span>
+<span class="nc" id="L80">                break;</span>
+            case PASSWORD:
+<span class="nc" id="L82">                whereClause = &quot;password = ?&quot;;</span>
+<span class="nc" id="L83">                valueClause = value.toString();</span>
+<span class="nc" id="L84">                break;</span>
+            case EMAIL:
+<span class="nc" id="L86">                whereClause = &quot;email LIKE ?&quot;;</span>
+<span class="nc" id="L87">                valueClause = &quot;%&quot; + value.toString() + &quot;%&quot;;</span>
+<span class="nc" id="L88">                break;</span>
+            case ADMINISTRATOR:
+<span class="nc" id="L90">                whereClause = &quot;administrator = ?&quot;;</span>
+<span class="nc" id="L91">                valueClause = value.toString();</span>
+<span class="nc" id="L92">                break;</span>
+            default:
+<span class="nc" id="L94">                throw new AssertionError(searchType.name());</span>
+        }
+        
+        try {
+<span class="nc" id="L98">            return dbAccess.query(con, &quot;SELECT * FROM \&quot;User\&quot; WHERE &quot; + whereClause, </span>
+                    // proces a row from result to a bean
+                    new BeanListHandler&lt;User&gt;(User.class), valueClause);
+<span class="nc" id="L101">        } catch (Exception e) {</span>
+<span class="nc" id="L102">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L104">        return EMPTY;</span>
+    }
+
+    @Override
+    public List&lt;User&gt; findAll() {
+        try {
+<span class="nc" id="L110">            return dbAccess.query(con, &quot;SELECT * FROM \&quot;User\&quot;&quot;,  </span>
+                    new BeanListHandler&lt;User&gt;(User.class));
+<span class="nc" id="L112">        } catch (Exception e) {</span>
+<span class="nc" id="L113">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L115">        return EMPTY;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

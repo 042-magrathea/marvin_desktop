@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TournamentController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.tournament.controller</a> &gt; <span class="el_source">TournamentController.java</span></div><h1>TournamentController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.tournament.controller;
+
+import java.io.IOException;
+import java.util.List;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.tournament.model.Prize;
+import magrathea.marvin.desktop.tournament.model.Tournament;
+import magrathea.marvin.desktop.tournament.service.TournamentService;
+import magrathea.marvin.desktop.user.model.User;
+
+/**
+ *
+ * @author boscalent
+ */
+public class TournamentController {
+
+    @FXML
+    private ListView&lt;Tournament&gt; listTournaments;
+    @FXML
+    private ListView&lt;Prize&gt; listPrizes;
+    @FXML
+    private ListView&lt;User&gt; listUsers;
+    @FXML
+    private Button runButton;
+    @FXML
+    private TextField tournamentInfo;
+
+<span class="nc" id="L38">    private TournamentService service = null;</span>
+
+<span class="nc" id="L40">    public TournamentController() {</span>
+<span class="nc" id="L41">        service = new TournamentService(Main.buildDAO(&quot;Tournament&quot;));</span>
+<span class="nc" id="L42">    }</span>
+
+    public void initialize() {
+
+<span class="nc" id="L46">        listTournaments.getItems().setAll(service.getAll());</span>
+<span class="nc" id="L47">        listTournaments.getSelectionModel().selectedItemProperty().addListener(</span>
+                (observable, oldValue, newValue) -&gt; {
+<span class="nc" id="L49">                    fill(newValue);</span>
+<span class="nc" id="L50">                });</span>
+<span class="nc" id="L51">        runButton.setDisable(true);</span>
+<span class="nc" id="L52">    }</span>
+
+    public void fill(Tournament tournament) {
+<span class="nc" id="L55">        List&lt;Prize&gt; prizes = tournament.getPrizes();</span>
+<span class="nc bnc" id="L56" title="All 6 branches missed.">        if (prizes != null &amp; !prizes.isEmpty()) {</span>
+<span class="nc" id="L57">            listPrizes.getItems().clear();</span>
+<span class="nc" id="L58">            listPrizes.getItems().addAll(prizes);</span>
+        } else {
+<span class="nc" id="L60">            listPrizes.getItems().clear();</span>
+        }
+
+<span class="nc" id="L63">        List&lt;User&gt; users = tournament.getUsers();</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        boolean hasUsers = users != null &amp; !users.isEmpty();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (hasUsers) {</span>
+<span class="nc" id="L66">            listUsers.getItems().clear();</span>
+<span class="nc" id="L67">            listUsers.getItems().addAll(users);</span>
+        } else {
+<span class="nc" id="L69">            listUsers.getItems().clear();</span>
+        }
+
+<span class="nc" id="L72">        checkButton(hasUsers);</span>
+<span class="nc" id="L73">    }</span>
+
+    public void checkButton(boolean hasUsers) {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (hasUsers) {</span>
+<span class="nc" id="L77">            runButton.setDisable(false);</span>
+<span class="nc" id="L78">            tournamentInfo.setText(&quot;Good Luck!&quot;);</span>
+        } else {
+<span class="nc" id="L80">            runButton.setDisable(true);</span>
+<span class="nc" id="L81">            tournamentInfo.setText(&quot;No users in Tournament. Can't run.&quot;);</span>
+        }
+<span class="nc" id="L83">    }</span>
+    
+    /**
+     * GET a FAKE result of Tournament
+     * Only for prototype ( Local data, no con to Service Server )
+     */
+    public void runTournament() {
+<span class="nc" id="L90">        Tournament tournament = listTournaments.getSelectionModel().getSelectedItem();</span>
+        
+        try {
+            //URL fakeResultURL = getClass()
+            //        .getResource(&quot;/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml&quot;);
+            //AnchorPane fakeResultPane = FXMLLoader.load(fakeResultURL);
+<span class="nc" id="L96">            FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L97">            loader.setLocation( getClass()</span>
+<span class="nc" id="L98">                    .getResource(&quot;/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml&quot;));</span>
+            
+            
+            
+<span class="nc" id="L102">            Window parentWindows = Main.getRoot().getScene().getWindow();</span>
+                        
+<span class="nc" id="L104">            Stage dialogStage = new Stage();</span>
+<span class="nc" id="L105">            dialogStage.setTitle( &quot;Results of &quot; + tournament.getName() + &quot; tournament&quot;);</span>
+<span class="nc" id="L106">            dialogStage.initModality(Modality.WINDOW_MODAL);</span>
+<span class="nc" id="L107">            dialogStage.initOwner( parentWindows );</span>
+            
+            // FIXTO to auxiliar method for center in parent stage
+<span class="nc" id="L110">            dialogStage.setX(</span>
+<span class="nc" id="L111">                    (( parentWindows.getWidth() - 600) /2) + parentWindows.getX());</span>
+<span class="nc" id="L112">            dialogStage.setY(</span>
+<span class="nc" id="L113">                    (( parentWindows.getHeight()- 400) /2) + parentWindows.getY());</span>
+<span class="nc" id="L114">            dialogStage.setResizable(false);</span>
+            
+            //AnchorPane fakeResultPane = (AnchorPane) loader.load();
+<span class="nc" id="L117">            Scene scene = new Scene((AnchorPane) loader.load());</span>
+<span class="nc" id="L118">            dialogStage.setScene(scene);</span>
+            
+            // Set controller
+<span class="nc" id="L121">            TournamentFakeResultController controller = loader.&lt;TournamentFakeResultController&gt;getController();</span>
+<span class="nc" id="L122">            controller.setTournament(tournament);</span>
+                                    
+<span class="nc" id="L124">            dialogStage.show();</span>
+
+<span class="nc" id="L126">        } catch (IOException e) {</span>
+<span class="nc" id="L127">            e.printStackTrace();</span>
+<span class="nc" id="L128">        }</span>
+<span class="nc" id="L129">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

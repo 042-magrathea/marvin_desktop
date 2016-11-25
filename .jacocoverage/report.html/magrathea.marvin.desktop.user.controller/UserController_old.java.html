@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserController_old.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.controller</a> &gt; <span class="el_source">UserController_old.java</span></div><h1>UserController_old.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.user.controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import magrathea.marvin.desktop.user.dao.UserSearchType;
+import magrathea.marvin.desktop.user.service.UserService;
+import magrathea.marvin.desktop.user.model.User;
+
+/**
+ *
+ * @author boscalent
+ */
+@Deprecated
+public class UserController_old {
+    @FXML private ChoiceBox&lt;UserSearchType&gt; choiceBox;
+    @FXML private ListView&lt;User&gt; listView;
+    @FXML private TableView&lt;User&gt; userTable;
+    @FXML private TableColumn&lt;User, String&gt; UserId;
+    @FXML private TableColumn&lt;User, String&gt; Nickname;
+    @FXML private TableColumn&lt;User, String&gt; Password;
+    @FXML private TableColumn&lt;User, String&gt; Email;
+    @FXML private TableColumn&lt;User, String&gt; Administrator;
+    
+<span class="nc" id="L33">    private UserService service = null;</span>
+    
+<span class="nc" id="L35">    public UserController_old( UserService service, Stage stage){</span>
+<span class="nc" id="L36">        this.service = service;</span>
+<span class="nc" id="L37">        stage.setOnCloseRequest(e -&gt; service.close());</span>
+<span class="nc" id="L38">    }</span>
+    
+    public void initialize(){
+<span class="nc" id="L41">        choiceBox.getItems().setAll( UserSearchType.values() );     // ENUM values</span>
+<span class="nc" id="L42">        choiceBox.getSelectionModel().selectFirst();               // Only select one item</span>
+        
+<span class="nc" id="L44">        listView.getItems().setAll(service.getAll());</span>
+        
+        // COLUMNS
+<span class="nc" id="L47">        UserId.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
+<span class="nc" id="L48">        Nickname.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nickname&quot;));</span>
+<span class="nc" id="L49">        Password.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;password&quot;));</span>
+<span class="nc" id="L50">        Email.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;email&quot;));</span>
+<span class="nc" id="L51">        Administrator.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;administrator&quot;));</span>
+        
+        // TABLE MODEL
+<span class="nc" id="L54">        ObservableList&lt;User&gt; users = FXCollections.observableArrayList( service.getAll() );</span>
+<span class="nc" id="L55">        userTable.setEditable(true);</span>
+<span class="nc" id="L56">        userTable.setItems( users );</span>
+<span class="nc" id="L57">        userTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar    </span>
+<span class="nc" id="L58">    }</span>
+    
+    // ACTIONS
+    public void onSearch( ActionEvent event){
+<span class="nc" id="L62">        String param = ((TextField) event.getSource()).getText();</span>
+<span class="nc" id="L63">        listView.getItems().setAll(service.search(choiceBox.getValue(), param));</span>
+<span class="nc" id="L64">    }</span>
+    
+    public void onSendMail( ActionEvent event){
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if ( userTable.getSelectionModel().getSelectedItem() != null ){</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            if (userTable.getSelectionModel().getSelectedItem().getEmail() != null ){</span>
+<span class="nc" id="L69">                String mail = userTable.getSelectionModel().getSelectedItem().getEmail();</span>
+<span class="nc" id="L70">                System.out.println(&quot;mailto:&quot; + mail);</span>
+<span class="nc" id="L71">            } else {</span>
+<span class="nc" id="L72">                System.err.println(&quot;ERROR: USER with NULL mail&quot;);</span>
+            }
+        } else {
+<span class="nc" id="L75">            System.err.println(&quot;ERROR: NO select USER&quot;);</span>
+        }        
+<span class="nc" id="L77">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

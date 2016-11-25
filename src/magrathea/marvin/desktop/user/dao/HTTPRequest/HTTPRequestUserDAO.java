@@ -1,5 +1,6 @@
 package magrathea.marvin.desktop.user.dao.HTTPRequest;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,6 +11,7 @@ import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +51,13 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         values[10] = user.getPassword();
         values[11] = user.getMemberSince();
         
+        Gson gson = new Gson();
+        
+        String fieldsJson = gson.toJson(fields);
+        String valuesJson = gson.toJson(values);
+
+        System.out.println(fieldsJson);
+        System.out.println(valuesJson);
         
         try {
             // URL (TODO: fix URL server as Constant)
@@ -57,10 +66,16 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("requestName", "insertItem");               // User has rights?
-            for (int i = 0; i<values.length; i++) {
+            
+            
+            params.put("values", valuesJson);
+            params.put("fields", fieldsJson);
+            
+            /*for (int i = 0; i<values.length; i++) {
                 params.put("values[" + i + "]", values[i]);
                 params.put("fields[" + i + "]", fields[i]);
-            }           
+            }*/         
+            
             byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
@@ -71,7 +86,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
 
             JsonObject jObject = jarray.get(0).getAsJsonObject();
             // MAKE OBJECTS
-            System.out.println(jObject.get("insertionId").getAsLong());
+            System.out.println(jObject.get("insertionId").getAsInt());
             return jObject.get("insertionId").getAsLong();
 
         } catch (Exception ex) {
@@ -193,7 +208,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             user.setEmail(jsonobject.get("eMail").getAsString());
             // getAsBoolean falla, fico el if
             // user.setAdministrator(jsonobject.get("administrator").getAsBoolean());
-            user.setAdministrator((jsonobject.get("administrator").getAsInt() != 0));
+            user.setAdministrator(jsonobject.get("administrator").getAsBoolean());
             
             users.add(user);
         }
