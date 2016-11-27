@@ -3,17 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/Marvin_desktop.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/dao/DerbyDAO/DerbyDAO.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/Main.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/UserRole.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/dao/DAO.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/UserDAO.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/HTTPRequest/usersQuery.php</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/dao/HTTPRequestDAO/HTTPRequestDAO.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/PreferedLanguage.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/HTTPRequest/HTTPRequestUserDAO.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/UserSearchType.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/test/magrathea/marvin/desktop/user/model/UserTest.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,7 +41,7 @@ import magrathea.marvin.desktop.user.dao.UserDAO;
      * Just a root getter for use by a controller
      */     
     public static BorderPane getRoot() {
-<span class="nc" id="L44">        return root;</span>
+<span class="fc" id="L44">        return root;</span>
     }
     
     // TODO: Refactor code to a concurrent Singleton
@@ -55,20 +55,20 @@ import magrathea.marvin.desktop.user.dao.UserDAO;
      */ 
     @SuppressWarnings(&quot;unchecked&quot;)
     public static &lt;T extends DAO&gt; T buildDAO(String type){
-<span class="nc" id="L58">        DAO dao = null;</span>
+<span class="fc" id="L58">        DAO dao = null;</span>
         
-<span class="nc bnc" id="L60" title="All 10 branches missed.">        switch(type){</span>
+<span class="pc bpc" id="L60" title="4 of 10 branches missed.">        switch(type){</span>
             case &quot;User&quot;:                                // select one
                 //dao = new DerbyUserDAO();             // Only for User test
-<span class="nc" id="L63">                dao = new HTTPRequestUserDAO();</span>
-<span class="nc" id="L64">                break;</span>
+<span class="fc" id="L63">                dao = new HTTPRequestUserDAO();</span>
+<span class="fc" id="L64">                break;</span>
             case &quot;Tournament&quot;:
-<span class="nc" id="L66">                dao = new HTTPRequestTournamentDAO();</span>
-<span class="nc" id="L67">                break;</span>
+<span class="fc" id="L66">                dao = new HTTPRequestTournamentDAO();</span>
+<span class="fc" id="L67">                break;</span>
             default:
 <span class="nc" id="L69">                System.err.println(&quot;DAO NOT IMPLEMENTED&quot;);</span>
         }
-<span class="nc" id="L71">        return (T)dao;</span>
+<span class="fc" id="L71">        return (T)dao;</span>
     }
 
     // TODO: Make a factory with all resource data
@@ -113,4 +113,4 @@ import magrathea.marvin.desktop.user.dao.UserDAO;
 <span class="fc" id="L113">        launch(args);</span>
 <span class="fc" id="L114">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

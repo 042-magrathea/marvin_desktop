@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -24,8 +24,8 @@ public class User {
         userRole, language, datePassword, memberSince;
     private boolean ads;
     
-<span class="nc" id="L27">    public User(){</span>
-<span class="nc" id="L28">    }</span>
+<span class="fc" id="L27">    public User(){</span>
+<span class="fc" id="L28">    }</span>
     
     // Equals &amp; HashCode
     
@@ -39,52 +39,52 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (this == obj) {</span>
-<span class="nc" id="L43">            return true;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L43">            return true;</span>
         }
-<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L46">            return false;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (obj == null) {</span>
+<span class="fc" id="L46">            return false;</span>
         }
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
 <span class="nc" id="L49">            return false;</span>
         }
-<span class="nc" id="L51">        final User other = (User) obj;</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        return this.id == other.id;</span>
+<span class="fc" id="L51">        final User other = (User) obj;</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        return this.id == other.id;</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L57">        StringBuilder builder = new StringBuilder();</span>
-<span class="nc" id="L58">        builder.append(&quot;User{id=&quot;);</span>
-<span class="nc" id="L59">        builder.append(id); </span>
-<span class="nc" id="L60">        builder.append(&quot;, nickname=&quot;);</span>
-<span class="nc" id="L61">        builder.append(nickname); </span>
-<span class="nc" id="L62">        builder.append(&quot;, password=&quot;);</span>
-<span class="nc" id="L63">        builder.append(password); </span>
-<span class="nc" id="L64">        builder.append(&quot;, email=&quot;);</span>
-<span class="nc" id="L65">        builder.append(email); </span>
-<span class="nc" id="L66">        builder.append(&quot;, administrator=&quot;);</span>
-<span class="nc" id="L67">        builder.append(administrator); </span>
-<span class="nc" id="L68">        builder.append('}');</span>
-<span class="nc" id="L69">        return builder.toString();</span>
+<span class="fc" id="L57">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L58">        builder.append(&quot;User{id=&quot;);</span>
+<span class="fc" id="L59">        builder.append(id); </span>
+<span class="fc" id="L60">        builder.append(&quot;, nickname=&quot;);</span>
+<span class="fc" id="L61">        builder.append(nickname); </span>
+<span class="fc" id="L62">        builder.append(&quot;, password=&quot;);</span>
+<span class="fc" id="L63">        builder.append(password); </span>
+<span class="fc" id="L64">        builder.append(&quot;, email=&quot;);</span>
+<span class="fc" id="L65">        builder.append(email); </span>
+<span class="fc" id="L66">        builder.append(&quot;, administrator=&quot;);</span>
+<span class="fc" id="L67">        builder.append(administrator); </span>
+<span class="fc" id="L68">        builder.append('}');</span>
+<span class="fc" id="L69">        return builder.toString();</span>
     }
     
     // Getters &amp; Setters
-<span class="nc" id="L73">    public long getId() {return id;}</span>
-<span class="nc" id="L74">    public void setId(long id) {this.id = id;}</span>
+<span class="fc" id="L73">    public long getId() {return id;}</span>
+<span class="fc" id="L74">    public void setId(long id) {this.id = id;}</span>
     
-<span class="nc" id="L76">    public String getNickname() {return nickname;}</span>
-<span class="nc" id="L77">    public void setNickname(String nickname) {this.nickname = nickname;}</span>
+<span class="fc" id="L76">    public String getNickname() {return nickname;}</span>
+<span class="fc" id="L77">    public void setNickname(String nickname) {this.nickname = nickname;}</span>
     
-<span class="nc" id="L79">    public String getPassword() {return password;}</span>
-<span class="nc" id="L80">    public void setPassword(String password) {this.password = password;}</span>
+<span class="fc" id="L79">    public String getPassword() {return password;}</span>
+<span class="fc" id="L80">    public void setPassword(String password) {this.password = password;}</span>
     
-<span class="nc" id="L82">    public String getEmail() {return email;}</span>
-<span class="nc" id="L83">    public void setEmail(String email) {this.email = email;}</span>
+<span class="fc" id="L82">    public String getEmail() {return email;}</span>
+<span class="fc" id="L83">    public void setEmail(String email) {this.email = email;}</span>
     
-<span class="nc" id="L85">    public boolean isAdministrator() {return administrator;}</span>
+<span class="fc" id="L85">    public boolean isAdministrator() {return administrator;}</span>
     public void setAdministrator(boolean administrator) {
-<span class="nc" id="L87">        this.administrator = administrator;}   </span>
+<span class="fc" id="L87">        this.administrator = administrator;}   </span>
 
     /**
      * @return the name
@@ -213,4 +213,4 @@ public class User {
 <span class="nc" id="L213">    }</span>
     
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
