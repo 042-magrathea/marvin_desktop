@@ -65,6 +65,23 @@ public class UserTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
+    
+    @Test
+    public void sameNickNameAndEmailIsEqual() {
+        User user1 = new User();
+        user1.setEmail("magrathea@marvin.es");
+        user1.setNickname("Magrathea");
+        user1.setId(0);
+        
+        User user2 = new User();
+        user2.setEmail("magrathea@marvin.es");
+        user2.setNickname("Magrathea");
+        user2.setId(1);
+
+        boolean expResult = true;
+        boolean result = user1.equals(user2);
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of toString method, of class User.

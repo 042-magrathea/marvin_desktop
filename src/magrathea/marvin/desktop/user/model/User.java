@@ -49,8 +49,15 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        return this.id == other.id;
+        if (!Objects.equals(this.nickname, other.nickname)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
     }
+
 
     @Override
     public String toString() {

@@ -31,19 +31,19 @@ public class User {
     
     @Override
     public int hashCode() {
-<span class="nc" id="L34">        int hash = 3;</span>
-<span class="nc" id="L35">        hash = 59 * hash + Objects.hashCode(this.nickname);</span>
-<span class="nc" id="L36">        hash = 59 * hash + Objects.hashCode(this.email);</span>
-<span class="nc" id="L37">        return hash;</span>
+<span class="fc" id="L34">        int hash = 3;</span>
+<span class="fc" id="L35">        hash = 59 * hash + Objects.hashCode(this.nickname);</span>
+<span class="fc" id="L36">        hash = 59 * hash + Objects.hashCode(this.email);</span>
+<span class="fc" id="L37">        return hash;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (this == obj) {</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (this == obj) {</span>
 <span class="nc" id="L43">            return true;</span>
         }
-<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (obj == null) {</span>
-<span class="nc" id="L46">            return false;</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="fc" id="L46">            return false;</span>
         }
 <span class="nc bnc" id="L48" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
 <span class="nc" id="L49">            return false;</span>
@@ -54,107 +54,107 @@ public class User {
 
     @Override
     public String toString() {
-<span class="nc" id="L57">        StringBuilder builder = new StringBuilder();</span>
-<span class="nc" id="L58">        builder.append(&quot;User{id=&quot;);</span>
-<span class="nc" id="L59">        builder.append(id); </span>
-<span class="nc" id="L60">        builder.append(&quot;, nickname=&quot;);</span>
-<span class="nc" id="L61">        builder.append(nickname); </span>
-<span class="nc" id="L62">        builder.append(&quot;, password=&quot;);</span>
-<span class="nc" id="L63">        builder.append(password); </span>
-<span class="nc" id="L64">        builder.append(&quot;, email=&quot;);</span>
-<span class="nc" id="L65">        builder.append(email); </span>
-<span class="nc" id="L66">        builder.append(&quot;, administrator=&quot;);</span>
-<span class="nc" id="L67">        builder.append(administrator); </span>
-<span class="nc" id="L68">        builder.append('}');</span>
-<span class="nc" id="L69">        return builder.toString();</span>
+<span class="fc" id="L57">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L58">        builder.append(&quot;User{id=&quot;);</span>
+<span class="fc" id="L59">        builder.append(id); </span>
+<span class="fc" id="L60">        builder.append(&quot;, nickname=&quot;);</span>
+<span class="fc" id="L61">        builder.append(nickname); </span>
+<span class="fc" id="L62">        builder.append(&quot;, password=&quot;);</span>
+<span class="fc" id="L63">        builder.append(password); </span>
+<span class="fc" id="L64">        builder.append(&quot;, email=&quot;);</span>
+<span class="fc" id="L65">        builder.append(email); </span>
+<span class="fc" id="L66">        builder.append(&quot;, administrator=&quot;);</span>
+<span class="fc" id="L67">        builder.append(administrator); </span>
+<span class="fc" id="L68">        builder.append('}');</span>
+<span class="fc" id="L69">        return builder.toString();</span>
     }
     
     // Getters &amp; Setters
-<span class="nc" id="L73">    public long getId() {return id;}</span>
-<span class="nc" id="L74">    public void setId(long id) {this.id = id;}</span>
+<span class="fc" id="L73">    public long getId() {return id;}</span>
+<span class="fc" id="L74">    public void setId(long id) {this.id = id;}</span>
     
-<span class="nc" id="L76">    public String getNickname() {return nickname;}</span>
-<span class="nc" id="L77">    public void setNickname(String nickname) {this.nickname = nickname;}</span>
+<span class="fc" id="L76">    public String getNickname() {return nickname;}</span>
+<span class="fc" id="L77">    public void setNickname(String nickname) {this.nickname = nickname;}</span>
     
-<span class="nc" id="L79">    public String getPassword() {return password;}</span>
-<span class="nc" id="L80">    public void setPassword(String password) {this.password = password;}</span>
+<span class="fc" id="L79">    public String getPassword() {return password;}</span>
+<span class="fc" id="L80">    public void setPassword(String password) {this.password = password;}</span>
     
-<span class="nc" id="L82">    public String getEmail() {return email;}</span>
-<span class="nc" id="L83">    public void setEmail(String email) {this.email = email;}</span>
+<span class="fc" id="L82">    public String getEmail() {return email;}</span>
+<span class="fc" id="L83">    public void setEmail(String email) {this.email = email;}</span>
     
 <span class="fc" id="L85">    public boolean isAdministrator() {return administrator;}</span>
     public void setAdministrator(boolean administrator) {
-<span class="nc" id="L87">        this.administrator = administrator;}   </span>
+<span class="fc" id="L87">        this.administrator = administrator;}   </span>
 
     /**
      * @return the name
      */
     public String getName() {
-<span class="nc" id="L93">        return name;</span>
+<span class="fc" id="L93">        return name;</span>
     }
 
     /**
      * @param name the name to set
      */
     public void setName(String name) {
-<span class="nc" id="L100">        this.name = name;</span>
-<span class="nc" id="L101">    }</span>
+<span class="fc" id="L100">        this.name = name;</span>
+<span class="fc" id="L101">    }</span>
 
     /**
      * @return the phone
      */
     public String getPhone() {
-<span class="nc" id="L107">        return phone;</span>
+<span class="fc" id="L107">        return phone;</span>
     }
 
     /**
      * @param phone the phone to set
      */
     public void setPhone(String phone) {
-<span class="nc" id="L114">        this.phone = phone;</span>
-<span class="nc" id="L115">    }</span>
+<span class="fc" id="L114">        this.phone = phone;</span>
+<span class="fc" id="L115">    }</span>
 
     /**
      * @return the ads
      */
     public boolean getAds() {
-<span class="nc" id="L121">        return ads;</span>
+<span class="fc" id="L121">        return ads;</span>
     }
 
     /**
      * @param ads the ads to set
      */
     public void setAds(boolean ads) {
-<span class="nc" id="L128">        this.ads = ads;</span>
-<span class="nc" id="L129">    }</span>
+<span class="fc" id="L128">        this.ads = ads;</span>
+<span class="fc" id="L129">    }</span>
 
     /**
      * @return the privateDes
      */
     public String getPrivateDes() {
-<span class="nc" id="L135">        return privateDes;</span>
+<span class="fc" id="L135">        return privateDes;</span>
     }
 
     /**
      * @param privateDes the privateDes to set
      */
     public void setPrivateDes(String privateDes) {
-<span class="nc" id="L142">        this.privateDes = privateDes;</span>
-<span class="nc" id="L143">    }</span>
+<span class="fc" id="L142">        this.privateDes = privateDes;</span>
+<span class="fc" id="L143">    }</span>
 
     /**
      * @return the publicDes
      */
     public String getPublicDes() {
-<span class="nc" id="L149">        return publicDes;</span>
+<span class="fc" id="L149">        return publicDes;</span>
     }
 
     /**
      * @param publicDes the publicDes to set
      */
     public void setPublicDes(String publicDes) {
-<span class="nc" id="L156">        this.publicDes = publicDes;</span>
-<span class="nc" id="L157">    }</span>
+<span class="fc" id="L156">        this.publicDes = publicDes;</span>
+<span class="fc" id="L157">    }</span>
 
     /**
      * @return the userRole
@@ -167,50 +167,50 @@ public class User {
      * @param userRole the userRole to set
      */
     public void setUserRole(String userRole) {
-<span class="nc" id="L170">        this.userRole = userRole;</span>
-<span class="nc" id="L171">    }</span>
+<span class="fc" id="L170">        this.userRole = userRole;</span>
+<span class="fc" id="L171">    }</span>
 
     /**
      * @return the language
      */
     public String getLanguage() {
-<span class="nc" id="L177">        return language;</span>
+<span class="fc" id="L177">        return language;</span>
     }
 
     /**
      * @param language the language to set
      */
     public void setLanguage(String language) {
-<span class="nc" id="L184">        this.language = language;</span>
-<span class="nc" id="L185">    }</span>
+<span class="fc" id="L184">        this.language = language;</span>
+<span class="fc" id="L185">    }</span>
 
     /**
      * @return the datePassword
      */
     public String getDatePassword() {
-<span class="nc" id="L191">        return datePassword;</span>
+<span class="fc" id="L191">        return datePassword;</span>
     }
 
     /**
      * @param datePassword the datePassword to set
      */
     public void setDatePassword(String datePassword) {
-<span class="nc" id="L198">        this.datePassword = datePassword;</span>
-<span class="nc" id="L199">    }</span>
+<span class="fc" id="L198">        this.datePassword = datePassword;</span>
+<span class="fc" id="L199">    }</span>
 
     /**
      * @return the memberSince
      */
     public String getMemberSince() {
-<span class="nc" id="L205">        return memberSince;</span>
+<span class="fc" id="L205">        return memberSince;</span>
     }
 
     /**
      * @param memberSince the memberSince to set
      */
     public void setMemberSince(String memberSince) {
-<span class="nc" id="L212">        this.memberSince = memberSince;</span>
-<span class="nc" id="L213">    }</span>
+<span class="fc" id="L212">        this.memberSince = memberSince;</span>
+<span class="fc" id="L213">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
