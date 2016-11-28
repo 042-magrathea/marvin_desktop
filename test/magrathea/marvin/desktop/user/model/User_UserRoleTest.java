@@ -33,4 +33,13 @@ public class User_UserRoleTest {
 
         assertThat(result, equalTo(false));
     }
+    
+    @Test(expected=NullPointerException.class)
+    public void emptyCanNotHaveEmptyRol() {
+
+        boolean result = role.equalsIgnoreCase("");
+
+        assertThat(result, equalTo(false));
+    }
+    
 }

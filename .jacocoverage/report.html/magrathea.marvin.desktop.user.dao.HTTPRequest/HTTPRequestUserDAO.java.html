@@ -25,9 +25,9 @@ import magrathea.marvin.desktop.user.model.User;
  *
  * @author boscalent
  */
-<span class="fc" id="L28">public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {</span>
+<span class="nc" id="L28">public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {</span>
 
-<span class="fc" id="L30">    private static final List&lt;User&gt; EMPTY = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L30">    private static final List&lt;User&gt; EMPTY = new ArrayList&lt;&gt;();</span>
 
     @Override
     public long insertUser(User user) {
@@ -119,29 +119,29 @@ import magrathea.marvin.desktop.user.model.User;
     public List&lt;User&gt; findAll() {
         try {
             // URL (TODO: fix URL server as Constant)
-<span class="fc" id="L122">            URL url = new URL( Main.SERVER + &quot;usersQuery.php&quot;);</span>
+<span class="nc" id="L122">            URL url = new URL( Main.SERVER + &quot;usersQuery.php&quot;);</span>
 
             // PARAMS POST
-<span class="fc" id="L125">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
-<span class="fc" id="L126">            params.put(&quot;user&quot;, &quot;LOGIN_USER&quot;);               // User has rights?</span>
+<span class="nc" id="L125">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L126">            params.put(&quot;user&quot;, &quot;LOGIN_USER&quot;);               // User has rights?</span>
             //params.put(&quot;param2&quot;, &quot;getAllUser&quot;);
             //params.put(&quot;param3&quot;, &quot;Prototip&quot;);             
-<span class="fc" id="L129">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+<span class="nc" id="L129">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
 
             // GET READER FROM CONN (SUPER)
-<span class="fc" id="L132">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+<span class="nc" id="L132">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
 
             // PARSER
-<span class="fc" id="L135">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
+<span class="nc" id="L135">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
 
             
             // MAKE OBJECTS
-<span class="fc" id="L139">            return makeUsersFromJson(jarray);</span>
+<span class="nc" id="L139">            return makeUsersFromJson(jarray);</span>
 
 <span class="nc" id="L141">        } catch (Exception ex) {</span>
 <span class="nc" id="L142">            ex.printStackTrace();</span>
         } finally {
-<span class="pc" id="L144">            con.disconnect();</span>
+<span class="nc" id="L144">            con.disconnect();</span>
 <span class="nc" id="L145">        }</span>
 <span class="nc" id="L146">        return EMPTY;</span>
     }
@@ -153,22 +153,22 @@ import magrathea.marvin.desktop.user.model.User;
      * @return un byte[] amb els paràmetres
      */
     private byte[] putParams(Map&lt;String, Object&gt; params) {
-<span class="fc" id="L156">        byte[] postDataBytes = null;</span>
+<span class="nc" id="L156">        byte[] postDataBytes = null;</span>
         try {
-<span class="fc" id="L158">            StringBuilder postData = new StringBuilder();</span>
-<span class="fc bfc" id="L159" title="All 2 branches covered.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
-<span class="pc bpc" id="L160" title="1 of 2 branches missed.">                if (postData.length() != 0) {</span>
+<span class="nc" id="L158">            StringBuilder postData = new StringBuilder();</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
 <span class="nc" id="L161">                    postData.append('&amp;');</span>
                 }
-<span class="fc" id="L163">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
-<span class="fc" id="L164">                postData.append('=');</span>
-<span class="fc" id="L165">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
-<span class="fc" id="L166">            }</span>
-<span class="fc" id="L167">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
+<span class="nc" id="L163">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L164">                postData.append('=');</span>
+<span class="nc" id="L165">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L166">            }</span>
+<span class="nc" id="L167">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
 
 <span class="nc" id="L169">        } catch (UnsupportedEncodingException ex) {</span>
-<span class="fc" id="L170">        }</span>
-<span class="fc" id="L171">        return postDataBytes;</span>
+<span class="nc" id="L170">        }</span>
+<span class="nc" id="L171">        return postDataBytes;</span>
     }
 
     /**
@@ -179,16 +179,16 @@ import magrathea.marvin.desktop.user.model.User;
      * @return un array d'objectes Json.
      */
     private JsonArray getArrayFromJson(Reader in, String node) {
-<span class="fc" id="L182">        JsonArray jarray = null;</span>
+<span class="nc" id="L182">        JsonArray jarray = null;</span>
         
-<span class="fc" id="L184">        JsonElement jelement = new JsonParser().parse(in);</span>
-<span class="pc bpc" id="L185" title="1 of 2 branches missed.">        if ( node != null){</span>
+<span class="nc" id="L184">        JsonElement jelement = new JsonParser().parse(in);</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if ( node != null){</span>
 <span class="nc" id="L186">            JsonObject jobject = jelement.getAsJsonObject();</span>
 <span class="nc" id="L187">            jarray = jobject.getAsJsonArray(node);</span>
 <span class="nc" id="L188">        } else {</span>
-<span class="fc" id="L189">            jarray = jelement.getAsJsonArray();</span>
+<span class="nc" id="L189">            jarray = jelement.getAsJsonArray();</span>
         }
-<span class="fc" id="L191">        return jarray;</span>
+<span class="nc" id="L191">        return jarray;</span>
     }
 
     /**
@@ -197,22 +197,22 @@ import magrathea.marvin.desktop.user.model.User;
      * @return List&lt;User&gt; que es pot retornar a la capa de servei
      */
     private List&lt;User&gt; makeUsersFromJson(JsonArray jarray) {
-<span class="fc" id="L200">        List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L200">        List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
         User user;
-<span class="fc bfc" id="L202" title="All 2 branches covered.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
-<span class="fc" id="L203">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
-<span class="fc" id="L204">            user = new User();</span>
-<span class="fc" id="L205">            user.setId(jsonobject.get(&quot;idUser&quot;).getAsLong());</span>
-<span class="fc" id="L206">            user.setNickname(jsonobject.get(&quot;publicName&quot;).getAsString());</span>
-<span class="fc" id="L207">            user.setPassword(jsonobject.get(&quot;password&quot;).getAsString());</span>
-<span class="fc" id="L208">            user.setEmail(jsonobject.get(&quot;eMail&quot;).getAsString());</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
+<span class="nc" id="L203">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L204">            user = new User();</span>
+<span class="nc" id="L205">            user.setId(jsonobject.get(&quot;idUser&quot;).getAsLong());</span>
+<span class="nc" id="L206">            user.setNickname(jsonobject.get(&quot;publicName&quot;).getAsString());</span>
+<span class="nc" id="L207">            user.setPassword(jsonobject.get(&quot;password&quot;).getAsString());</span>
+<span class="nc" id="L208">            user.setEmail(jsonobject.get(&quot;eMail&quot;).getAsString());</span>
             // getAsBoolean falla, fico el if
             // user.setAdministrator(jsonobject.get(&quot;administrator&quot;).getAsBoolean());
-<span class="fc" id="L211">            user.setAdministrator(jsonobject.get(&quot;administrator&quot;).getAsBoolean());</span>
+<span class="nc" id="L211">            user.setAdministrator(jsonobject.get(&quot;administrator&quot;).getAsBoolean());</span>
             
-<span class="fc" id="L213">            users.add(user);</span>
+<span class="nc" id="L213">            users.add(user);</span>
         }
-<span class="fc" id="L215">        return users;</span>
+<span class="nc" id="L215">        return users;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

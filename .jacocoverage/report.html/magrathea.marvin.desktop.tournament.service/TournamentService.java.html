@@ -17,17 +17,17 @@ import magrathea.marvin.desktop.tournament.model.Tournament;
 public class TournamentService {
     private final TournamentDAO tournamentDAO; // DI
     
-<span class="fc" id="L20">    public TournamentService(TournamentDAO tournamentDAO ){</span>
-<span class="fc" id="L21">        this.tournamentDAO = tournamentDAO;</span>
+<span class="nc" id="L20">    public TournamentService(TournamentDAO tournamentDAO ){</span>
+<span class="nc" id="L21">        this.tournamentDAO = tournamentDAO;</span>
         try{
-<span class="fc" id="L23">            this.tournamentDAO.connect();</span>
+<span class="nc" id="L23">            this.tournamentDAO.connect();</span>
 <span class="nc" id="L24">        } catch (Exception ex) {</span>
 <span class="nc" id="L25">            ex.printStackTrace();</span>
-<span class="fc" id="L26">        }</span>
-<span class="fc" id="L27">    }</span>
+<span class="nc" id="L26">        }</span>
+<span class="nc" id="L27">    }</span>
     
     public List&lt;Tournament&gt; getAll(){
-<span class="fc" id="L30">        return tournamentDAO.findAll();</span>
+<span class="nc" id="L30">        return tournamentDAO.findAll();</span>
     }
     
     public void close(){

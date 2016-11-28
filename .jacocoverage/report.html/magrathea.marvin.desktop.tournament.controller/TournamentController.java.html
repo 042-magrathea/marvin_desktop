@@ -35,97 +35,97 @@ public class TournamentController {
     @FXML
     private TextField tournamentInfo;
 
-<span class="fc" id="L38">    private TournamentService service = null;</span>
+<span class="nc" id="L38">    private TournamentService service = null;</span>
 
-<span class="fc" id="L40">    public TournamentController() {</span>
-<span class="fc" id="L41">        service = new TournamentService(Main.buildDAO(&quot;Tournament&quot;));</span>
-<span class="fc" id="L42">    }</span>
+<span class="nc" id="L40">    public TournamentController() {</span>
+<span class="nc" id="L41">        service = new TournamentService(Main.buildDAO(&quot;Tournament&quot;));</span>
+<span class="nc" id="L42">    }</span>
 
     public void initialize() {
 
-<span class="fc" id="L46">        listTournaments.getItems().setAll(service.getAll());</span>
-<span class="fc" id="L47">        listTournaments.getSelectionModel().selectedItemProperty().addListener(</span>
+<span class="nc" id="L46">        listTournaments.getItems().setAll(service.getAll());</span>
+<span class="nc" id="L47">        listTournaments.getSelectionModel().selectedItemProperty().addListener(</span>
                 (observable, oldValue, newValue) -&gt; {
-<span class="fc" id="L49">                    fill(newValue);</span>
-<span class="fc" id="L50">                });</span>
-<span class="fc" id="L51">        runButton.setDisable(true);</span>
-<span class="fc" id="L52">    }</span>
+<span class="nc" id="L49">                    fill(newValue);</span>
+<span class="nc" id="L50">                });</span>
+<span class="nc" id="L51">        runButton.setDisable(true);</span>
+<span class="nc" id="L52">    }</span>
 
     public void fill(Tournament tournament) {
-<span class="fc" id="L55">        List&lt;Prize&gt; prizes = tournament.getPrizes();</span>
-<span class="pc bpc" id="L56" title="1 of 6 branches missed.">        if (prizes != null &amp; !prizes.isEmpty()) {</span>
-<span class="fc" id="L57">            listPrizes.getItems().clear();</span>
-<span class="fc" id="L58">            listPrizes.getItems().addAll(prizes);</span>
+<span class="nc" id="L55">        List&lt;Prize&gt; prizes = tournament.getPrizes();</span>
+<span class="nc bnc" id="L56" title="All 6 branches missed.">        if (prizes != null &amp; !prizes.isEmpty()) {</span>
+<span class="nc" id="L57">            listPrizes.getItems().clear();</span>
+<span class="nc" id="L58">            listPrizes.getItems().addAll(prizes);</span>
         } else {
-<span class="fc" id="L60">            listPrizes.getItems().clear();</span>
+<span class="nc" id="L60">            listPrizes.getItems().clear();</span>
         }
 
-<span class="fc" id="L63">        List&lt;User&gt; users = tournament.getUsers();</span>
-<span class="pc bpc" id="L64" title="1 of 4 branches missed.">        boolean hasUsers = users != null &amp; !users.isEmpty();</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (hasUsers) {</span>
-<span class="fc" id="L66">            listUsers.getItems().clear();</span>
-<span class="fc" id="L67">            listUsers.getItems().addAll(users);</span>
+<span class="nc" id="L63">        List&lt;User&gt; users = tournament.getUsers();</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        boolean hasUsers = users != null &amp; !users.isEmpty();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (hasUsers) {</span>
+<span class="nc" id="L66">            listUsers.getItems().clear();</span>
+<span class="nc" id="L67">            listUsers.getItems().addAll(users);</span>
         } else {
-<span class="fc" id="L69">            listUsers.getItems().clear();</span>
+<span class="nc" id="L69">            listUsers.getItems().clear();</span>
         }
 
-<span class="fc" id="L72">        checkButton(hasUsers);</span>
-<span class="fc" id="L73">    }</span>
+<span class="nc" id="L72">        checkButton(hasUsers);</span>
+<span class="nc" id="L73">    }</span>
 
     public void checkButton(boolean hasUsers) {
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (hasUsers) {</span>
-<span class="fc" id="L77">            runButton.setDisable(false);</span>
-<span class="fc" id="L78">            tournamentInfo.setText(&quot;Good Luck!&quot;);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (hasUsers) {</span>
+<span class="nc" id="L77">            runButton.setDisable(false);</span>
+<span class="nc" id="L78">            tournamentInfo.setText(&quot;Good Luck!&quot;);</span>
         } else {
-<span class="fc" id="L80">            runButton.setDisable(true);</span>
-<span class="fc" id="L81">            tournamentInfo.setText(&quot;No users in Tournament. Can't run.&quot;);</span>
+<span class="nc" id="L80">            runButton.setDisable(true);</span>
+<span class="nc" id="L81">            tournamentInfo.setText(&quot;No users in Tournament. Can't run.&quot;);</span>
         }
-<span class="fc" id="L83">    }</span>
+<span class="nc" id="L83">    }</span>
     
     /**
      * GET a FAKE result of Tournament
      * Only for prototype ( Local data, no con to Service Server )
      */
     public void runTournament() {
-<span class="fc" id="L90">        Tournament tournament = listTournaments.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L90">        Tournament tournament = listTournaments.getSelectionModel().getSelectedItem();</span>
         
         try {
             //URL fakeResultURL = getClass()
             //        .getResource(&quot;/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml&quot;);
             //AnchorPane fakeResultPane = FXMLLoader.load(fakeResultURL);
-<span class="fc" id="L96">            FXMLLoader loader = new FXMLLoader();</span>
-<span class="fc" id="L97">            loader.setLocation( getClass()</span>
-<span class="fc" id="L98">                    .getResource(&quot;/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml&quot;));</span>
+<span class="nc" id="L96">            FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L97">            loader.setLocation( getClass()</span>
+<span class="nc" id="L98">                    .getResource(&quot;/magrathea/marvin/desktop/tournament/view/tournamentFakeResult.fxml&quot;));</span>
             
             
             
-<span class="fc" id="L102">            Window parentWindows = Main.getRoot().getScene().getWindow();</span>
+<span class="nc" id="L102">            Window parentWindows = Main.getRoot().getScene().getWindow();</span>
                         
-<span class="fc" id="L104">            Stage dialogStage = new Stage();</span>
-<span class="fc" id="L105">            dialogStage.setTitle( &quot;Results of &quot; + tournament.getName() + &quot; tournament&quot;);</span>
-<span class="fc" id="L106">            dialogStage.initModality(Modality.WINDOW_MODAL);</span>
-<span class="fc" id="L107">            dialogStage.initOwner( parentWindows );</span>
+<span class="nc" id="L104">            Stage dialogStage = new Stage();</span>
+<span class="nc" id="L105">            dialogStage.setTitle( &quot;Results of &quot; + tournament.getName() + &quot; tournament&quot;);</span>
+<span class="nc" id="L106">            dialogStage.initModality(Modality.WINDOW_MODAL);</span>
+<span class="nc" id="L107">            dialogStage.initOwner( parentWindows );</span>
             
             // FIXTO to auxiliar method for center in parent stage
-<span class="fc" id="L110">            dialogStage.setX(</span>
-<span class="fc" id="L111">                    (( parentWindows.getWidth() - 600) /2) + parentWindows.getX());</span>
-<span class="fc" id="L112">            dialogStage.setY(</span>
-<span class="fc" id="L113">                    (( parentWindows.getHeight()- 400) /2) + parentWindows.getY());</span>
-<span class="fc" id="L114">            dialogStage.setResizable(false);</span>
+<span class="nc" id="L110">            dialogStage.setX(</span>
+<span class="nc" id="L111">                    (( parentWindows.getWidth() - 600) /2) + parentWindows.getX());</span>
+<span class="nc" id="L112">            dialogStage.setY(</span>
+<span class="nc" id="L113">                    (( parentWindows.getHeight()- 400) /2) + parentWindows.getY());</span>
+<span class="nc" id="L114">            dialogStage.setResizable(false);</span>
             
             //AnchorPane fakeResultPane = (AnchorPane) loader.load();
-<span class="fc" id="L117">            Scene scene = new Scene((AnchorPane) loader.load());</span>
-<span class="fc" id="L118">            dialogStage.setScene(scene);</span>
+<span class="nc" id="L117">            Scene scene = new Scene((AnchorPane) loader.load());</span>
+<span class="nc" id="L118">            dialogStage.setScene(scene);</span>
             
             // Set controller
-<span class="fc" id="L121">            TournamentFakeResultController controller = loader.&lt;TournamentFakeResultController&gt;getController();</span>
-<span class="fc" id="L122">            controller.setTournament(tournament);</span>
+<span class="nc" id="L121">            TournamentFakeResultController controller = loader.&lt;TournamentFakeResultController&gt;getController();</span>
+<span class="nc" id="L122">            controller.setTournament(tournament);</span>
                                     
-<span class="fc" id="L124">            dialogStage.show();</span>
+<span class="nc" id="L124">            dialogStage.show();</span>
 
 <span class="nc" id="L126">        } catch (IOException e) {</span>
 <span class="nc" id="L127">            e.printStackTrace();</span>
-<span class="fc" id="L128">        }</span>
-<span class="fc" id="L129">    }</span>
+<span class="nc" id="L128">        }</span>
+<span class="nc" id="L129">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

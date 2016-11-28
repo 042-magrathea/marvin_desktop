@@ -12,7 +12,7 @@ import magrathea.marvin.desktop.app.dao.DAO;
  * Concrete implementation of DAO for a PHP server WebService 
  * @author Iván Cañizares Gómez
  */
-<span class="fc" id="L15">public class HTTPRequestDAO implements DAO {</span>
+<span class="nc" id="L15">public class HTTPRequestDAO implements DAO {</span>
 
     protected HttpURLConnection con;
     
@@ -25,7 +25,7 @@ import magrathea.marvin.desktop.app.dao.DAO;
      * @throws Exception 
      */
     @Override
-<span class="fc" id="L28">    public void connect() throws Exception {}</span>
+<span class="nc" id="L28">    public void connect() throws Exception {}</span>
     
     // TODO: Refactor for single responsibility principle: One method for 
     // construct the request and other for do the connection, make a connection 
@@ -41,15 +41,15 @@ import magrathea.marvin.desktop.app.dao.DAO;
      * @throws Exception 
      */
     public Reader connect(URL url, Proxy proxy, byte[] postDataBytes) throws Exception {
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if ( proxy == null ){proxy = Proxy.NO_PROXY;}           // direct con</span>
-<span class="fc" id="L45">        con = (HttpURLConnection) url.openConnection( proxy );  // default: No proxy</span>
-<span class="fc" id="L46">        con.setRequestMethod(&quot;POST&quot;);</span>
-<span class="fc" id="L47">        con.setRequestProperty(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span>
-<span class="fc" id="L48">        con.setRequestProperty(&quot;Content-Length&quot;,String.valueOf(postDataBytes.length));</span>
-<span class="fc" id="L49">        con.setDoOutput(true);</span>
-<span class="fc" id="L50">        con.getOutputStream().write(postDataBytes);</span>
-<span class="fc" id="L51">        Reader in = new BufferedReader(new InputStreamReader(con.getInputStream(), &quot;UTF-8&quot;));</span>
-<span class="fc" id="L52">        return in;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if ( proxy == null ){proxy = Proxy.NO_PROXY;}           // direct con</span>
+<span class="nc" id="L45">        con = (HttpURLConnection) url.openConnection( proxy );  // default: No proxy</span>
+<span class="nc" id="L46">        con.setRequestMethod(&quot;POST&quot;);</span>
+<span class="nc" id="L47">        con.setRequestProperty(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span>
+<span class="nc" id="L48">        con.setRequestProperty(&quot;Content-Length&quot;,String.valueOf(postDataBytes.length));</span>
+<span class="nc" id="L49">        con.setDoOutput(true);</span>
+<span class="nc" id="L50">        con.getOutputStream().write(postDataBytes);</span>
+<span class="nc" id="L51">        Reader in = new BufferedReader(new InputStreamReader(con.getInputStream(), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L52">        return in;</span>
     }
 
     @Override

@@ -37,11 +37,11 @@ public class InsertUserController {
     @FXML private Button createUserButton;
     
     
-<span class="pc" id="L40">    private UserService service = null;</span>
+<span class="nc" id="L40">    private UserService service = null;</span>
 
-<span class="fc" id="L42">    public InsertUserController() {</span>
-<span class="fc" id="L43">        this.service = new UserService( Main.buildDAO(&quot;User&quot;) );</span>
-<span class="fc" id="L44">    }</span>
+<span class="nc" id="L42">    public InsertUserController() {</span>
+<span class="nc" id="L43">        this.service = new UserService( Main.buildDAO(&quot;User&quot;) );</span>
+<span class="nc" id="L44">    }</span>
 
     @Deprecated
 <span class="nc" id="L47">    public InsertUserController(UserService service, Stage stage) {</span>
@@ -50,7 +50,7 @@ public class InsertUserController {
 
     public void initialize() {
         
-<span class="fc" id="L53">        ChangeListener focusChangeListener = new ChangeListener&lt;Boolean&gt;() {</span>
+<span class="nc" id="L53">        ChangeListener focusChangeListener = new ChangeListener&lt;Boolean&gt;() {</span>
             
             @Override
             public void changed(ObservableValue&lt;? extends Boolean&gt; observable, Boolean oldValue, Boolean newValue) {
@@ -59,14 +59,14 @@ public class InsertUserController {
             
         };
         
-<span class="fc" id="L62">        passConfirmationField.focusedProperty().addListener(focusChangeListener);</span>
-<span class="fc" id="L63">        languageBox.getItems().setAll(PreferedLanguage.values());     // ENUM values</span>
-<span class="fc" id="L64">        languageBox.getSelectionModel().selectFirst();               // Only select one item</span>
-<span class="fc" id="L65">        roleBox.getItems().setAll(UserRole.values());     // ENUM values</span>
-<span class="fc" id="L66">        roleBox.getSelectionModel().selectFirst();               // Only select one item</span>
-<span class="fc" id="L67">        createUserButton.disableProperty().set(true);</span>
+<span class="nc" id="L62">        passConfirmationField.focusedProperty().addListener(focusChangeListener);</span>
+<span class="nc" id="L63">        languageBox.getItems().setAll(PreferedLanguage.values());     // ENUM values</span>
+<span class="nc" id="L64">        languageBox.getSelectionModel().selectFirst();               // Only select one item</span>
+<span class="nc" id="L65">        roleBox.getItems().setAll(UserRole.values());     // ENUM values</span>
+<span class="nc" id="L66">        roleBox.getSelectionModel().selectFirst();               // Only select one item</span>
+<span class="nc" id="L67">        createUserButton.disableProperty().set(true);</span>
         
-<span class="fc" id="L69">    }</span>
+<span class="nc" id="L69">    }</span>
 
     // ACTIONS
     public void onCreateUser(ActionEvent event) {
