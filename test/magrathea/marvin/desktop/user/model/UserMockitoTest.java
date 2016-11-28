@@ -36,7 +36,7 @@ public class UserMockitoTest {
         // Return a different String
         when(userMock.getUserRole()).thenReturn("USER", "EDITOR", "ADMINISTRATOR");
 
-        for (int i = 0; i < UserRole.values().length ; i++) {
+        for (int i = 0; i < UserRole.values().length; i++) {
 
             boolean result = false;
             for (UserRole userRole : UserRole.values()) {
@@ -45,7 +45,23 @@ public class UserMockitoTest {
                 }
             }
             assertThat(result, is(true));
+        }
+    }
 
+    @Test
+    public void UserNotHasLegalRol() {
+        // Return a different String
+        when(userMock.getUserRole()).thenReturn("SPY", "", null);
+
+        for (int i = 0; i < UserRole.values().length; i++) {
+
+            boolean result = false;
+            for (UserRole userRole : UserRole.values()) {
+                if (userRole.name().equalsIgnoreCase(userMock.getUserRole())) {
+                    result = true;
+                }
+            }
+            assertThat(result, is(false));
         }
     }
 }
