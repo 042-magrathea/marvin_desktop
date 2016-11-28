@@ -70,12 +70,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             
             params.put("values", valuesJson);
             params.put("fields", fieldsJson);
-            
-            /*for (int i = 0; i<values.length; i++) {
-                params.put("values[" + i + "]", values[i]);
-                params.put("fields[" + i + "]", fields[i]);
-            }*/         
-            
+                           
             byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
@@ -123,9 +118,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
-            params.put("user", "LOGIN_USER");               // User has rights?
-            //params.put("param2", "getAllUser");
-            //params.put("param3", "Prototip");             
+            params.put("user", "LOGIN_USER");               // User has rights?           
             byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
@@ -134,7 +127,6 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             // PARSER
             JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
 
-            
             // MAKE OBJECTS
             return makeUsersFromJson(jarray);
 
@@ -144,6 +136,11 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             con.disconnect();
         }
         return EMPTY;
+    }
+    
+    public boolean userExist(String userPublicName, String userEmail) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
