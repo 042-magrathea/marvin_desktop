@@ -1,121 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InsertUserController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.controller</a> &gt; <span class="el_source">InsertUserController.java</span></div><h1>InsertUserController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.user.controller;
 
+/*
+import custom.InsertUserForm;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import magrathea.marvin.desktop.app.Main;
-import magrathea.marvin.desktop.user.dao.UserRole;
-import magrathea.marvin.desktop.user.dao.PreferedLanguage;
 import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
-
+import javafx.event.EventHandler;
+*/
 /**
  *
- * @author boscalent
+ * @author Tricoman
  */
-public class InsertUserController {
-    
-    @FXML private ChoiceBox&lt;UserRole&gt; roleBox;
-    @FXML private ChoiceBox&lt;PreferedLanguage&gt; languageBox;
-    @FXML private TextField nicknameField, nameField, phoneField, emailField, 
-            passwordField, passConfirmationField, pubDescField, privDescField;
-    @FXML private Label showResult; 
-    @FXML private CheckBox addsCheckbox;
-    @FXML private Button createUserButton;
-    
-    
-<span class="nc" id="L40">    private UserService service = null;</span>
+<span class="nc" id="L19">public class InsertUserController {</span>
+    /*    
+    @FXML private InsertUserForm insertUserForm;
+        
+    private UserService service = null;
 
-<span class="nc" id="L42">    public InsertUserController() {</span>
-<span class="nc" id="L43">        this.service = new UserService( Main.buildDAO(&quot;User&quot;) );</span>
-<span class="nc" id="L44">    }</span>
+    public InsertUserController() {
+        this.service = new UserService( Main.buildDAO(&quot;User&quot;) );
 
-    @Deprecated
-<span class="nc" id="L47">    public InsertUserController(UserService service, Stage stage) {</span>
-<span class="nc" id="L48">        this.service = service;</span>
-<span class="nc" id="L49">    }</span>
-
+    }
+*/
+    /*@Deprecated
+    public InsertUserController(UserService service, Stage stage) {
+        this.service = service;
+    }*/
+/*
     public void initialize() {
         
-<span class="nc" id="L53">        ChangeListener focusChangeListener = new ChangeListener&lt;Boolean&gt;() {</span>
-            
+        insertUserForm.getCreateUserButton().setOnAction(new EventHandler&lt;ActionEvent&gt;() {
             @Override
-            public void changed(ObservableValue&lt;? extends Boolean&gt; observable, Boolean oldValue, Boolean newValue) {
-<span class="nc" id="L57">                inputDataValidation();</span>
-<span class="nc" id="L58">            }    </span>
-            
-        };
+            public void handle(ActionEvent e) {
+                insertUser();
+            }
+        });
         
-<span class="nc" id="L62">        passConfirmationField.focusedProperty().addListener(focusChangeListener);</span>
-<span class="nc" id="L63">        languageBox.getItems().setAll(PreferedLanguage.values());     // ENUM values</span>
-<span class="nc" id="L64">        languageBox.getSelectionModel().selectFirst();               // Only select one item</span>
-<span class="nc" id="L65">        roleBox.getItems().setAll(UserRole.values());     // ENUM values</span>
-<span class="nc" id="L66">        roleBox.getSelectionModel().selectFirst();               // Only select one item</span>
-<span class="nc" id="L67">        createUserButton.disableProperty().set(true);</span>
-        
-<span class="nc" id="L69">    }</span>
-
-    // ACTIONS
-    public void onCreateUser(ActionEvent event) {
-<span class="nc" id="L73">        User user = new User();</span>
-        
-<span class="nc" id="L75">        user.setNickname(nicknameField.getText());</span>
-<span class="nc" id="L76">        user.setName(nameField.getText());</span>
-<span class="nc" id="L77">        user.setPhone(phoneField.getText());</span>
-<span class="nc" id="L78">        user.setEmail(emailField.getText());</span>
-<span class="nc" id="L79">        user.setAds(addsCheckbox.isSelected());</span>
-<span class="nc" id="L80">        user.setPrivateDes(privDescField.getText());</span>
-<span class="nc" id="L81">        user.setPublicDes(pubDescField.getText());</span>
-<span class="nc" id="L82">        user.setUserRole(roleBox.getSelectionModel().getSelectedItem().toString());</span>
-<span class="nc" id="L83">        user.setLanguage(languageBox.getSelectionModel().getSelectedItem().toString());</span>
-<span class="nc" id="L84">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc" id="L85">        Date date = new Date();</span>
-<span class="nc" id="L86">        user.setDatePassword(dateFormat.format(date));</span>
-<span class="nc" id="L87">        user.setPassword(passwordField.getText());</span>
-<span class="nc" id="L88">        user.setMemberSince(dateFormat.format(date));</span>
-        
-<span class="nc" id="L90">        long insertionResult = service.insertItem(user);</span>
-            
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (insertionResult == 0) {</span>
-<span class="nc" id="L93">            showResult.setText(&quot;User creation has failed, please check al data and try again&quot;);</span>
-        } else {
-<span class="nc" id="L95">            showResult.setText(&quot;User has been created&quot;);</span>
-        }
-               
-<span class="nc" id="L98">    }</span>
-    
-    private boolean inputDataValidation() {
-<span class="nc bnc" id="L101" title="All 4 branches missed.">        if (passConfirmationField != null &amp;&amp; passConfirmationField.getText().toString().equals(passwordField.getText().toString())) {</span>
-            
-            
-<span class="nc" id="L104">            passwordField.styleProperty().setValue(&quot;-fx-border-color: red ; -fx-border-width: 2px ;&quot;);</span>
-            
-            
-<span class="nc" id="L107">            showResult.setText(&quot;\&quot;password\&quot; and \&quot;confirma password\&quot; does not match, please confirm password&quot;);</span>
-            
-<span class="nc" id="L109">            return false;</span>
-<span class="nc bnc" id="L110" title="All 4 branches missed.">        } else if(passwordField == null &amp;&amp; passConfirmationField == null) {</span>
-            
-        }
-        
-<span class="nc" id="L114">        createUserButton.disableProperty().set(false);</span>
-        
-<span class="nc" id="L116">        return true;</span>
     }
-
-
+    
+    private void insertUser() {
+        User user = new User();
+        
+        user.setNickname(insertUserForm.getNicknameField().getText());
+        user.setName(insertUserForm.getNameField().getText());
+        user.setPhone(insertUserForm.getPhoneField().getText());
+        user.setEmail(insertUserForm.getEmailField().getText());
+        user.setAds(insertUserForm.getAddsCheckbox().isSelected());
+        user.setPrivateDes(insertUserForm.getPrivDescField().getText());
+        user.setPublicDes(insertUserForm.getPubDescField().getText());
+        user.setUserRole(insertUserForm.getRoleBox().getSelectionModel().getSelectedItem().toString());
+        user.setLanguage(insertUserForm.getLanguageBox().getSelectionModel().getSelectedItem().toString());
+        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+        Date date = new Date();
+        user.setDatePassword(dateFormat.format(date));
+        user.setPassword(insertUserForm.getPasswordField().getText());
+        user.setMemberSince(dateFormat.format(date));
+        
+        long insertionResult = service.insertItem(user);
+            
+        if (insertionResult == 0) {
+            insertUserForm.getShowResult().setText(&quot;User creation has failed, please check al data and try again&quot;);
+        } else {
+            insertUserForm.getShowResult().setText(&quot;User has been created&quot;);
+        }
+             
+    } */ 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

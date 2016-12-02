@@ -2,24 +2,34 @@ package magrathea.marvin.desktop.app.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import magrathea.marvin.desktop.app.Main;
 
 /**
- * @author Iván Cañizares Gómez
- * Load the panes with the FXMLLoader on every use and put in the center 
- * of the root, The panes should not save state and reload it to avoid get lazy
- * On every invocation connect to DAO provider. Not ORM it's implemented.
+ * @author Iván Cañizares Gómez Load the panes with the FXMLLoader on every use
+ * and put in the center of the root, The panes should not save state and reload
+ * it to avoid get lazy On every invocation connect to DAO provider. Not ORM
+ * it's implemented.
  */
-public class MainMenuBarController {
-    // TODO: Refactor this code with a Map. Like <"idUserButton"><"/magrathea/mer...">
-    // and a method that extract the key from the event (ID of the caller button, ... )
-    // and dynamically load the FXML
+public class MainMenuBarController implements Initializable {
+
+    MainController main;
+
+    public void setMainController(MainController main) {
+        this.main = main;
+    }
     
+    public void loginOut(ActionEvent event) {
+        //MainController main = Main.getMainController();
+        main.processLogout(event);
+    }
+
     /**
      * Event handler for MainMenu item
      */
@@ -54,7 +64,7 @@ public class MainMenuBarController {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Event handler for UserMenu item
      */
@@ -71,6 +81,7 @@ public class MainMenuBarController {
             e.printStackTrace();
         }
     }
+
     /**
      * Event handler for UserMenu item
      */
@@ -86,5 +97,22 @@ public class MainMenuBarController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Event handler for UserMenu item
+     */
+    @FXML
+    void switchToConfiguration(ActionEvent event) {
+    }
+
+    @FXML
+    void switchToHost(ActionEvent event) {
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // TODO: Implement
     }
 }

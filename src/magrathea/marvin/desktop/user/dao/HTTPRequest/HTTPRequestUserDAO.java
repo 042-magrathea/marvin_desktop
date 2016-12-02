@@ -162,7 +162,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
                 postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
             }
             postDataBytes = postData.toString().getBytes("UTF-8");
-
+            System.out.println(params.toString());
         } catch (UnsupportedEncodingException ex) {
         }
         return postDataBytes;

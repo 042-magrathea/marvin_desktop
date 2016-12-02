@@ -1,5 +1,6 @@
 package magrathea.marvin.desktop.user.controller;
 
+/*
 import custom.InsertUserForm;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,13 +11,13 @@ import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
 import javafx.event.EventHandler;
-
+*/
 /**
  *
  * @author Tricoman
  */
 public class InsertUserController {
-        
+    /*    
     @FXML private InsertUserForm insertUserForm;
         
     private UserService service = null;
@@ -25,12 +26,12 @@ public class InsertUserController {
         this.service = new UserService( Main.buildDAO("User") );
 
     }
-
+*/
     /*@Deprecated
     public InsertUserController(UserService service, Stage stage) {
         this.service = service;
     }*/
-
+/*
     public void initialize() {
         
         insertUserForm.getCreateUserButton().setOnAction(new EventHandler<ActionEvent>() {
@@ -67,6 +68,6 @@ public class InsertUserController {
         } else {
             insertUserForm.getShowResult().setText("User has been created");
         }
-               
-    }
+             
+    } */ 
 }
