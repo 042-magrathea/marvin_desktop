@@ -7,18 +7,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import magrathea.marvin.desktop.app.controller.LoginController;
 import magrathea.marvin.desktop.app.controller.MainController;
 import magrathea.marvin.desktop.app.controller.MainMenuBarController;
 import magrathea.marvin.desktop.app.controller.ProfileController;
 import magrathea.marvin.desktop.app.dao.DAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.app.security.Authenticator;
 import magrathea.marvin.desktop.tournament.DAO.HTTPRequest.HTTPRequestTournamentDAO;
 import magrathea.marvin.desktop.user.dao.DerbyDAO.DerbyUserDAO;
@@ -33,16 +35,18 @@ import magrathea.marvin.desktop.user.model.User;
  */
 public class Main extends Application {
 
-    private final double MINIMUM_WINDOW_WIDTH = 390.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 500.0;
-    
+    private double MINIMUM_WINDOW_WIDTH;
+    private double MINIMUM_WINDOW_HEIGHT;
+    private double WINDOW_WIDTH;
+    private double WINDOW_HEIGHT;
+
     // TODO: move to preferences. Look for external preferences file
     // Study the possibility of configuration in the installation process.
     /**
      * URL point to a folder with php webservices
      */
     public static final String SERVER
-            = "http://marvin-server.duckdns.org/";
+            = MarvinConfig.getInstance().getProperty("SERVER_ADDRESS");
 
     // TODO: move to Aux. graphic class. Candidate to Singleton.
     /**
@@ -54,7 +58,7 @@ public class Main extends Application {
     private Stage stage;
     private Scene loginScene;
     private User loggedUser;
-        
+
     // TODO: move to Aux. graphic class (with BorderPane root)
     /**
      * Just a root getter for use by a controller
@@ -104,39 +108,24 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
+        // Chivato properties
+        System.out.println(MarvinConfig.getInstance().getAllProperyNames());
+
+        // Load from config properties
+        MINIMUM_WINDOW_HEIGHT = Double.parseDouble(MarvinConfig.getInstance().getProperty("MINIMUM_WINDOW_HEIGHT"));
+        MINIMUM_WINDOW_WIDTH = Double.parseDouble(MarvinConfig.getInstance().getProperty("MINIMUM_WINDOW_WIDTH"));
+        WINDOW_HEIGHT = Double.parseDouble(MarvinConfig.getInstance().getProperty("WINDOW_HEIGHT"));
+        WINDOW_WIDTH = Double.parseDouble(MarvinConfig.getInstance().getProperty("WINDOW_WIDTH"));
+
         try {
             stage = primaryStage;
             stage.setTitle("Marvin Login");
-            stage.setWidth(390);
-            stage.setHeight(500);
+            stage.setWidth(MINIMUM_WINDOW_HEIGHT);
+            stage.setHeight(MINIMUM_WINDOW_WIDTH);
             gotoLogin();
             primaryStage.show();
         } catch (Exception ex) {
-            //
         }
-        /* OLD CODE FROM START
-        
-        // Loading FXML resources 
-        URL menuBarUrl = getClass().getResource("view/mainMenuBar.fxml");
-        MenuBar bar = FXMLLoader.load(menuBarUrl);
-
-        URL centerPaneURL = getClass().getResource("view/main.fxml");
-        AnchorPane centerPane = FXMLLoader.load(centerPaneURL);
-
-        // Constructing our scene using the static root
-        root.setTop(bar);
-        root.setCenter(centerPane);
-        Scene scene = new Scene(root, 1024, 768);        // fixed size for prototype
-        scene.getStylesheets()
-                .add(getClass().getResource("view/marvin.css")  // not in prototype
-                        .toExternalForm());
-        
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-        
-        */
-
     }
 
     /**
@@ -148,9 +137,9 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     // User Login
-        public User getLoggedUser() {
+    public User getLoggedUser() {
         return loggedUser;
     }
 
@@ -169,110 +158,83 @@ public class Main extends Application {
         loggedUser = null;
         gotoLogin();
     }
-    
+
     // Change Stage logic
     public void gotoProfile() {
-        String fxml = "view/profile.fxml";
-        FXMLLoader loader;
-        try {
-            loader = new FXMLLoader();
-            InputStream in = Main.class.getResourceAsStream(fxml);
-            loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(Main.class.getResource(fxml));
-            AnchorPane page;
-            try {
-                page = (AnchorPane) loader.load(in);
-
-            } finally {
-                in.close();
-            }
-            loginScene = new Scene(page, 1024, 768);
-            stage.setScene(loginScene);
-            stage.sizeToScene();
-
-            ProfileController profile = loader.getController();
-            profile.setApp(this);
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane pane = (AnchorPane) loaderFXML("view/profile.fxml", loader);
+        setStage(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        ProfileController profile = loader.getController();
+        profile.setApp(this);        
     }
 
     public void gotoLogin() {
-        String fxml = "view/login.fxml";
-        FXMLLoader loader;
-        try {
-            loader = new FXMLLoader();
-            InputStream in = Main.class.getResourceAsStream(fxml);
-            loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(Main.class.getResource(fxml));
-            AnchorPane page;
-            try {
-                page = (AnchorPane) loader.load(in);
-            } finally {
-                in.close();
-            }
-            //Scene scene = new Scene(page, 390, 500);
-            loginScene = new Scene(page, 390, 500);
-            stage.setScene(loginScene);
-            //stage.sizeToScene();
-            stage.setWidth(MINIMUM_WINDOW_WIDTH);
-            stage.setHeight(MINIMUM_WINDOW_HEIGHT);
-
-            LoginController login = loader.getController();
-            login.setApp(this);
-
-        } catch (Exception ex) {
-            //
-        }
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane pane = (AnchorPane) loaderFXML("view/login.fxml", loader);
+        setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
+        LoginController login = loader.getController();
+        login.setApp(this);
     }
 
     public void gotoMain() {
-        String fxml = "view/main_1.fxml";
-        FXMLLoader loader;
         try {
-            // Load by controller. Later we need the for pass the controller
-            // of Root (BorderPane parent). We need the for call the parent's
-            // method logout() who calls to the Main store in root.
-            FXMLLoader load = new FXMLLoader(getClass().getResource("view/mainMenuBar.fxml"));
-            MenuBar bar = (MenuBar) load.load();
-            MainMenuBarController control = load.<MainMenuBarController>getController();
+            // Load Menu by Controller ( we need a ref. for LoginOut)
+            FXMLLoader barLoader = new FXMLLoader();
+            MenuBar menuBar = (MenuBar) loaderFXML("view/mainMenuBar.fxml", barLoader);
+            MainMenuBarController barController = barLoader.<MainMenuBarController>getController();
+            barController.setMainController(this);
             
-            // Load by fxml we don't need the controller
+            // Load Center Pane by fxml we don't need the controller
             URL centerPaneURL = getClass().getResource("view/main.fxml");
             AnchorPane centerPane = FXMLLoader.load(centerPaneURL);
             
-            // Load by controller of root borderPane.
-            // We store root in static var. Later we call from menuBar
-            // For change nodes in central pane.
-            loader = new FXMLLoader();
-            InputStream in = Main.class.getResourceAsStream(fxml);
-            loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(Main.class.getResource(fxml));
-            
-            // Charge BorderPane root and assign panes
-            try {
-                root = (BorderPane) loader.load(in);
-            } finally {
-                in.close();
-            }
-            root.setTop(bar);
+            // Load Root container by controller
+            URL rootPaneURL = getClass().getResource("view/main_1.fxml");
+            root = FXMLLoader.load(rootPaneURL);
+            root.setTop(menuBar);
             root.setCenter(centerPane);
-
             
-            // Make root Scene
-            loginScene = new Scene(root, 1024, 768);
-            stage.setScene(loginScene);
-            stage.sizeToScene();
-            stage.setResizable(false);
+            setStage(root, WINDOW_WIDTH, WINDOW_HEIGHT);
             
-            MainController controller = (MainController) loader.getController();
-            controller.setApp(this);
-            // Pass the root controler to bar pane
-            control.setMainController(controller);
-
-        } catch (Exception ex) {
-            //
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * Aux. methods refactor for charge the controler with Main reference
+     * and callback Scene loader
+     * @param fxml
+     * @param loader
+     * @return 
+     */
+    private Region loaderFXML(String fxml, FXMLLoader loader) {
+        Region region = null;
+        InputStream in = null;
+        try {
+            in = Main.class.getResourceAsStream(fxml);
+            loader.setBuilderFactory(new JavaFXBuilderFactory());
+            loader.setLocation(Main.class.getResource(fxml));
+            region = (Region) loader.load(in);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return region;
+    }
+    
+    private void setStage(Region region, double width, double height){
+        Scene scene = new Scene(region, width, height);
+        stage.setScene(scene);
+        //stage.sizeToScene();
+        stage.setWidth(width);
+        stage.setHeight(width);
+    }
 }

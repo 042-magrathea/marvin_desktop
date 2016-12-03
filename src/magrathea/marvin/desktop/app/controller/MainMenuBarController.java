@@ -19,15 +19,15 @@ import magrathea.marvin.desktop.app.Main;
  */
 public class MainMenuBarController implements Initializable {
 
-    MainController main;
+    Main main;
 
-    public void setMainController(MainController main) {
+    public void setMainController(Main main) {
         this.main = main;
     }
     
     public void loginOut(ActionEvent event) {
         //MainController main = Main.getMainController();
-        main.processLogout(event);
+        main.userLogout();
     }
 
     /**
