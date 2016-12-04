@@ -286,10 +286,10 @@ public class UserTest {
      */
     @Test
     public void testGetAds() {
-        System.out.println("getAds");
+        System.out.println("getAdds");
         User instance = new User();
         boolean expResult = false;
-        boolean result = instance.getAds();
+        boolean result = instance.getAdds();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

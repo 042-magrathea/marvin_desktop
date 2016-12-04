@@ -107,6 +107,14 @@ public class MainMenuBarController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Event handler for UserMenu item
+     */
+    @FXML
+    void switchToHost(ActionEvent event) {
+        switchTo("/magrathea/marvin/desktop/host/view/host.fxml");
+    }
 
     /**
      * Event handler for UserMenu item
@@ -115,13 +123,22 @@ public class MainMenuBarController implements Initializable {
     void switchToConfiguration(ActionEvent event) {
     }
 
-    @FXML
-    void switchToHost(ActionEvent event) {
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: Implement
+    }
+    
+    private void switchTo(String fxml){
+        try {
+            URL paneURL = getClass()
+                    .getResource(fxml);
+            AnchorPane pane = FXMLLoader.load(paneURL);
+
+            BorderPane border = LoginService.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

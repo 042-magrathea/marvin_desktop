@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.host.model.Host;
@@ -95,8 +94,8 @@ public class HTTPRequestHostDAO extends HTTPRequestDAO implements HostDAO {
 
             host.setId(jsonobject.get("idTournamentHost").getAsLong());
             host.setName(jsonobject.get("name").getAsString());
-            host.setLatitude(jsonobject.get("latitude").getAsLong());
-            host.setLongitude(jsonobject.get("longitude").getAsLong());
+            host.setLatitude(Float.parseFloat(jsonobject.get("latitude").getAsString()));
+            host.setLongitude(Float.parseFloat(jsonobject.get("longitude").getAsString()));
             host.setPhone(jsonobject.get("phone").getAsString());
             host.setAddress(jsonobject.get("adress").getAsString());
             host.seteMail(jsonobject.get("eMail").getAsString());
@@ -139,7 +138,7 @@ public class HTTPRequestHostDAO extends HTTPRequestDAO implements HostDAO {
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
-            //params.put("user", "LOGIN_USER");               // User has rights?           
+            params.put("requestName", "allValues");               // User has rights?           
             byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)

@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -164,7 +165,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
                 postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
             }
             postDataBytes = postData.toString().getBytes("UTF-8");
-            System.out.println(params.toString());
+            System.out.println(postData.toString());
         } catch (UnsupportedEncodingException ex) {
         }
         return postDataBytes;
@@ -217,7 +218,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     @Override
     public User validateAuthenticator(String login, String password) {
         User loginUser = null;
-        /*try { 
+        try { 
             
             URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS")
                     + "usersQuery.php");
@@ -232,10 +233,10 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
 
             // PARSER
             JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
-            JsonObject jsonobject = jarray.getAsJsonObject();
-            int role = jsonobject.get("idUser").getAsInt();   !DUMMY
-            */
-            int role = 3;
+            JsonObject jsonobject = jarray.get(0).getAsJsonObject();
+            int role = jsonobject.get("loginResult").getAsInt();
+            
+            //int role = 3;
             if (role == 0){
                 // !!! Server says wrong User 
             } else if( role > 0 && role < UserRole.values().length ){
@@ -245,12 +246,12 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             } else {
                 // Unexpected result !!!
             }
-        /*    
+           
         } catch (MalformedURLException ex ) {
             //
         } catch (Exception ex) {
             //
-        }*/
+        }
         return loginUser;
     }
 }
