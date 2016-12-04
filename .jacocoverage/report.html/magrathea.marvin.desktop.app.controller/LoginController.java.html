@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.controller</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app.controller;
+
+import java.awt.Color;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
+
+/**
+ * Login Controller.
+ */
+<span class="nc" id="L20">public class LoginController extends AnchorPane implements Initializable {</span>
+
+    @FXML
+    TextField userId;
+    @FXML
+    PasswordField password;
+    @FXML
+    Button login;
+    @FXML
+    Label errorMessage;
+
+    private LoginService application;
+    //private Main application;
+    
+    
+    public void setApp(LoginService application){
+<span class="nc" id="L36">        this.application = application;</span>
+<span class="nc" id="L37">    }</span>
+    //public void setApp(Main application){
+    //    this.application = application;
+    //}
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+<span class="nc" id="L44">        errorMessage.setText(&quot;&quot;);</span>
+<span class="nc" id="L45">        userId.setPromptText(&quot;demo&quot;);</span>
+<span class="nc" id="L46">        password.setPromptText(&quot;demo&quot;);</span>
+        
+<span class="nc" id="L48">    }</span>
+    
+    
+    public void processLogin(ActionEvent event) {
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (application == null){</span>
+            // We are running in isolated FXML, possibly in Scene Builder.
+            // NO-OP.
+<span class="nc" id="L55">            errorMessage.setText(&quot;Hello &quot; + userId.getText());</span>
+        } else {
+            //if (!application.userLogging(userId.getText(), password.getText())){
+            //    errorMessage.setText(&quot;Username/Password is incorrect&quot;);
+            //}
+<span class="nc" id="L60">            application.gotoProfile();</span>
+        }
+<span class="nc" id="L62">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

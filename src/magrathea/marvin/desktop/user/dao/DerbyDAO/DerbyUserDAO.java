@@ -114,4 +114,10 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
         }
         return EMPTY;
     }
+
+    @Override
+    public User validateAuthenticator(String login, String password) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: Implement
+    }
 }

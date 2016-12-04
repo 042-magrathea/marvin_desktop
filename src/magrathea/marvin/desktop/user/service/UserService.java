@@ -20,18 +20,8 @@ public class UserService {
 
     private final UserDAO userDAO; // DI
 
-    @Deprecated
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
-        try {
-            this.userDAO.connect();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public UserService() {
-        userDAO = (UserDAO) DAOFactory.getInstance().getDAO().getUserDao();
+        userDAO = DAOFactory.getInstance().getDAO().getUserDao();
         try {
             this.userDAO.connect();
         } catch (Exception ex) {
@@ -68,5 +58,9 @@ public class UserService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    
+    public User validateAuthenticator(String login, String password){
+        return userDAO.validateAuthenticator(login, password);
     }
 }

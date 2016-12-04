@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MarvinConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.model</a> &gt; <span class="el_source">MarvinConfig.java</span></div><h1>MarvinConfig.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app.model;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author boscalent
+ */
+// Store app configuration;
+/**
+ * @see:
+ * http://howtodoinjava.com/core-java/io/java-loadreadwrite-properties-file-examples/
+ * @see:http://java-properties-editor.com/index.html
+ * @see: http://plugins.netbeans.org/plugin/63739/multiproperties Properties
+ * editor, Netbeans plugin.
+ * @author boscalent
+ */
+public class MarvinConfig {
+
+<span class="nc" id="L28">    private final String PROPERTIES_PATH</span>
+            = &quot;magrathea/marvin/desktop/app/model/marvin.properties&quot;;
+<span class="nc" id="L30">    private final String DEFAULTS_PROPERTIES_PATH</span>
+            = &quot;magrathea/marvin/desktop/app/model/marvin_defaults.properties&quot;;
+<span class="nc" id="L32">    private Properties properties = null;</span>
+
+    // Singleton
+<span class="nc" id="L35">    private MarvinConfig() {</span>
+        try {
+            // Read properties from file
+<span class="nc" id="L38">            properties = getPropertiesFromFile(PROPERTIES_PATH);</span>
+<span class="nc" id="L39">        } catch (Exception ex) {</span>
+            try {
+<span class="nc" id="L41">                properties = getPropertiesFromFile(DEFAULTS_PROPERTIES_PATH);</span>
+<span class="nc" id="L42">            } catch (IOException e) {</span>
+                // nothing to do
+<span class="nc" id="L44">            }</span>
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">    }</span>
+
+    // Bill Pugh singleton pattern
+<span class="nc" id="L49">    private static class LazyHolder {</span>
+
+<span class="nc" id="L51">        private static final MarvinConfig INSTANCE = new MarvinConfig();</span>
+    }
+
+    public static MarvinConfig getInstance() {
+<span class="nc" id="L55">        return LazyHolder.INSTANCE;</span>
+    }
+
+    public String getProperty(String key) {
+<span class="nc" id="L59">        return properties.getProperty(key);</span>
+    }
+
+    public Set&lt;String&gt; getAllProperyNames() {
+<span class="nc" id="L63">        return properties.stringPropertyNames();</span>
+    }
+
+    public boolean constainsKey(String key) {
+<span class="nc" id="L67">        return properties.contains(key);</span>
+    }
+
+    public void setProperty(String key, String value) {
+<span class="nc" id="L71">        properties.setProperty(key, value);</span>
+<span class="nc" id="L72">    }</span>
+
+    /**
+     * Reload properties with good defaults
+     */
+    public void setDefaultsProperties() {
+        try {
+<span class="nc" id="L79">            storePropertiesInToFile(</span>
+<span class="nc" id="L80">                    getPropertiesFromFile(DEFAULTS_PROPERTIES_PATH), PROPERTIES_PATH);</span>
+<span class="nc" id="L81">        } catch (IOException ex) {</span>
+<span class="nc" id="L82">            Logger.getLogger(MarvinConfig.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L83">        }</span>
+<span class="nc" id="L84">    }</span>
+
+    /**
+     * Aux method to load properties
+     */
+    private Properties getPropertiesFromFile(String path) throws IOException {
+        // Read properties from file
+<span class="nc" id="L91">        Properties props = new Properties();</span>
+<span class="nc" id="L92">        InputStream in</span>
+<span class="nc" id="L93">                = this.getClass().getClassLoader().getResourceAsStream(path);</span>
+<span class="nc" id="L94">        props.load(in);</span>
+<span class="nc" id="L95">        return props;</span>
+    }
+
+    private void storePropertiesInToFile(Properties props, String path) {
+        try {
+            // Store properties in file
+<span class="nc" id="L101">            File f = new File(path);</span>
+<span class="nc" id="L102">            OutputStream out = new FileOutputStream(f);</span>
+<span class="nc" id="L103">            props.store(out, &quot;MARVIN PROPERTIES &quot; + f.getName());</span>
+<span class="nc" id="L104">        } catch (IOException ex) {</span>
+<span class="nc" id="L105">            Logger.getLogger(MarvinConfig.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

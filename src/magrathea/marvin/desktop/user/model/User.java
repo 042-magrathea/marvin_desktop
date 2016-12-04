@@ -24,7 +24,7 @@ public class User {
     //implemented just for user insertion
     private String name, phone, privateDes, publicDes,
             userRole, language, datePassword, memberSince;
-    private boolean ads;
+    private boolean adds;
     
     public User() {
     }
@@ -149,15 +149,15 @@ public class User {
     /**
      * @return the ads
      */
-    public boolean getAds() {
-        return ads;
+    public boolean getAdds() {
+        return adds;
     }
 
     /**
-     * @param ads the ads to set
+     * @param adds the adds to set
      */
-    public void setAds(boolean ads) {
-        this.ads = ads;
+    public void setAds(boolean adds) {
+        this.adds = adds;
     }
 
     /**

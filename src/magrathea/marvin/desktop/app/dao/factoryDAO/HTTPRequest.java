@@ -1,9 +1,11 @@
 package magrathea.marvin.desktop.app.dao.factoryDAO;
 
-import magrathea.marvin.desktop.app.dao.DAO;
 import magrathea.marvin.desktop.host.dao.HTTPRequestHostDAO;
+import magrathea.marvin.desktop.host.dao.HostDAO;
 import magrathea.marvin.desktop.tournament.DAO.HTTPRequest.HTTPRequestTournamentDAO;
+import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
+import magrathea.marvin.desktop.user.dao.UserDAO;
 
 /**
  *
@@ -12,17 +14,17 @@ import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 public class HTTPRequest implements Idao{
 
     @Override
-    public DAO getUserDao() {
+    public UserDAO getUserDao() {
         return new HTTPRequestUserDAO();
     }
 
     @Override
-    public DAO getTournamentDao() {
+    public TournamentDAO getTournamentDao() {
         return new HTTPRequestTournamentDAO();
     }
 
     @Override
-    public DAO getHostDao() {
+    public HostDAO getHostDao() {
         return new HTTPRequestHostDAO();
     }
     

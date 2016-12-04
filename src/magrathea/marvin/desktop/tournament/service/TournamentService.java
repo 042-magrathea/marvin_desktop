@@ -29,7 +29,7 @@ public class TournamentService {
     }
     
     public TournamentService(){
-        this.tournamentDAO = (TournamentDAO) DAOFactory.getInstance().getDAO().getTournamentDao();
+        this.tournamentDAO = DAOFactory.getInstance().getDAO().getTournamentDao();
         try{
             this.tournamentDAO.connect();
         } catch (Exception ex) {

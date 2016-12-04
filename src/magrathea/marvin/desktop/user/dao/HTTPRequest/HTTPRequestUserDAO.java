@@ -17,6 +17,7 @@ import java.util.Map;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserRole;
 import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
 
@@ -41,7 +42,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         values[1] = user.getName();
         values[2] = user.getPhone();
         values[3] = user.getEmail();
-        values[4] = String.valueOf(user.getAds());
+        values[4] = String.valueOf(user.getAdds());
         values[5] = user.getPrivateDes();
         values[6] = user.getPublicDes();
         values[7] = user.getUserRole();
@@ -211,5 +212,45 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             users.add(user);
         }
         return users;
+    }
+
+    @Override
+    public User validateAuthenticator(String login, String password) {
+        User loginUser = null;
+        /*try { 
+            
+            URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS")
+                    + "usersQuery.php");
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("requestName", "userLogin");            
+            params.put("userPublicName", login);                           
+            params.put("userPassword", password);           // TODO: plain text, secure IT!!!!!               
+            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
+            
+            // GET READER FROM CONN (SUPER)
+            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
+
+            // PARSER
+            JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
+            JsonObject jsonobject = jarray.getAsJsonObject();
+            int role = jsonobject.get("idUser").getAsInt();   !DUMMY
+            */
+            int role = 3;
+            if (role == 0){
+                // !!! Server says wrong User 
+            } else if( role > 0 && role < UserRole.values().length ){
+                loginUser = new User();         // TODO: FILL with Query of user
+                loginUser.setNickname(login);
+                loginUser.setUserRole( UserRole.getById(role));
+            } else {
+                // Unexpected result !!!
+            }
+        /*    
+        } catch (MalformedURLException ex ) {
+            //
+        } catch (Exception ex) {
+            //
+        }*/
+        return loginUser;
     }
 }

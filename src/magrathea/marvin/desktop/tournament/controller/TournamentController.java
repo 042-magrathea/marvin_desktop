@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.service.LoginService;
 import magrathea.marvin.desktop.tournament.model.Prize;
 import magrathea.marvin.desktop.tournament.model.Tournament;

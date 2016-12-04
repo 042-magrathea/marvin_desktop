@@ -17,4 +17,6 @@ public interface UserDAO extends DAO {
     
     public List<User> findUsersByProperty(UserSearchType searchType, Object user);
     public List<User> findAll();
+    
+    public User validateAuthenticator(String login, String password);
 }

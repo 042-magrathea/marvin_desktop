@@ -30,33 +30,34 @@ public class TournamentFakeResultController {
     
     // REFACTOR TO SINGLETON
 <span class="nc" id="L32">    public TournamentFakeResultController() {</span>
-<span class="nc" id="L33">        service = new TournamentService( Main.buildDAO(&quot;Tournament&quot;) );</span>
-<span class="nc" id="L34">    }</span>
+        //service = new TournamentService( Main.buildDAO(&quot;Tournament&quot;) );
+<span class="nc" id="L34">        service = new TournamentService();</span>
+<span class="nc" id="L35">    }</span>
     
     public void initialize(){
-<span class="nc" id="L37">    }</span>
+<span class="nc" id="L38">    }</span>
     
     public void setTournament(Tournament tournament){
-<span class="nc" id="L40">        this.tournament = tournament;</span>
+<span class="nc" id="L41">        this.tournament = tournament;</span>
         
         //listFake.getItems().addAll(tournament.getUsers());
-<span class="nc" id="L43">        List&lt;User&gt; users = tournament.getUsers();</span>
-<span class="nc" id="L44">        List&lt;Prize&gt; prizes = tournament.getPrizes();</span>
-<span class="nc" id="L45">        Collections.shuffle(users);     // Random order</span>
-<span class="nc" id="L46">        List&lt;String&gt; fakeResult = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (int i = 0; i &lt; users.size() ; i++ ){</span>
-<span class="nc" id="L48">            fakeResult.add(&quot;#&quot; + (i+1) + &quot; - (&quot; + users.get(i).getId() + &quot;) &quot;</span>
-<span class="nc" id="L49">                    + users.get(i).getNickname());</span>
+<span class="nc" id="L44">        List&lt;User&gt; users = tournament.getUsers();</span>
+<span class="nc" id="L45">        List&lt;Prize&gt; prizes = tournament.getPrizes();</span>
+<span class="nc" id="L46">        Collections.shuffle(users);     // Random order</span>
+<span class="nc" id="L47">        List&lt;String&gt; fakeResult = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        for (int i = 0; i &lt; users.size() ; i++ ){</span>
+<span class="nc" id="L49">            fakeResult.add(&quot;#&quot; + (i+1) + &quot; - (&quot; + users.get(i).getId() + &quot;) &quot;</span>
+<span class="nc" id="L50">                    + users.get(i).getNickname());</span>
         }
         
-<span class="nc" id="L52">        int h = 0;</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        for (int j = prizes.size() -1 ; j &gt;= 0 ; j--){</span>
-<span class="nc" id="L54">            Prize p = prizes.get(j);</span>
-<span class="nc" id="L55">            fakeResult.set(h,fakeResult.get(h) + &quot; - Prize! (&quot; + p.getName() + &quot;)&quot;);</span>
-<span class="nc" id="L56">            h++;</span>
+<span class="nc" id="L53">        int h = 0;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        for (int j = prizes.size() -1 ; j &gt;= 0 ; j--){</span>
+<span class="nc" id="L55">            Prize p = prizes.get(j);</span>
+<span class="nc" id="L56">            fakeResult.set(h,fakeResult.get(h) + &quot; - Prize! (&quot; + p.getName() + &quot;)&quot;);</span>
+<span class="nc" id="L57">            h++;</span>
         }
         
-<span class="nc" id="L59">        listFake.getItems().addAll(fakeResult);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L60">        listFake.getItems().addAll(fakeResult);</span>
+<span class="nc" id="L61">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -4,15 +4,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.service.LoginService;
-import magrathea.marvin.desktop.user.model.User;
 
 /**
  * Profile Controller.
@@ -58,6 +55,7 @@ public class ProfileController extends AnchorPane implements Initializable {
     
     public void setApp(LoginService application){
         this.application = application;
+        user.setText( application.getLoggedUser().getNickname() );
     }
 
     @Override
@@ -75,18 +73,9 @@ public class ProfileController extends AnchorPane implements Initializable {
     }
     
     public void saveProfile(ActionEvent event) {
-        if (application == null){
-            // We are running in isolated FXML, possibly in Scene Builder.
-            // NO-OP.
-            //animateMessage();
-            //return;
-        }
-        //User loggedUser = application.getLoggedUser();
-        //loggedUser.setEmail(email.getText());
-        //loggedUser.setPhone(phone.getText());
-        //loggedUser.setSubscribed(subscribed.isSelected());
-        //loggedUser.setAddress(address.getText());
-        //animateMessage();
+        // TODO: UPDATE USER
+        animateMessage();
+        application.gotoMain();
     }
     
     public void resetProfile(ActionEvent event){

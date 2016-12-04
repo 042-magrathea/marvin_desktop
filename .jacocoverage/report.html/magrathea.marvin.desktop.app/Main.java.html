@@ -1,116 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app;
 
 import java.io.IOException;
-import java.net.URL;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import magrathea.marvin.desktop.app.dao.DAO;
-import magrathea.marvin.desktop.tournament.DAO.HTTPRequest.HTTPRequestTournamentDAO;
-import magrathea.marvin.desktop.user.dao.DerbyDAO.DerbyUserDAO;
-import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
-import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  * Desktop App starting point
+ *
  * @author Iván Cañizares Gómez
  */
-<span class="nc" id="L22">public class Main extends Application {</span>
-    // TODO: move to preferences. Look for external preferences file
-    // Study the possibility of configuration in the installation process.
-    /**
-     * URL point to a folder with php webservices 
-     */     
-    public static final String SERVER = 
-            &quot;http://marvin-server.duckdns.org/&quot;;
-    
-    // TODO: move to Aux. graphic class. Candidate to Singleton.
-    /**
-     * Creating a static root to pass to the controller
-     * this JavaFX pane change for different components
-     * It's guided by the mainMenuApp
-     */
-<span class="nc" id="L37">    private static BorderPane root = new BorderPane();</span>
+<span class="nc" id="L13">public class Main extends Application {</span>
 
-    // TODO: move to Aux. graphic class (with BorderPane root)
-    /**
-     * Just a root getter for use by a controller
-     */     
-    public static BorderPane getRoot() {
-<span class="nc" id="L44">        return root;</span>
-    }
-    
-    // TODO: Refactor code to a concurrent Singleton
-    // Probably needs a Factory and instanced like 
-    // buidDAO.getConcreteDAOImplementation()
-    /**
-     * Generic DAO provider of concrete class implementation
-     * @param &lt;T&gt;
-     * @param type // ENUM of DAO
-     * @return concrete DAO
-     */ 
-    @SuppressWarnings(&quot;unchecked&quot;)
-    public static &lt;T extends DAO&gt; T buildDAO(String type){
-<span class="nc" id="L58">        DAO dao = null;</span>
-        
-<span class="nc bnc" id="L60" title="All 10 branches missed.">        switch(type){</span>
-            case &quot;User&quot;:                                // select one
-                //dao = new DerbyUserDAO();             // Only for User test
-<span class="nc" id="L63">                dao = new HTTPRequestUserDAO();</span>
-<span class="nc" id="L64">                break;</span>
-            case &quot;Tournament&quot;:
-<span class="nc" id="L66">                dao = new HTTPRequestTournamentDAO();</span>
-<span class="nc" id="L67">                break;</span>
-            default:
-<span class="nc" id="L69">                System.err.println(&quot;DAO NOT IMPLEMENTED&quot;);</span>
-        }
-<span class="nc" id="L71">        return (T)dao;</span>
-    }
-
-    // TODO: Make a factory with all resource data
-    // TODO: Extract constants like app size
-    /**
-     * Starting point of the application. Load two FXML resources.
-     * One for the mainMenuBar, another for the first root pane. In this case
-     * main.fxml, the main menu screen
-     * @see desktop screen map for reference
-     * @param primaryStage
-     * @throws IOException
-     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        
-        // Loading FXML resources 
-<span class="nc" id="L88">        URL menuBarUrl = getClass().getResource(&quot;view/mainMenuBar.fxml&quot;);</span>
-<span class="nc" id="L89">        MenuBar bar = FXMLLoader.load(menuBarUrl);</span>
+<span class="nc" id="L17">        LoginService.getInstance().initializeApp(primaryStage);</span>
+<span class="nc" id="L18">    }</span>
 
-<span class="nc" id="L91">        URL centerPaneURL = getClass().getResource(&quot;view/main.fxml&quot;);</span>
-<span class="nc" id="L92">        AnchorPane centerPane = FXMLLoader.load(centerPaneURL);</span>
-
-        // Constructing our scene using the static root
-<span class="nc" id="L95">        root.setTop(bar);</span>
-<span class="nc" id="L96">        root.setCenter(centerPane);</span>
-<span class="nc" id="L97">        Scene scene = new Scene(root, 1024, 768);        // fixed size for prototype</span>
-<span class="nc" id="L98">        scene.getStylesheets()</span>
-<span class="nc" id="L99">                .add(getClass().getResource(&quot;view/marvin.css&quot;)  // not in prototype</span>
-<span class="nc" id="L100">                        .toExternalForm());</span>
-        
-<span class="nc" id="L102">        primaryStage.setScene(scene);</span>
-<span class="nc" id="L103">        primaryStage.setResizable(false);</span>
-<span class="nc" id="L104">        primaryStage.show();</span>
-<span class="nc" id="L105">    }</span>
-    
-    /**
-     * Only for a IDE that can't throw a JavaFX App directly (start), 
-     * Netbeans don't need this
-     * @param args 
-     */
+    // Only for a IDE that can't throw a JavaFX App directly (start), Netbeans don't need this
     public static void main(String[] args) {
-<span class="nc" id="L113">        launch(args);</span>
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L22">        launch(args);</span>
+<span class="nc" id="L23">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

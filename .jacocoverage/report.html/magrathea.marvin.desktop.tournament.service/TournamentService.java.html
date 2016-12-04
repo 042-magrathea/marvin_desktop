@@ -7,6 +7,7 @@ package magrathea.marvin.desktop.tournament.service;
 
 import java.util.List;
 import javafx.fxml.FXMLLoader;
+import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.tournament.model.Tournament;
 
@@ -17,25 +18,35 @@ import magrathea.marvin.desktop.tournament.model.Tournament;
 public class TournamentService {
     private final TournamentDAO tournamentDAO; // DI
     
-<span class="nc" id="L20">    public TournamentService(TournamentDAO tournamentDAO ){</span>
-<span class="nc" id="L21">        this.tournamentDAO = tournamentDAO;</span>
+    @Deprecated
+<span class="nc" id="L22">    public TournamentService(TournamentDAO tournamentDAO ){</span>
+<span class="nc" id="L23">        this.tournamentDAO = tournamentDAO;</span>
         try{
-<span class="nc" id="L23">            this.tournamentDAO.connect();</span>
-<span class="nc" id="L24">        } catch (Exception ex) {</span>
-<span class="nc" id="L25">            ex.printStackTrace();</span>
-<span class="nc" id="L26">        }</span>
-<span class="nc" id="L27">    }</span>
+<span class="nc" id="L25">            this.tournamentDAO.connect();</span>
+<span class="nc" id="L26">        } catch (Exception ex) {</span>
+<span class="nc" id="L27">            ex.printStackTrace();</span>
+<span class="nc" id="L28">        }</span>
+<span class="nc" id="L29">    }</span>
+    
+<span class="nc" id="L31">    public TournamentService(){</span>
+<span class="nc" id="L32">        this.tournamentDAO = (TournamentDAO) DAOFactory.getInstance().getDAO().getTournamentDao();</span>
+        try{
+<span class="nc" id="L34">            this.tournamentDAO.connect();</span>
+<span class="nc" id="L35">        } catch (Exception ex) {</span>
+<span class="nc" id="L36">            ex.printStackTrace();</span>
+<span class="nc" id="L37">        }</span>
+<span class="nc" id="L38">    }</span>
     
     public List&lt;Tournament&gt; getAll(){
-<span class="nc" id="L30">        return tournamentDAO.findAll();</span>
+<span class="nc" id="L41">        return tournamentDAO.findAll();</span>
     }
     
     public void close(){
         try {
-<span class="nc" id="L35">            tournamentDAO.close();</span>
-<span class="nc" id="L36">        } catch (Exception ex) {</span>
-<span class="nc" id="L37">            ex.printStackTrace();</span>
-<span class="nc" id="L38">        }</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L46">            tournamentDAO.close();</span>
+<span class="nc" id="L47">        } catch (Exception ex) {</span>
+<span class="nc" id="L48">            ex.printStackTrace();</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -7,6 +7,7 @@
 package magrathea.marvin.desktop.user.service;
 
 import java.util.List;
+import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
 import magrathea.marvin.desktop.user.dao.UserDAO;
 import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
@@ -16,47 +17,57 @@ import magrathea.marvin.desktop.user.model.User;
  * @author boscalent
  */
 public class UserService {
-    
+
     private final UserDAO userDAO; // DI
-    
-<span class="nc" id="L22">    public UserService( UserDAO userDAO ){</span>
-<span class="nc" id="L23">        this.userDAO = userDAO;</span>
-        try{
-<span class="nc" id="L25">            this.userDAO.connect();</span>
-<span class="nc" id="L26">        } catch (Exception ex) {</span>
-<span class="nc" id="L27">            ex.printStackTrace();</span>
-<span class="nc" id="L28">        }</span>
-<span class="nc" id="L29">    }</span>
-    
-    public void addNewUser(String nickName, String password, 
-            String email, boolean administrator){
-<span class="nc" id="L33">        User user = new User();</span>
-<span class="nc" id="L34">        user.setNickname(nickName);</span>
-<span class="nc" id="L35">        user.setPassword(password);</span>
-<span class="nc" id="L36">        user.setEmail(email);</span>
-<span class="nc" id="L37">        user.setAdministrator(administrator);</span>
-        
-<span class="nc" id="L39">        userDAO.insertUser(user);</span>
-<span class="nc" id="L40">    }</span>
-    
-    public List&lt;User&gt; search(UserSearchType searchType, String value){
-<span class="nc" id="L43">        return userDAO.findUsersByProperty(searchType, value);</span>
-    }
-    
-    public long insertItem(User user) {
-<span class="nc" id="L47">        return userDAO.insertUser(user);</span>
-    }
-    
-    public List&lt;User&gt; getAll(){
-<span class="nc" id="L51">        return userDAO.findAll();</span>
-    }
-    
-    public void close(){
+
+    @Deprecated
+<span class="nc" id="L24">    public UserService(UserDAO userDAO) {</span>
+<span class="nc" id="L25">        this.userDAO = userDAO;</span>
         try {
-<span class="nc" id="L56">            userDAO.close();</span>
-<span class="nc" id="L57">        } catch (Exception ex) {</span>
-<span class="nc" id="L58">            ex.printStackTrace();</span>
-<span class="nc" id="L59">        }</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L27">            this.userDAO.connect();</span>
+<span class="nc" id="L28">        } catch (Exception ex) {</span>
+<span class="nc" id="L29">            ex.printStackTrace();</span>
+<span class="nc" id="L30">        }</span>
+<span class="nc" id="L31">    }</span>
+
+<span class="nc" id="L33">    public UserService() {</span>
+<span class="nc" id="L34">        userDAO = (UserDAO) DAOFactory.getInstance().getDAO().getUserDao();</span>
+        try {
+<span class="nc" id="L36">            this.userDAO.connect();</span>
+<span class="nc" id="L37">        } catch (Exception ex) {</span>
+<span class="nc" id="L38">            ex.printStackTrace();</span>
+<span class="nc" id="L39">        }</span>
+<span class="nc" id="L40">    }</span>
+
+    public void addNewUser(String nickName, String password,
+            String email, boolean administrator) {
+<span class="nc" id="L44">        User user = new User();</span>
+<span class="nc" id="L45">        user.setNickname(nickName);</span>
+<span class="nc" id="L46">        user.setPassword(password);</span>
+<span class="nc" id="L47">        user.setEmail(email);</span>
+<span class="nc" id="L48">        user.setAdministrator(administrator);</span>
+
+<span class="nc" id="L50">        userDAO.insertUser(user);</span>
+<span class="nc" id="L51">    }</span>
+
+    public List&lt;User&gt; search(UserSearchType searchType, String value) {
+<span class="nc" id="L54">        return userDAO.findUsersByProperty(searchType, value);</span>
+    }
+
+    public long insertItem(User user) {
+<span class="nc" id="L58">        return userDAO.insertUser(user);</span>
+    }
+
+    public List&lt;User&gt; getAll() {
+<span class="nc" id="L62">        return userDAO.findAll();</span>
+    }
+
+    public void close() {
+        try {
+<span class="nc" id="L67">            userDAO.close();</span>
+<span class="nc" id="L68">        } catch (Exception ex) {</span>
+<span class="nc" id="L69">            ex.printStackTrace();</span>
+<span class="nc" id="L70">        }</span>
+<span class="nc" id="L71">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

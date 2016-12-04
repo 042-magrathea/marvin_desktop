@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.tournament.DAO.TournamentSearchType;
 import magrathea.marvin.desktop.tournament.model.Prize;
@@ -58,27 +58,28 @@ import magrathea.marvin.desktop.user.model.User;
     public List&lt;Tournament&gt; findAll() {
         try {
             // URL
-<span class="nc" id="L61">            URL url = new URL(Main.SERVER + &quot;tournamentsQuery.php&quot;);</span>
+<span class="nc" id="L61">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+                    + &quot;tournamentsQuery.php&quot;);
 
             // PARAMS POST
-<span class="nc" id="L64">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
-<span class="nc" id="L65">            params.put(&quot;user&quot;, &quot;&quot;);</span>
-<span class="nc" id="L66">            byte[] postDataBytes = putParams(params);</span>
+<span class="nc" id="L65">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L66">            params.put(&quot;user&quot;, &quot;&quot;);</span>
+<span class="nc" id="L67">            byte[] postDataBytes = putParams(params);</span>
 
             // GET READER FROM CONN (Super)
-<span class="nc" id="L69">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+<span class="nc" id="L70">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
 
             // PARSER
-<span class="nc" id="L72">            JsonArray jarray = getArrayFromJson(in, null);</span>
+<span class="nc" id="L73">            JsonArray jarray = getArrayFromJson(in, null);</span>
 
             // MAKE OBJECTS
-<span class="nc" id="L75">            return makeTournamentsFromJson(jarray);</span>
+<span class="nc" id="L76">            return makeTournamentsFromJson(jarray);</span>
 
-<span class="nc" id="L77">        } catch (Exception ex) {</span>
-<span class="nc" id="L78">            ex.printStackTrace();</span>
+<span class="nc" id="L78">        } catch (Exception ex) {</span>
+<span class="nc" id="L79">            ex.printStackTrace();</span>
         }
 
-<span class="nc" id="L81">        return EMPTY;</span>
+<span class="nc" id="L82">        return EMPTY;</span>
     }
     
     // TODO: Refactor the process of make attribute class (Users &amp; Prizes)
@@ -93,45 +94,45 @@ import magrathea.marvin.desktop.user.model.User;
      * @return 
      */
     private List&lt;Tournament&gt; makeTournamentsFromJson(JsonArray jarray) {
-<span class="nc" id="L96">        List&lt;Tournament&gt; tournaments = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L97">        List&lt;Tournament&gt; tournaments = new ArrayList&lt;&gt;();</span>
         Tournament tournament;
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
-<span class="nc" id="L99">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
+<span class="nc" id="L100">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
 
-<span class="nc" id="L101">            tournament = new Tournament();</span>
-<span class="nc" id="L102">            tournament.setId(jsonobject.get(&quot;idTOURNAMENT&quot;).getAsLong());</span>
-<span class="nc" id="L103">            tournament.setName(&quot;Tournament &quot; + i );</span>
+<span class="nc" id="L102">            tournament = new Tournament();</span>
+<span class="nc" id="L103">            tournament.setId(jsonobject.get(&quot;idTOURNAMENT&quot;).getAsLong());</span>
+<span class="nc" id="L104">            tournament.setName(&quot;Tournament &quot; + i );</span>
             
             // PRIZES --&gt; Move to Json Service
-<span class="nc" id="L106">            JsonArray arrayPrize = jsonobject.getAsJsonArray(&quot;prizes&quot;);</span>
-<span class="nc" id="L107">            List&lt;Prize&gt; prizes = new ArrayList&lt;&gt;(arrayPrize.size());</span>
-<span class="nc" id="L108">            Prize prize = null;</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayPrize.size(); j++){</span>
-<span class="nc" id="L110">                JsonObject jsonPrize = arrayPrize.get(j).getAsJsonObject();</span>
-<span class="nc" id="L111">                prize = new Prize();</span>
-<span class="nc" id="L112">                prize.setId(jsonPrize.get(&quot;idPRIZE&quot;).getAsLong());</span>
-<span class="nc" id="L113">                prize.setName(jsonPrize.get(&quot;name&quot;).getAsString());</span>
-<span class="nc" id="L114">                prizes.add(prize);</span>
+<span class="nc" id="L107">            JsonArray arrayPrize = jsonobject.getAsJsonArray(&quot;prizes&quot;);</span>
+<span class="nc" id="L108">            List&lt;Prize&gt; prizes = new ArrayList&lt;&gt;(arrayPrize.size());</span>
+<span class="nc" id="L109">            Prize prize = null;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayPrize.size(); j++){</span>
+<span class="nc" id="L111">                JsonObject jsonPrize = arrayPrize.get(j).getAsJsonObject();</span>
+<span class="nc" id="L112">                prize = new Prize();</span>
+<span class="nc" id="L113">                prize.setId(jsonPrize.get(&quot;idPRIZE&quot;).getAsLong());</span>
+<span class="nc" id="L114">                prize.setName(jsonPrize.get(&quot;name&quot;).getAsString());</span>
+<span class="nc" id="L115">                prizes.add(prize);</span>
                 //int order = jsonPrize.get(&quot;position&quot;).getAsInt();
                 //prizes.add(order, prize);  // !NOT in prototype
             }
-<span class="nc" id="L118">            tournament.setPrizes(prizes);</span>
+<span class="nc" id="L119">            tournament.setPrizes(prizes);</span>
             
             // USERS --&gt; Move to Json Service
-<span class="nc" id="L121">            JsonArray arrayUsers = jsonobject.getAsJsonArray(&quot;users&quot;);</span>
-<span class="nc" id="L122">            List&lt;User&gt; users = new ArrayList&lt;&gt;(arrayUsers.size());</span>
-<span class="nc" id="L123">            User user = null;</span>
-<span class="nc bnc" id="L124" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayUsers.size(); j++){</span>
-<span class="nc" id="L125">                JsonObject jsonUser = arrayUsers.get(j).getAsJsonObject();</span>
-<span class="nc" id="L126">                user = new User();</span>
-<span class="nc" id="L127">                user.setId(jsonUser.get(&quot;idUSER&quot;).getAsLong());</span>
-<span class="nc" id="L128">                user.setNickname(jsonUser.get(&quot;publicName&quot;).getAsString());</span>
-<span class="nc" id="L129">                users.add(user);</span>
+<span class="nc" id="L122">            JsonArray arrayUsers = jsonobject.getAsJsonArray(&quot;users&quot;);</span>
+<span class="nc" id="L123">            List&lt;User&gt; users = new ArrayList&lt;&gt;(arrayUsers.size());</span>
+<span class="nc" id="L124">            User user = null;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayUsers.size(); j++){</span>
+<span class="nc" id="L126">                JsonObject jsonUser = arrayUsers.get(j).getAsJsonObject();</span>
+<span class="nc" id="L127">                user = new User();</span>
+<span class="nc" id="L128">                user.setId(jsonUser.get(&quot;idUSER&quot;).getAsLong());</span>
+<span class="nc" id="L129">                user.setNickname(jsonUser.get(&quot;publicName&quot;).getAsString());</span>
+<span class="nc" id="L130">                users.add(user);</span>
             }
-<span class="nc" id="L131">            tournament.setUsers(users);</span>
-<span class="nc" id="L132">            tournaments.add(tournament);</span>
+<span class="nc" id="L132">            tournament.setUsers(users);</span>
+<span class="nc" id="L133">            tournaments.add(tournament);</span>
         }
-<span class="nc" id="L134">        return tournaments;</span>
+<span class="nc" id="L135">        return tournaments;</span>
     }
 
     // TODO: Move this method to HTTPRequestDAO 
@@ -142,21 +143,21 @@ import magrathea.marvin.desktop.user.model.User;
      * @return 
      */
     private byte[] putParams(Map&lt;String, Object&gt; params) {
-<span class="nc" id="L145">        byte[] postDataBytes = null;</span>
+<span class="nc" id="L146">        byte[] postDataBytes = null;</span>
         try {
-<span class="nc" id="L147">            StringBuilder postData = new StringBuilder();</span>
-<span class="nc bnc" id="L148" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
-<span class="nc bnc" id="L149" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
-<span class="nc" id="L150">                    postData.append('&amp;');</span>
+<span class="nc" id="L148">            StringBuilder postData = new StringBuilder();</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
+<span class="nc" id="L151">                    postData.append('&amp;');</span>
                 }
-<span class="nc" id="L152">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L153">                postData.append('=');</span>
-<span class="nc" id="L154">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L155">            }</span>
-<span class="nc" id="L156">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
-<span class="nc" id="L157">        } catch (UnsupportedEncodingException ex) {</span>
-<span class="nc" id="L158">        }</span>
-<span class="nc" id="L159">        return postDataBytes;</span>
+<span class="nc" id="L153">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L154">                postData.append('=');</span>
+<span class="nc" id="L155">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L156">            }</span>
+<span class="nc" id="L157">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
+<span class="nc" id="L158">        } catch (UnsupportedEncodingException ex) {</span>
+<span class="nc" id="L159">        }</span>
+<span class="nc" id="L160">        return postDataBytes;</span>
     }
 
     /**
@@ -166,15 +167,15 @@ import magrathea.marvin.desktop.user.model.User;
      * @return JsonArray of Objects for the invoker class parser
      */
     private JsonArray getArrayFromJson(Reader in, String node) {
-<span class="nc" id="L169">        JsonArray jarray = null;</span>
-<span class="nc" id="L170">        JsonElement jelement = new JsonParser().parse(in);</span>
-<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (node != null) {</span>
-<span class="nc" id="L172">            JsonObject jobject = jelement.getAsJsonObject();</span>
-<span class="nc" id="L173">            jarray = jobject.getAsJsonArray(node);</span>
-<span class="nc" id="L174">        } else {</span>
-<span class="nc" id="L175">            jarray = jelement.getAsJsonArray();</span>
+<span class="nc" id="L170">        JsonArray jarray = null;</span>
+<span class="nc" id="L171">        JsonElement jelement = new JsonParser().parse(in);</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (node != null) {</span>
+<span class="nc" id="L173">            JsonObject jobject = jelement.getAsJsonObject();</span>
+<span class="nc" id="L174">            jarray = jobject.getAsJsonArray(node);</span>
+<span class="nc" id="L175">        } else {</span>
+<span class="nc" id="L176">            jarray = jelement.getAsJsonArray();</span>
         }
-<span class="nc" id="L177">        return jarray;</span>
+<span class="nc" id="L178">        return jarray;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

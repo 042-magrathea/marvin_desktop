@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package magrathea.marvin.desktop.app.service;
 
 import java.io.IOException;
@@ -23,8 +18,8 @@ import magrathea.marvin.desktop.app.controller.LoginController;
 import magrathea.marvin.desktop.app.controller.MainMenuBarController;
 import magrathea.marvin.desktop.app.controller.ProfileController;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
-import magrathea.marvin.desktop.app.security.Authenticator;
 import magrathea.marvin.desktop.user.model.User;
+import magrathea.marvin.desktop.user.service.UserService;
 
 /**
  *
@@ -36,6 +31,7 @@ public class LoginService {
     private static BorderPane root = new BorderPane();
 
     private Stage stage;
+    private UserService userService = new UserService();
 
     private double MINIMUM_WINDOW_WIDTH;
     private double MINIMUM_WINDOW_HEIGHT;
@@ -48,10 +44,6 @@ public class LoginService {
         fillConfig();
     }
     
-    private void setLoginService(Stage stage){
-        this.stage = stage;
-    }
-
     /**
      * fill from properties
      */
@@ -63,6 +55,7 @@ public class LoginService {
     }
 
     ////////////////////// END CONSTRUCTOR /////////////////////
+    
     ////////////////////// SINGLETON ///////////////////////////
     // Bill Pugh singleton pattern
     private static class LazyHolder {
@@ -110,12 +103,9 @@ public class LoginService {
             MainMenuBarController barController = barLoader.<MainMenuBarController>getController();
             barController.setApp(this);
 
-            // Load Center Pane by fxml we don't need the controller
-            //URL centerPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main.fxml");
-            //AnchorPane centerPane = FXMLLoader.load(centerPaneURL);
+            // Load by FXML
             AnchorPane centerPane = 
                     (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main.fxml", new FXMLLoader());
-            
             
             // Load Root container by controller
             URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_1.fxml");
@@ -174,17 +164,23 @@ public class LoginService {
     }
     
     //////////////// USER stuff
+    
     // User Login
+    private User loggedUser = new User();
+    
     public User getLoggedUser() {
-        //return loggedUser;
-        return null;
+        return loggedUser;
     }
 
     public boolean userLogging(String userId, String password) {
-        if (Authenticator.validate(userId, password)) {
-            //loggedUser = User.of(userId);
-            //loggedUser = Authenticator.getLoginUser();
-            gotoProfile();
+        loggedUser = userService.validateAuthenticator(userId, password);
+        // TODO: User needs fill fields
+        //if ( loggedUser.getAdds() == null ){
+        //    gotoProfile();
+        //}
+        
+        if ( loggedUser != null ) {
+            gotoProfile();      // TODO: Check if user needs to fill fields
             return true;
         } else {
             return false;
@@ -192,7 +188,7 @@ public class LoginService {
     }
 
     public void userLogout() {
-        //loggedUser = null;
+        loggedUser = null;
         gotoLogin();
     }
 }
