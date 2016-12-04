@@ -35,7 +35,7 @@ public class UserController {
     private UserService service = null;
 
     public UserController() {
-        this.service = new UserService( Main.buildDAO("User") );
+        this.service = new UserService( );
     }
 
     @Deprecated

@@ -1,8 +1,0 @@
-/* 
-    TODO: Implement with app style. Select an author.
-*/
-
-.text-field.error {
-    -fx-border-color: red;
-    -fx-border-width: 2px;
-}

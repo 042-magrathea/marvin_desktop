@@ -9,6 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  *
@@ -32,7 +33,7 @@ public class mainMenuBarController {
         try {
             URL paneOneUrl = getClass().getResource("/magrathea/marvin/desktop/app/view/main.fxml");
             AnchorPane paneOne = FXMLLoader.load(paneOneUrl);
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneOne);
 
         } catch (IOException e) {
@@ -49,7 +50,7 @@ public class mainMenuBarController {
             URL paneTwoUrl = getClass().getResource("/magrathea/marvin/desktop/tournament/view/tournament.fxml");
             AnchorPane paneTwo = FXMLLoader.load(paneTwoUrl);
 
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneTwo);
 
         } catch (IOException e) {
@@ -66,7 +67,7 @@ public class mainMenuBarController {
             URL paneThreeUrl = getClass().getResource("/magrathea/marvin/desktop/user/view/user.fxml");
             AnchorPane paneThree = FXMLLoader.load(paneThreeUrl);
 
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneThree);
         } catch (IOException e) {
             e.printStackTrace();

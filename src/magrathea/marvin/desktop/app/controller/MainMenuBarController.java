@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  * @author Iván Cañizares Gómez Load the panes with the FXMLLoader on every use
@@ -19,15 +20,23 @@ import magrathea.marvin.desktop.app.Main;
  */
 public class MainMenuBarController implements Initializable {
 
-    Main main;
-
-    public void setMainController(Main main) {
-        this.main = main;
+    private LoginService application;
+    //private Main application;
+    
+    
+    public void setApp(LoginService application){
+        this.application = application;
     }
+    
+    //Main main;
+
+    //public void setMainController(Main main) {
+    //    this.main = main;
+    //}
     
     public void loginOut(ActionEvent event) {
         //MainController main = Main.getMainController();
-        main.userLogout();
+        application.gotoLogin();
     }
 
     /**
@@ -39,7 +48,7 @@ public class MainMenuBarController implements Initializable {
             URL paneOneUrl = getClass()
                     .getResource("/magrathea/marvin/desktop/app/view/main.fxml");
             AnchorPane paneOne = FXMLLoader.load(paneOneUrl);
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneOne);
 
         } catch (IOException e) {
@@ -57,7 +66,7 @@ public class MainMenuBarController implements Initializable {
                     .getResource("/magrathea/marvin/desktop/tournament/view/tournament.fxml");
             AnchorPane paneTwo = FXMLLoader.load(paneTwoUrl);
 
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneTwo);
 
         } catch (IOException e) {
@@ -75,7 +84,7 @@ public class MainMenuBarController implements Initializable {
                     .getResource("/magrathea/marvin/desktop/user/view/user.fxml");
             AnchorPane paneThree = FXMLLoader.load(paneThreeUrl);
 
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneThree);
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +101,7 @@ public class MainMenuBarController implements Initializable {
                     .getResource("/magrathea/marvin/desktop/user/view/insertUser.fxml");
             AnchorPane paneThree = FXMLLoader.load(paneFourUrl);
 
-            BorderPane border = Main.getRoot();
+            BorderPane border = LoginService.getRoot();
             border.setCenter(paneThree);
         } catch (IOException e) {
             e.printStackTrace();

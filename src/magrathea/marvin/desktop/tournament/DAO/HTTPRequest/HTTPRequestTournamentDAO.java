@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.tournament.DAO.TournamentSearchType;
 import magrathea.marvin.desktop.tournament.model.Prize;
@@ -58,7 +58,8 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
     public List<Tournament> findAll() {
         try {
             // URL
-            URL url = new URL(Main.SERVER + "tournamentsQuery.php");
+            URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
+                    + "tournamentsQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();

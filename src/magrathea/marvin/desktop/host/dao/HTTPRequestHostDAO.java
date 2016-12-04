@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.host.model.Host;
 
 /**
@@ -133,7 +134,8 @@ public class HTTPRequestHostDAO extends HTTPRequestDAO implements HostDAO {
     public List<Host> findAll() {
         try {
             // URL (TODO: fix URL server as Constant)
-            URL url = new URL(Main.SERVER + "hostsQuery.php");
+            URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
+                    + "hostsQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();

@@ -7,6 +7,7 @@ package magrathea.marvin.desktop.tournament.service;
 
 import java.util.List;
 import javafx.fxml.FXMLLoader;
+import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.tournament.model.Tournament;
 
@@ -17,8 +18,18 @@ import magrathea.marvin.desktop.tournament.model.Tournament;
 public class TournamentService {
     private final TournamentDAO tournamentDAO; // DI
     
+    @Deprecated
     public TournamentService(TournamentDAO tournamentDAO ){
         this.tournamentDAO = tournamentDAO;
+        try{
+            this.tournamentDAO.connect();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public TournamentService(){
+        this.tournamentDAO = (TournamentDAO) DAOFactory.getInstance().getDAO().getTournamentDao();
         try{
             this.tournamentDAO.connect();
         } catch (Exception ex) {

@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
@@ -36,6 +37,7 @@ public class ProfileController extends AnchorPane implements Initializable {
     @FXML 
     private Label success;
     
+    /*
     private Main application;
     
     public void setApp(Main application){
@@ -50,6 +52,13 @@ public class ProfileController extends AnchorPane implements Initializable {
         //subscribed.setSelected(loggedUser.isSubscribed());
         //success.setOpacity(0);
     }
+    */
+    private LoginService application;
+    
+    
+    public void setApp(LoginService application){
+        this.application = application;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,22 +71,22 @@ public class ProfileController extends AnchorPane implements Initializable {
             return;
         }
         
-        application.userLogout();
+        application.gotoLogin();
     }
     
     public void saveProfile(ActionEvent event) {
         if (application == null){
             // We are running in isolated FXML, possibly in Scene Builder.
             // NO-OP.
-            animateMessage();
-            return;
+            //animateMessage();
+            //return;
         }
-        User loggedUser = application.getLoggedUser();
-        loggedUser.setEmail(email.getText());
-        loggedUser.setPhone(phone.getText());
+        //User loggedUser = application.getLoggedUser();
+        //loggedUser.setEmail(email.getText());
+        //loggedUser.setPhone(phone.getText());
         //loggedUser.setSubscribed(subscribed.isSelected());
         //loggedUser.setAddress(address.getText());
-        animateMessage();
+        //animateMessage();
     }
     
     public void resetProfile(ActionEvent event){

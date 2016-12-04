@@ -30,7 +30,8 @@ public class TournamentFakeResultController {
     
     // REFACTOR TO SINGLETON
     public TournamentFakeResultController() {
-        service = new TournamentService( Main.buildDAO("Tournament") );
+        //service = new TournamentService( Main.buildDAO("Tournament") );
+        service = new TournamentService();
     }
     
     public void initialize(){

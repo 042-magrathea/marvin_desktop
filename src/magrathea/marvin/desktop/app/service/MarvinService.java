@@ -6,4 +6,4 @@ package magrathea.marvin.desktop.app.service;
  * We need data from UserRequest (SUM), Tournament (FILTER) & others
  * @author ?
  */
-public class MainService {}
+public class MarvinService {}

@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
 import magrathea.marvin.desktop.tournament.model.Prize;
 import magrathea.marvin.desktop.tournament.model.Tournament;
 import magrathea.marvin.desktop.tournament.service.TournamentService;
@@ -38,7 +39,8 @@ public class TournamentController {
     private TournamentService service = null;
 
     public TournamentController() {
-        service = new TournamentService(Main.buildDAO("Tournament"));
+        //service = new TournamentService(Main.buildDAO("Tournament"));
+        service = new TournamentService();
     }
 
     public void initialize() {
@@ -99,7 +101,7 @@ public class TournamentController {
             
             
             
-            Window parentWindows = Main.getRoot().getScene().getWindow();
+            Window parentWindows = LoginService.getRoot().getScene().getWindow();
                         
             Stage dialogStage = new Stage();
             dialogStage.setTitle( "Results of " + tournament.getName() + " tournament");

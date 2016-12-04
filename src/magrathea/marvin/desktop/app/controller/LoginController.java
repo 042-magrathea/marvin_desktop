@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  * Login Controller.
@@ -27,12 +28,16 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     Label errorMessage;
 
-    private Main application;
+    private LoginService application;
+    //private Main application;
     
     
-    public void setApp(Main application){
+    public void setApp(LoginService application){
         this.application = application;
     }
+    //public void setApp(Main application){
+    //    this.application = application;
+    //}
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,9 +54,10 @@ public class LoginController extends AnchorPane implements Initializable {
             // NO-OP.
             errorMessage.setText("Hello " + userId.getText());
         } else {
-            if (!application.userLogging(userId.getText(), password.getText())){
-                errorMessage.setText("Username/Password is incorrect");
-            }
+            //if (!application.userLogging(userId.getText(), password.getText())){
+            //    errorMessage.setText("Username/Password is incorrect");
+            //}
+            application.gotoProfile();
         }
     }
 }

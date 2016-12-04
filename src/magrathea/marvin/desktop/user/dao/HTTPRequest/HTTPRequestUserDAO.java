@@ -11,12 +11,11 @@ import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.user.dao.UserDAO;
 import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
@@ -61,7 +60,8 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         
         try {
             // URL (TODO: fix URL server as Constant)
-            URL url = new URL( Main.SERVER + "usersQuery.php");
+            URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
+                    + "usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
@@ -114,7 +114,8 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     public List<User> findAll() {
         try {
             // URL (TODO: fix URL server as Constant)
-            URL url = new URL( Main.SERVER + "usersQuery.php");
+            URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
+                    + "usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();

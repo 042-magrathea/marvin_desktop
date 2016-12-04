@@ -17,6 +17,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import magrathea.marvin.desktop.app.Main;
+import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  * FXML Controller class
@@ -25,13 +26,13 @@ import magrathea.marvin.desktop.app.Main;
  */
 public class MainController extends BorderPane implements Initializable {
 
-    private Main application;
+    private LoginService application;
 
-    public void setApp(Main application) {
+    public void setApp(LoginService application) {
         this.application = application;
     }
     
-    public Main getApp(){
+    public LoginService getApp(){
         return application;
     }
 
