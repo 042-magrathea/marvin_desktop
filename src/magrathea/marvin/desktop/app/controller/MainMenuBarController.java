@@ -121,6 +121,7 @@ public class MainMenuBarController implements Initializable {
      */
     @FXML
     void switchToConfiguration(ActionEvent event) {
+        switchTo("/magrathea/marvin/desktop/app/view/config.fxml");
     }
 
 
