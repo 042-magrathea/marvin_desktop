@@ -7,7 +7,6 @@ package magrathea.marvin.desktop.app.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

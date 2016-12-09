@@ -164,7 +164,6 @@ public class LoginService {
     }
     
     //////////////// USER stuff
-    
     // User Login
     private User loggedUser = new User();
     

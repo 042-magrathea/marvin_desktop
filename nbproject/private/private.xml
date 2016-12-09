@@ -3,11 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/user/model/User.java</file>
-            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/user/dao/HTTPRequest/HTTPRequestUserDAO.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/user/dao/UserDAO.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/host/dao/HostDAO.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/host/dao/HostSearchType.java</file>
             <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/host/controller/HostController.java</file>
             <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/service/LoginService.java</file>
-            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/host/view/host.fxml</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/host/service/HostService.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/user/service/UserService.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/dao/DAO.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/controller/LoginController.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/dao/factoryDAO/Derby.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/dao/factoryDAO/HTTPRequest.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/user/dao/HTTPRequest/HTTPRequestUserDAO.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/dao/factoryDAO/Idao.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/app/dao/factoryDAO/DAOFactory.java</file>
+            <file>file:/home/boscalent/NetBeansProjects/marvin_desktop3_git/marvin_desktop/src/magrathea/marvin/desktop/host/dao/HTTPRequestHostDAO.java</file>
         </group>
     </open-files>
 </project-private>
