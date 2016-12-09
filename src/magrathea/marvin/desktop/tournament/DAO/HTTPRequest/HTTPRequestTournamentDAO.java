@@ -1,14 +1,10 @@
 package magrathea.marvin.desktop.tournament.DAO.HTTPRequest;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -64,13 +60,13 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("user", "");
-            byte[] postDataBytes = putParams(params);
+            byte[] postDataBytes = helper.putParams(params);
 
             // GET READER FROM CONN (Super)
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
 
             // PARSER
-            JsonArray jarray = getArrayFromJson(in, null);
+            JsonArray jarray = helper.getArrayFromJson(in, null);
 
             // MAKE OBJECTS
             return makeTournamentsFromJson(jarray);
@@ -133,48 +129,5 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
             tournaments.add(tournament);
         }
         return tournaments;
-    }
-
-    // TODO: Move this method to HTTPRequestDAO 
-    // is generic for all query with POST parameters.
-    /**
-     * Binay UTF-8 encode for POST params stuff
-     * @param params
-     * @return 
-     */
-    private byte[] putParams(Map<String, Object> params) {
-        byte[] postDataBytes = null;
-        try {
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) {
-                    postData.append('&');
-                }
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            postDataBytes = postData.toString().getBytes("UTF-8");
-        } catch (UnsupportedEncodingException ex) {
-        }
-        return postDataBytes;
-    }
-
-    /**
-     * First parse on JsonData to JsonArray
-     * @param in
-     * @param node if the data contain a root object
-     * @return JsonArray of Objects for the invoker class parser
-     */
-    private JsonArray getArrayFromJson(Reader in, String node) {
-        JsonArray jarray = null;
-        JsonElement jelement = new JsonParser().parse(in);
-        if (node != null) {
-            JsonObject jobject = jelement.getAsJsonObject();
-            jarray = jobject.getAsJsonArray(node);
-        } else {
-            jarray = jelement.getAsJsonArray();
-        }
-        return jarray;
     }
 }

@@ -15,6 +15,11 @@ import magrathea.marvin.desktop.app.dao.DAO;
 public class HTTPRequestDAO implements DAO {
 
     protected HttpURLConnection con;
+    protected HTTPRequestDAOHelper helper;
+
+    public HTTPRequestDAO() {
+        helper = HTTPRequestDAOHelper.getInstance();
+    }        
     
     @Override
     public void setup() throws Exception { /* No populated DB from here */ }

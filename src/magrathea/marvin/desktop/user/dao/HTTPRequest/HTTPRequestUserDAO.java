@@ -2,15 +2,11 @@ package magrathea.marvin.desktop.user.dao.HTTPRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -61,7 +57,6 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         System.out.println(valuesJson);
         
         try {
-            // URL (TODO: fix URL server as Constant)
             URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
                     + "usersQuery.php");
 
@@ -73,13 +68,13 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             params.put("values", valuesJson);
             params.put("fields", fieldsJson);
                            
-            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
+            byte[] postDataBytes = helper.putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
 
             // PARSER
-            JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
+            JsonArray jarray = helper.getArrayFromJson(in, null); // "users" Only Json Objects
 
             JsonObject jObject = jarray.get(0).getAsJsonObject();
             // MAKE OBJECTS
@@ -115,20 +110,19 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     @Override
     public List<User> findAll() {
         try {
-            // URL (TODO: fix URL server as Constant)
             URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
                     + "usersQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("user", "LOGIN_USER");               // User has rights?           
-            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
+            byte[] postDataBytes = helper.putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
 
             // PARSER
-            JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
+            JsonArray jarray = helper.getArrayFromJson(in, null); // "users" Only Json Objects
 
             // MAKE OBJECTS
             return makeUsersFromJson(jarray);
@@ -144,51 +138,6 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
     public boolean userExist(String userPublicName, String userEmail) {
         throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Construeix el missatge POST per enviar al servidor PHP
-     *
-     * @param params paràmetres del webservice
-     * @return un byte[] amb els paràmetres
-     */
-    private byte[] putParams(Map<String, Object> params) {
-        byte[] postDataBytes = null;
-        try {
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) {
-                    postData.append('&');
-                }
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            postDataBytes = postData.toString().getBytes("UTF-8");
-            System.out.println(postData.toString());
-        } catch (UnsupportedEncodingException ex) {
-        }
-        return postDataBytes;
-    }
-
-    /**
-     * Processa el JSON i retorna un array JSON per construïr els objectes
-     *
-     * @param in Reader que retorna la connexió
-     * @param node Nom del objectes JSON o null si es un array
-     * @return un array d'objectes Json.
-     */
-    private JsonArray getArrayFromJson(Reader in, String node) {
-        JsonArray jarray = null;
-        
-        JsonElement jelement = new JsonParser().parse(in);
-        if ( node != null){
-            JsonObject jobject = jelement.getAsJsonObject();
-            jarray = jobject.getAsJsonArray(node);
-        } else {
-            jarray = jelement.getAsJsonArray();
-        }
-        return jarray;
     }
 
     /**
@@ -226,13 +175,13 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             params.put("requestName", "userLogin");            
             params.put("userPublicName", login);                           
             params.put("userPassword", password);           // TODO: plain text, secure IT!!!!!               
-            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST
+            byte[] postDataBytes = helper.putParams(params);       // Mètode aux. make POST
             
             // GET READER FROM CONN (SUPER)
             Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
 
             // PARSER
-            JsonArray jarray = getArrayFromJson(in, null); // "users" Only Json Objects
+            JsonArray jarray = helper.getArrayFromJson(in, null); // "users" Only Json Objects
             JsonObject jsonobject = jarray.get(0).getAsJsonObject();
             int role = jsonobject.get("loginResult").getAsInt();
             
