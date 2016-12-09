@@ -99,6 +99,6 @@
     </HBox>
   </children>
   <stylesheets>
-    <URL value="@marvin.css" />
+    <URL value="@css/marvin.css" />
   </stylesheets>
 </AnchorPane>
