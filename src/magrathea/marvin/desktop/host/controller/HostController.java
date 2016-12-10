@@ -9,16 +9,21 @@ import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import magrathea.marvin.desktop.host.model.Host;
 import magrathea.marvin.desktop.host.service.HostService;
 
@@ -36,47 +41,34 @@ public class HostController implements Initializable, MapComponentInitializedLis
     @FXML
     private TableView<Host> hostTable;
     @FXML
-    private TableColumn<Host, String> hostId;
-    @FXML
-    private TableColumn<Host, String> hostName;
-    @FXML
-    private TableColumn<Host, String> hostPhone;
+    private TableColumn<Host, String> hostId, hostName, hostPhone;
 
     @FXML
-    private TextField hostNameField;
-    @FXML
-    private TextField hostPhoneField;
-    @FXML
-    private TextField hostAddressField;
-    @FXML
-    private TextField hostEmailField;
-    @FXML
-    private TextField hostLatitudeField;
-    @FXML
-    private TextField hostLongitudeField;
-    @FXML
-    private TextField hostPublicMemoField;
-    @FXML
-    private TextField hostPrivateMemoField;
+    private TextField hostNameField, hostPhoneField, hostAddressField, hostEmailField,
+            hostLatitudeField, hostLongitudeField, hostPublicMemoField, hostPrivateMemoField;
 
+    @FXML
+    private GridPane form;
+
+    @FXML
+    private Button cancel, OK;
+
+    private Host host;
     private HostService service = null;
-    private TextField[] hostTextFields = new TextField[8];
+    private List<TextField> hostTextFields;
     private GoogleMap map;
     private MarkerOptions markerOptions;
     private Marker marker;
-    private InfoWindowOptions infoWindows;
-    private InfoWindow hostInfoWindow;
+
+    private enum STATE {
+        READ, NEW, EDIT, DELETE
+    }
+    STATE state;
+    //private InfoWindowOptions infoWindows;
+    //private InfoWindow hostInfoWindow;
 
     public HostController() {
         this.service = new HostService();
-        hostTextFields[0] = hostNameField;
-        hostTextFields[1] = hostPhoneField;
-        hostTextFields[2] = hostAddressField;
-        hostTextFields[3] = hostEmailField;
-        hostTextFields[4] = hostLatitudeField;
-        hostTextFields[5] = hostLongitudeField;
-        hostTextFields[5] = hostPublicMemoField;
-        hostTextFields[5] = hostPrivateMemoField;
     }
 
     /**
@@ -84,6 +76,15 @@ public class HostController implements Initializable, MapComponentInitializedLis
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        hostTextFields = new ArrayList<>();
+        host = null;
+        // Add all instances of TextFiels in a List for iterate later
+        for (Node node : form.getChildren()) {
+            if (node instanceof TextField) {
+                hostTextFields.add((TextField) node);
+            }
+        }
+
         // COLUMNS
         hostId.setCellValueFactory(new PropertyValueFactory<>("id"));
         hostName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -97,17 +98,16 @@ public class HostController implements Initializable, MapComponentInitializedLis
 
         hostTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    fillReadValues(newValue);
+                    host = newValue;
+                    fillReadValues();
                 });
 
         loadMap();
     }
 
-    public void fillReadValues(Host host) {
-        // Prepare fields
-        //for (TextField tf : hostTextFields){
-        //    tf.editableProperty().set(false);
-        //}
+    public void fillReadValues() {
+        state = STATE.READ;
+        
         hostNameField.setText(host.getName());
         hostPhoneField.setText(host.getPhone());
         hostAddressField.setText(host.getAddress());
@@ -120,6 +120,16 @@ public class HostController implements Initializable, MapComponentInitializedLis
         mapView.setCenter(host.getLatitude(), host.getLongitude());
         addMarkerToMap(host);
 
+        setInterface();
+    }
+
+    public void newHost() {
+        // Do stuff
+        Host newHost = new Host();
+
+        // Set Interface to READ:VIEW
+        state = STATE.NEW;
+        setInterface();
     }
 
     private void loadMap() {
@@ -145,14 +155,15 @@ public class HostController implements Initializable, MapComponentInitializedLis
                 .zoom(15);
 
         map = mapView.createMap(mapOptions);
-        
+
         // Wait to map initialize for change to first loc
         hostTable.getSelectionModel().selectFirst();
     }
 
     /**
      * Show a marker for the host
-     * @param host 
+     *
+     * @param host
      */
     public void addMarkerToMap(Host host) {
         //Add a marker to the map
@@ -165,12 +176,38 @@ public class HostController implements Initializable, MapComponentInitializedLis
         marker = new Marker(markerOptions);
 
         map.addMarker(marker);
-        
+
         /* // Need big height
         infoWindows = new InfoWindowOptions();
         infoWindows.content(host.getName());
         hostInfoWindow = new InfoWindow(infoWindows);
         hostInfoWindow.open(map, marker);
-        */
+         */
+    }
+
+    // TODO: Same with events from cancel/OK button for every state
+    private void setInterface() {
+        switch (state) {
+            case READ:
+                // Set Interface to READ:VIEW
+                for (TextField tf : hostTextFields) {
+                    tf.setEditable(false);
+                    tf.setMouseTransparent(true);
+                    tf.setFocusTraversable(false);
+                }
+                cancel.setVisible(false);
+                OK.setVisible(false);
+                break;
+            case NEW:
+                for (TextField tf : hostTextFields) {
+                    tf.setText("");
+                    tf.setEditable(true);
+                    tf.setMouseTransparent(false);
+                    tf.setFocusTraversable(true);
+                }
+                cancel.setVisible(true);
+                OK.setVisible(true);
+                break;
+        }
     }
 }

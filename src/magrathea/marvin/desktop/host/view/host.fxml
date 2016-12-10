@@ -16,8 +16,9 @@
 <?import javafx.scene.text.Font?>
 <?import com.lynden.gmapsfx.*?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" 
+            stylesheets="@/magrathea/marvin/desktop/app/view/css/marvin.css" 
+            xmlns="http://javafx.com/javafx/8.0.65" 
             fx:controller="magrathea.marvin.desktop.host.controller.HostController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="600.0">
@@ -40,7 +41,7 @@
             <Separator prefWidth="200.0" />
             <HBox prefHeight="28.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Button minWidth="70.0" mnemonicParsing="false" text="New" />
+                  <Button minWidth="70.0" onAction="#newHost" mnemonicParsing="false" text="New" />
                   <Button minWidth="70.0" mnemonicParsing="false" text="Edit" />
                   <Button minWidth="70.0" mnemonicParsing="false" text="Delete" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="10.0" />
@@ -53,11 +54,11 @@
             </HBox>
             <Separator prefWidth="20.0" />
                         
-            <GoogleMapView fx:id="mapView" prefHeight="200"/>
+            <GoogleMapView fx:id="mapView" prefHeight="200" />
             
             <Separator prefWidth="20.0" />
             
-            <GridPane prefHeight="314.0" prefWidth="600.0">
+            <GridPane prefHeight="314.0" prefWidth="600.0" fx:id="form" >
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="130.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="522.0" minWidth="10.0" prefWidth="470.0" />
@@ -97,8 +98,8 @@
             <Separator prefWidth="200.0" />
             <HBox alignment="TOP_RIGHT" spacing="10.0">
                <children>
-                  <Button minWidth="70.0" mnemonicParsing="false" text="Cancel" />
-                  <Button minWidth="70.0" mnemonicParsing="false" text="OK" />
+                  <Button fx:id="cancel" minWidth="70.0" onAction="#fillReadValues"  mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="OK" minWidth="70.0" mnemonicParsing="false" text="OK" />
                </children>
             </HBox>
          </children>

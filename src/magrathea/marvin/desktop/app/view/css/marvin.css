@@ -6,3 +6,7 @@
     -fx-border-color: red;
     -fx-border-width: 2px;
 }
+
+.text-input:readonly {
+    -fx-background-color: transparent;
+}
