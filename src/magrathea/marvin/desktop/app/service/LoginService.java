@@ -90,7 +90,9 @@ public class LoginService {
     public void gotoProfile() {
         FXMLLoader loader = new FXMLLoader();
         AnchorPane pane = (AnchorPane) loaderFXML("view/profile.fxml", loader);
-        setStage(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        // setStage(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        stage.setTitle(getLoggedUser().getNickname() + " profile" );
+        setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
         ProfileController profile = loader.getController();
         profile.setApp(this);
     }

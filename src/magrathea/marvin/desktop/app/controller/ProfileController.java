@@ -8,58 +8,40 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  * Profile Controller.
  */
 public class ProfileController extends AnchorPane implements Initializable {
-
     @FXML
-    private TextField user;
+    private AnchorPane anchorPane;
+    
     @FXML
-    private TextField phone;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextArea address;
+    private WebView eula;
+    
     @FXML
     private CheckBox subscribed;
     @FXML
-    private Hyperlink logout;
-    @FXML 
-    private Button save;
+    private Button logout, save;
     
     @FXML 
     private Label success;
-    
-    /*
-    private Main application;
-    
-    public void setApp(Main application){
-        this.application = application;
-        User loggedUser = application.getLoggedUser();
-        //user.setText(loggedUser.getId());
-        email.setText(loggedUser.getEmail());
-        phone.setText(loggedUser.getPhone());
-        //if (loggedUser.getAddress() != null) {
-        //    address.setText(loggedUser.getAddress());
-        //}
-        //subscribed.setSelected(loggedUser.isSubscribed());
-        //success.setOpacity(0);
-    }
-    */
     private LoginService application;
-    
+    private static final MarvinConfig PROPS = MarvinConfig.getInstance();
     
     public void setApp(LoginService application){
         this.application = application;
-        user.setText( application.getLoggedUser().getNickname() );
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        displayWeb();
     }
     
     public void processLogout(ActionEvent event) {
@@ -82,10 +64,7 @@ public class ProfileController extends AnchorPane implements Initializable {
         if (application == null){
             return;
         }
-        email.setText("");
-        phone.setText("");
         subscribed.setSelected(false);
-        address.setText("");
         success.setOpacity(0.0);
         
     }
@@ -99,5 +78,16 @@ public class ProfileController extends AnchorPane implements Initializable {
     
     public void gotoMain(){
         application.gotoMain();
-    } 
+    }
+    
+    
+    public void displayWeb() {
+        eula.setFontScale(0.66);
+        WebEngine engine = eula.getEngine();
+        final String html = "/magrathea/marvin/desktop/app/view/tos/EULA-" 
+                + PROPS.getProperty("LANG") + ".html";                                        //arxiu HTML a mostrar
+        
+        URL urlFormHtml = getClass().getResource(html);
+        engine.load(urlFormHtml.toExternalForm());
+    }
 }

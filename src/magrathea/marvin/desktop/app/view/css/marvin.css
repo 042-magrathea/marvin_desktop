@@ -10,3 +10,11 @@
 .text-input:readonly {
     -fx-background-color: transparent;
 }
+.text-area:readonly  {
+    -fx-background-color: transparent;
+}
+
+.profileTitle{
+    font-weight: bold;
+    font-size: 24px;
+}
