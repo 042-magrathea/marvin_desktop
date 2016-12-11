@@ -12,9 +12,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -135,6 +139,14 @@ public class GameController implements Initializable {
         state = STATE.NEW;
         setInterface();
     }
+    
+    private void saveNewGame(){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Save Game");
+        alert.setHeaderText("Do stuff for save the game");
+        alert.setContentText("Find a way for save the image of the game");
+        alert.showAndWait();
+    }
 
     // TODO: Same with events from cancel/OK button for every state
     private void setInterface() {
@@ -161,6 +173,8 @@ public class GameController implements Initializable {
                 gameImageField.setText("");         // ¿?
                 gameImageView.setImage(image);
                 cancel.setVisible(true);
+                OK.setText("Save");
+                OK.setOnAction((ActionEvent e) -> {saveNewGame();});    // lamfda exp (equals inner class)
                 OK.setVisible(true);
                 loadImageButton.setDisable(false);
                 break;
