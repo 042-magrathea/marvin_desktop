@@ -109,7 +109,7 @@ public class MainMenuBarController implements Initializable {
     }
     
     /**
-     * Event handler for UserMenu item
+     * Event handler for HostMenu item
      */
     @FXML
     void switchToHost(ActionEvent event) {
@@ -117,11 +117,19 @@ public class MainMenuBarController implements Initializable {
     }
 
     /**
-     * Event handler for UserMenu item
+     * Event handler for ConfigurationMenu item
      */
     @FXML
     void switchToConfiguration(ActionEvent event) {
         switchTo("/magrathea/marvin/desktop/app/view/config.fxml");
+    }
+    
+    /**
+    * Event handler for GameMenu item
+    */
+    @FXML
+    void switchToGame(ActionEvent event){
+        switchTo("/magrathea/marvin/desktop/game/view/game.fxml");
     }
 
 

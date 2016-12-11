@@ -38,6 +38,18 @@
         <MenuItem fx:id="insertUser" mnemonicParsing="false" onAction="#switchToInsertUser" text="Insert new User" />
       </items>
     </Menu>
+    
+    
+    <Menu mnemonicParsing="false" text="Game">
+      <items>
+        <MenuItem fx:id="displayGame" 
+                  mnemonicParsing="false" 
+                  onAction="#switchToGame" 
+                  text="View Game" />
+      </items>
+    </Menu>
+    
+    
     <Menu mnemonicParsing="false" text="Config">
       <items>
         <MenuItem fx:id="Configuration" mnemonicParsing="false" onAction="#switchToConfiguration" text="Configuration" />

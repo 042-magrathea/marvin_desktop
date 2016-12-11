@@ -5,9 +5,10 @@
  */
 package magrathea.marvin.desktop.app.dao.factoryDAO;
 
-import magrathea.marvin.desktop.host.dao.HostDAO;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.game.dao.GameDAO;
+import magrathea.marvin.desktop.host.dao.HostDAO;
 
 /**
  *
@@ -17,4 +18,6 @@ public interface Idao {
     UserDAO getUserDao();
     TournamentDAO getTournamentDao();
     HostDAO getHostDao();
+    GameDAO getGameDAO();
+    //PrizeDAO getPrizeDAO();
 }
