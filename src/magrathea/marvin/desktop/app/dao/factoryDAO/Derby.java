@@ -7,6 +7,7 @@ package magrathea.marvin.desktop.app.dao.factoryDAO;
 
 import magrathea.marvin.desktop.game.dao.GameDAO;
 import magrathea.marvin.desktop.host.dao.HostDAO;
+import magrathea.marvin.desktop.prize.dao.PrizeDAO;
 import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
 
@@ -36,6 +37,12 @@ public class Derby implements Idao {
 
     @Override
     public GameDAO getGameDAO() {
+        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: Implement
+    }
+
+    @Override
+    public PrizeDAO getPrizeDAO() {
         throw new UnsupportedOperationException("Not supported yet.");
         // TODO: Implement
     }
