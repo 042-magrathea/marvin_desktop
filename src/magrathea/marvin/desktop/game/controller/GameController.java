@@ -7,24 +7,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +23,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javax.imageio.ImageIO;
 import magrathea.marvin.desktop.game.model.Game;
 import magrathea.marvin.desktop.game.service.GameService;
 import net.coobird.thumbnailator.Thumbnails;
@@ -89,6 +79,7 @@ public class GameController implements Initializable {
         gameTextFields = new ArrayList<>();
         game = null;
         image = new Image("/magrathea/marvin/desktop/game/view/notGameImage.png");
+        
         // Add all instances of TextInputControl in a List for iterate later
         for (Node node : form.getChildren()) {
             if (node instanceof TextField) {
@@ -97,6 +88,7 @@ public class GameController implements Initializable {
                 gameTextFields.add((TextArea) node);
             }
         }
+        gameTextFields.add(gameImageField);
 
         // COLUMNS
         gameId.setCellValueFactory(new PropertyValueFactory<>("idGame"));

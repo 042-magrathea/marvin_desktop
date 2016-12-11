@@ -181,7 +181,7 @@ public class LoginService {
         //}
         
         if ( loggedUser != null ) {
-            gotoProfile();      // TODO: Check if user needs to fill fields
+            //gotoProfile();      // TODO: Check if user needs to fill fields
             return true;
         } else {
             return false;

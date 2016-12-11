@@ -20,11 +20,11 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     TextField userId;
     @FXML
-    PasswordField password;
+    PasswordField password, confirmPassword;
     @FXML
     Button login;
     @FXML
-    Label errorMessage;
+    Label errorMessage, confirmPwdLabel;
 
     private LoginService loginService;
     //private Main application;
@@ -50,9 +50,23 @@ public class LoginController extends AnchorPane implements Initializable {
             if ( !loginService.userLogging( userId.getText(), password.getText() )){
                 errorMessage.setText("Username/Password is incorrect");
             } else {
-                loginService.gotoProfile();
+                if ( password.getText().equals("temporal")){    // ¿?
+                    showInputPwd();
+                } else {
+                    loginService.gotoProfile();
+                }
+                
             }
             
         }
+    }
+    
+    private void showInputPwd(){
+        errorMessage.setText("Welcome " + userId.getText() + ", insert a new password");
+        userId.setDisable(true);
+        password.setText("");
+        confirmPwdLabel.setVisible(true);
+        confirmPassword.setVisible(true);
+        login.setText("Save Password");
     }
 }

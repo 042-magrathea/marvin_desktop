@@ -17,11 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameAnchorPane" 
-            stylesheets="@/magrathea/marvin/desktop/app/view/css/marvin.css" 
-            xmlns="http://javafx.com/javafx/8.0.65" 
-            xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="magrathea.marvin.desktop.game.controller.GameController">
+<AnchorPane fx:id="gameAnchorPane" stylesheets="@/magrathea/marvin/desktop/app/view/css/marvin.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.game.controller.GameController">
    <children>
       <VBox>
          <children>
@@ -104,9 +100,18 @@
                             <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Name*" />
-                              <Label alignment="TOP_LEFT" text="Description" GridPane.rowIndex="1" />
-                              <Label text="Image" GridPane.rowIndex="2" />
+                              <Label text="Name*">
+                                 <GridPane.margin>
+                                    <Insets top="3.0" />
+                                 </GridPane.margin></Label>
+                              <Label alignment="TOP_LEFT" text="Description" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets top="3.0" />
+                                 </GridPane.margin></Label>
+                              <Label text="Image" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets top="3.0" />
+                                 </GridPane.margin></Label>
                               <TextField fx:id="gameNameField" GridPane.columnIndex="1" />
                               <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
@@ -143,8 +148,6 @@
                   </Separator>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        
-                        <Separator prefWidth="20.0" />
                         <ImageView fx:id="gameImageView" fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
