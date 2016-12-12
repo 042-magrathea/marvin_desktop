@@ -9,12 +9,12 @@ import java.util.Locale;
  * @author boscalent
  */
 public class PrizeDiscount extends Prize {
-    private static Disccount disccount;
-    private Date dateEnd;
+    private static Disccount dsc;
+    private Date expirationDate;
     
     public PrizeDiscount(){
         // defaults
-        disccount = Disccount.A;
-        dateEnd = Calendar.getInstance(Locale.GERMAN).getTime();
+        dsc = Disccount.A;
+        expirationDate = Calendar.getInstance(Locale.GERMAN).getTime();
     }
 }

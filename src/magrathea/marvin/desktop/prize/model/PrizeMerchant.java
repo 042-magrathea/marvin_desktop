@@ -5,17 +5,17 @@
  */
 package magrathea.marvin.desktop.prize.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
  * @author boscalent
  */
 public class PrizeMerchant extends Prize {
-    // If delivered is false, datePick is for user notification.
-    // If delivered is true, datePick is the date of delivery.
-    private Date datePick;
-    private boolean delivered;
+    // If claimed_B is false, datePick is for user notification.
+    // If claimed_B is true, datePick is the date of delivery.
+    private Date receptionDate;
+    private boolean claimed_B;
     
     public PrizeMerchant(){
         

@@ -3,17 +3,28 @@ package magrathea.marvin.desktop.prize.model;
 import java.net.URL;
 import java.sql.Date;
 import java.util.Objects;
+import magrathea.marvin.desktop.tournament.model.Tournament;
+import magrathea.marvin.desktop.user.model.User;
 
 /**
  *
  * @author boscalent
  */
 public class Prize {
+    
     private long idPrize;
     private String name;
     private String description;
     private String image;
     
+    // FK - Tournament
+    private long tournamentId;
+    private int position;
+    
+    // FK - User
+    private long userId;
+    private boolean claimed_A; //?
+
     public Prize() {
     }
 
@@ -42,16 +53,14 @@ public class Prize {
         return true;
     }
 
-        
     // TO STRING
     @Override
     public String toString() {
-        return "Prize{" + "idPrize=" + idPrize 
-                + ", name=" + name 
-                + ", description=" + description 
+        return "Prize{" + "idPrize=" + idPrize
+                + ", name=" + name
+                + ", description=" + description
                 + ", image=" + image + '}';
     }
-
 
     // GETTER & SETTER
     public long getIdPrize() {
