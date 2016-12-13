@@ -12,10 +12,10 @@ package magrathea.marvin.desktop.user.dao;
 public enum UserRole {
     wrong, user, editor, administrator;
     
-    public static String getById(int id){
+    public static UserRole getById(int id){
         for (UserRole userRole : UserRole.values()){
             if ( userRole.ordinal() == id ){
-                return userRole.toString();
+                return userRole;
             }
         }
         return null;

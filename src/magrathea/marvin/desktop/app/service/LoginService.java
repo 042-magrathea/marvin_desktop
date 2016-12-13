@@ -107,6 +107,8 @@ public class LoginService {
 
             // Load by FXML
             AnchorPane centerPane = 
+                    (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/ribbonBar.fxml", new FXMLLoader());
+            AnchorPane bottomPane = 
                     (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main.fxml", new FXMLLoader());
             
             // Load Root container by controller
@@ -114,6 +116,7 @@ public class LoginService {
             root = FXMLLoader.load(rootPaneURL);
             root.setTop(menuBar);
             root.setCenter(centerPane);
+            root.setBottom(bottomPane);
 
             setStage(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 

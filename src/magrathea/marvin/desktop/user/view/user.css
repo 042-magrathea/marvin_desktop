@@ -1,0 +1,45 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+
+/*#selectors {
+    -fx-background-color: #DFB951;
+}*/
+
+#searchField {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+    -fx-border: none;
+}
+
+#newUserButton,
+#editUserButton,
+#deleteUserButton,
+#resetPassButton{
+    -fx-padding: 0;
+    -fx-background-color: none;
+}
+/*#nicknameField:readonly {
+    -fx-background-color: transparent;
+}
+.text-area:readonly  {
+    -fx-background-color: transparent;
+}*/
+
+/*#pane {
+    -fw-border-width: 1;
+    -fx-border-color: red;
+}*/
+
+/*#inputFields,
+#extraFields
+{
+    
+   -fx-background-color: red;
+}*/

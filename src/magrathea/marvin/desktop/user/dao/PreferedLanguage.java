@@ -10,5 +10,5 @@ package magrathea.marvin.desktop.user.dao;
  * @author boscalent
  */
 public enum PreferedLanguage {
-    Català, English, Español;
+    catalan, english, spanish;
 }

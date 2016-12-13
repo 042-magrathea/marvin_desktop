@@ -49,7 +49,7 @@ public class MainMenuBarController implements Initializable {
                     .getResource("/magrathea/marvin/desktop/app/view/main.fxml");
             AnchorPane paneOne = FXMLLoader.load(paneOneUrl);
             BorderPane border = LoginService.getRoot();
-            border.setCenter(paneOne);
+            border.setBottom(paneOne);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane paneTwo = FXMLLoader.load(paneTwoUrl);
 
             BorderPane border = LoginService.getRoot();
-            border.setCenter(paneTwo);
+            border.setBottom(paneTwo);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane paneThree = FXMLLoader.load(paneThreeUrl);
 
             BorderPane border = LoginService.getRoot();
-            border.setCenter(paneThree);
+            border.setBottom(paneThree);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,18 +98,18 @@ public class MainMenuBarController implements Initializable {
     void switchToInsertUser(ActionEvent event) {
         try {
             URL paneFourUrl = getClass()
-                    .getResource("/magrathea/marvin/desktop/user/view/insertUser.fxml");
+                    .getResource("/magrathea/marvin/desktop/user/view/user_very_old.fxml");
             AnchorPane paneThree = FXMLLoader.load(paneFourUrl);
 
             BorderPane border = LoginService.getRoot();
-            border.setCenter(paneThree);
+            border.setBottom(paneThree);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
     /**
-     * Event handler for HostMenu item
+     * Event handler for UserMenu item
      */
     @FXML
     void switchToHost(ActionEvent event) {
@@ -117,21 +117,20 @@ public class MainMenuBarController implements Initializable {
     }
 
     /**
-     * Event handler for ConfigurationMenu item
+     * Event handler for UserMenu item
      */
     @FXML
     void switchToConfiguration(ActionEvent event) {
         switchTo("/magrathea/marvin/desktop/app/view/config.fxml");
     }
-    
+
     /**
-    * Event handler for GameMenu item
-    */
+     * Event handler for GameMenu item
+     */
     @FXML
-    void switchToGame(ActionEvent event){
+    void switchToGame(ActionEvent event) {
         switchTo("/magrathea/marvin/desktop/game/view/game.fxml");
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -145,7 +144,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane pane = FXMLLoader.load(paneURL);
 
             BorderPane border = LoginService.getRoot();
-            border.setCenter(pane);
+            border.setBottom(pane);
         } catch (IOException e) {
             e.printStackTrace();
         }

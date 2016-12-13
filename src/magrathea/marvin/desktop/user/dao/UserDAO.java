@@ -11,9 +11,9 @@ import magrathea.marvin.desktop.user.model.User;
  * @author Iván Cañizares Gómez
  */
 public interface UserDAO extends DAO {
-    public long insertUser(User user);
-    public boolean updateUser(User user);
-    public boolean deleteUser(User user);
+    public int insertUser(User user);
+    public int updateUser(User user);
+    public int deleteUser(User user);
     
     public List<User> findUsersByProperty(UserSearchType searchType, Object user);
     public List<User> findAll();

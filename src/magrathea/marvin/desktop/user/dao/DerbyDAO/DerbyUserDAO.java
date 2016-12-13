@@ -24,7 +24,7 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
     private static final List<User> EMPTY = new ArrayList<>();
     
     @Override
-    public long insertUser(User user) {
+    public int insertUser(User user) {
         try {
             long id = dbAccess.insert(con,
                     "INSERT INTO \"User\"(nickname,password,email,administrator)"
@@ -32,15 +32,15 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
                     user.getNickname(), user.getPassword(), user.getEmail(), 
                     user.isAdministrator()
             ).longValue();
-            return id;
+            return (int)id;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -1L;
+        return -1;
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public int updateUser(User user) {
         try {
             dbAccess.update(con,
                     "UPDATE \"User\" SET nickname=?,password=?,email=?,administrator=? "
@@ -50,18 +50,18 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
+        return 1;
     }
 
     @Override
-    public boolean deleteUser(User user) {
+    public int deleteUser(User user) {
         try {
             dbAccess.update(con, "DELETE FROM \"User\" WHERE id =?", user.getId());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
+        return 1;
     }
 
     @Override

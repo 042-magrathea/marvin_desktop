@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import org.controlsfx.control.SegmentedButton?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane fx:id="ribbonPane" minHeight="90.0" maxHeight="90.0" maxWidth="1024.0" 
+            styleClass="background" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="magrathea.marvin.desktop.app.controller.RibbonBarController">
+    <stylesheets>
+        <URL value="@css/marvin.css"/>
+    </stylesheets>
+    <HBox fx:id="ribbonBox" minHeight="80.0" maxHeight="90.0" maxWidth="1024.0">    
+        <!-- <SegmentedButton minHeight="100.0" minWidth="1024.0">
+            <buttons>
+                <fx:define>
+                    <ToggleGroup fx:id="albumViewToggleGroup"/>
+                </fx:define>
+                <ToggleButton fx:id="button" minHeight="100" prefWidth="100" mnemonicParsing="false" selected="true" toggleGroup="$albumViewToggleGroup">
+                
+                </ToggleButton>
+                <ToggleButton minHeight="100" prefWidth="100" fx:id="gridFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup" >
+                
+                </ToggleButton>
+                <ToggleButton minHeight="100" prefWidth="100" fx:id="coverFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup">
+                    <VBox.margin>
+                        <Insets top="10.0"/>
+                    </VBox.margin>
+                </ToggleButton>
+            
+            </buttons>
+        </SegmentedButton>-->
+        <VBox fx:id="userButton" prefHeight="80.0" prefWidth="80.0">
+            <ImageView fitHeight="60.0" fitWidth="60.0" 
+                       layoutX="61.0"
+                       layoutY="83.0" pickOnBounds="false" preserveRatio="true" visible="true">
+                <image>
+                    <Image  url="@icons/user.png" backgroundLoading="true"/>
+                
+                </image>
+            
+            </ImageView>
+            <padding>
+                <Insets bottom="15" right="20" top="15" left="20"/>
+            </padding>
+        </VBox>
+        <VBox fx:id="tounamentButton" prefHeight="80.0" prefWidth="80.0">
+            <ImageView fitHeight="60.0" fitWidth="60.0" 
+                       layoutX="61.0"
+                       layoutY="83.0" pickOnBounds="false" preserveRatio="true" visible="true">
+                <image>
+                    <Image  url="@icons/tournament.png" backgroundLoading="true"/>
+                
+                </image>
+            
+            </ImageView>
+            <padding>
+                <Insets bottom="15" right="20" top="15" left="20"/>
+            </padding>
+        </VBox>
+        <VBox fx:id="hostsButton" prefHeight="80.0" prefWidth="80.0">
+            <ImageView fitHeight="60.0" fitWidth="60.0" 
+                       layoutX="61.0"
+                       layoutY="83.0" pickOnBounds="false" preserveRatio="true" visible="true">
+                <image>
+                    <Image  url="@icons/hosts.png" backgroundLoading="true"/>
+                
+                </image>
+            
+            </ImageView>
+            <padding>
+                <Insets bottom="15" right="20" top="15" left="20"/>
+            </padding>
+        </VBox>
+        <VBox alignment="CENTER" maxHeight="80">
+            <Separator orientation="vertical" prefWidth="4" maxWidth="4" prefHeight="60" maxHeight="60"></Separator>
+        </VBox>
+        <VBox fx:id="settingsButton" prefHeight="80.0" prefWidth="80.0">
+            <ImageView fitHeight="60.0" fitWidth="60.0" 
+                       layoutX="61.0"
+                       layoutY="83.0" pickOnBounds="false" preserveRatio="true" visible="true">
+                <image>
+                    <Image  url="@icons/settings.png" backgroundLoading="true"/>
+                
+                </image>
+            
+            </ImageView>
+            <padding>
+                <Insets bottom="15" right="20" top="15" left="20"/>
+            </padding>
+        </VBox>
+        <VBox fx:id="logoutButton" prefHeight="80.0" prefWidth="80.0">
+            <ImageView fitHeight="60.0" fitWidth="60.0" 
+                       layoutX="61.0"
+                       layoutY="83.0" pickOnBounds="false" preserveRatio="true" visible="true">
+                <image>
+                    <Image  url="@icons/logout.png" backgroundLoading="true"/>
+                
+                </image>
+            
+            </ImageView>
+            <padding>
+                <Insets bottom="15" right="20" top="15" left="20"/>
+            </padding>
+        </VBox>
+    </HBox>
+    
+    
+</AnchorPane>

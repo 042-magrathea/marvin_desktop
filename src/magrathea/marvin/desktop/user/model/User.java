@@ -5,9 +5,9 @@
  */
 package magrathea.marvin.desktop.user.model;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
+import magrathea.marvin.desktop.user.dao.PreferedLanguage;
+import magrathea.marvin.desktop.user.dao.UserRole;
 
 /**
  *
@@ -15,22 +15,26 @@ import java.util.Objects;
  */
 public class User {
 
+    
+
     private long id;
     private String nickname;
     private String password;  // only for user of the app
     private String email;
-    private boolean administrator;
+    private String phone;
 
-    //implemented just for user insertion
-    private String name, phone, privateDes, publicDes,
-            userRole, language, datePassword, memberSince;
-    private boolean adds;
+    UserRole userRole;
+    private PreferedLanguage language;
     
+    //implemented just for user insertion
+    private String name, privateDes, publicDes,
+            datePassword, memberSince;
+    private Boolean ads;
+
     public User() {
     }
 
     // Equals & HashCode
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -67,12 +71,14 @@ public class User {
         builder.append(id);
         builder.append(", nickname=");
         builder.append(nickname);
+        builder.append(", name=");
+        builder.append(name);
         builder.append(", password=");
         builder.append(password);
         builder.append(", email=");
         builder.append(email);
-        builder.append(", administrator=");
-        builder.append(administrator);
+        builder.append(", role=");
+        builder.append(userRole);
         builder.append('}');
         return builder.toString();
     }
@@ -111,11 +117,23 @@ public class User {
     }
 
     public boolean isAdministrator() {
-        return administrator;
+        return userRole == UserRole.administrator;
     }
 
-    public void setAdministrator(boolean administrator) {
-        this.administrator = administrator;
+    public void setAdministrator() {
+        this.userRole = UserRole.administrator;
+    }
+
+    public boolean isEditor() {
+        return userRole == UserRole.editor;
+    }
+
+    public void setEditor() {
+        this.userRole = UserRole.editor;
+    }
+
+    public void setRegularUser() {
+        this.userRole = UserRole.user;
     }
 
     /**
@@ -149,15 +167,15 @@ public class User {
     /**
      * @return the ads
      */
-    public boolean getAdds() {
-        return adds;
+    public boolean getAds() {
+        return ads;
     }
 
     /**
-     * @param adds the adds to set
+     * @param ads the ads to set
      */
-    public void setAds(boolean adds) {
-        this.adds = adds;
+    public void setAds(Boolean ads) {
+        this.ads = ads;
     }
 
     /**
@@ -191,28 +209,28 @@ public class User {
     /**
      * @return the userRole
      */
-    public String getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
     /**
      * @param userRole the userRole to set
      */
-    public void setUserRole(String userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 
     /**
      * @return the language
      */
-    public String getLanguage() {
+    public PreferedLanguage getLanguage() {
         return language;
     }
 
     /**
      * @param language the language to set
      */
-    public void setLanguage(String language) {
+    public void setLanguage(PreferedLanguage language) {
         this.language = language;
     }
 
