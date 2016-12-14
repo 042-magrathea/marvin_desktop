@@ -34,13 +34,13 @@
         <URL value="@css/marvin.css"/>
     </stylesheets>
     <HBox fx:id="ribbonBox" minHeight="80.0" maxHeight="90.0" maxWidth="1024.0">    
-        <!-- <SegmentedButton minHeight="100.0" minWidth="1024.0">
+        <SegmentedButton minHeight="100.0" minWidth="1024.0">
             <buttons>
                 <fx:define>
                     <ToggleGroup fx:id="albumViewToggleGroup"/>
                 </fx:define>
                 <ToggleButton fx:id="button" minHeight="100" prefWidth="100" mnemonicParsing="false" selected="true" toggleGroup="$albumViewToggleGroup">
-                
+                    
                 </ToggleButton>
                 <ToggleButton minHeight="100" prefWidth="100" fx:id="gridFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup" >
                 
@@ -52,8 +52,16 @@
                 </ToggleButton>
             
             </buttons>
-        </SegmentedButton>-->
-        <VBox fx:id="userButton" prefHeight="80.0" prefWidth="80.0">
+        </SegmentedButton>
+        <BorderPane fx:id="image">
+            <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true">
+                <image>       
+                    <Image url="@icons/addUserSmall.png" preserveRatio="false" smooth="false" />          
+                </image>
+            </ImageView>
+        </BorderPane>
+            
+<!--        <VBox fx:id="userButton" prefHeight="80.0" prefWidth="80.0">
             <ImageView fitHeight="60.0" fitWidth="60.0" 
                        layoutX="61.0"
                        layoutY="83.0" pickOnBounds="false" preserveRatio="true" visible="true">
@@ -125,7 +133,7 @@
             <padding>
                 <Insets bottom="15" right="20" top="15" left="20"/>
             </padding>
-        </VBox>
+        </VBox>-->
     </HBox>
     
     
