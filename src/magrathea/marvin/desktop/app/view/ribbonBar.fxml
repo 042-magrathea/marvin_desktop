@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<?import org.controlsfx.control.SegmentedButton?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.geometry.Insets?>
 
@@ -34,33 +33,37 @@
         <URL value="@css/marvin.css"/>
     </stylesheets>
     <HBox fx:id="ribbonBox" minHeight="80.0" maxHeight="90.0" maxWidth="1024.0">    
-        <SegmentedButton minHeight="100.0" minWidth="1024.0">
-            <buttons>
-                <fx:define>
-                    <ToggleGroup fx:id="albumViewToggleGroup"/>
-                </fx:define>
-                <ToggleButton fx:id="button" minHeight="100" prefWidth="100" mnemonicParsing="false" selected="true" toggleGroup="$albumViewToggleGroup">
-                    
-                </ToggleButton>
-                <ToggleButton minHeight="100" prefWidth="100" fx:id="gridFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup" >
-                
-                </ToggleButton>
-                <ToggleButton minHeight="100" prefWidth="100" fx:id="coverFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup">
-                    <VBox.margin>
-                        <Insets top="10.0"/>
-                    </VBox.margin>
-                </ToggleButton>
-            
-            </buttons>
-        </SegmentedButton>
-        <BorderPane fx:id="image">
-            <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true">
-                <image>       
-                    <Image url="@icons/addUserSmall.png" preserveRatio="false" smooth="false" />          
-                </image>
-            </ImageView>
-        </BorderPane>
-            
+        <fx:define>
+            <ToggleGroup fx:id="albumViewToggleGroup"/>
+        </fx:define>
+        <ToggleButton fx:id="button" minHeight="100" prefWidth="100" mnemonicParsing="false" selected="true" toggleGroup="$albumViewToggleGroup">
+            <graphic>
+                <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                    <image>       
+                        <Image url="@icons/user.png" preserveRatio="false" smooth="false" />          
+                    </image>
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <ToggleButton minHeight="100" prefWidth="100" fx:id="gridFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup" >
+            <graphic>
+                <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                    <image>       
+                        <Image url="@icons/user.png" preserveRatio="false" smooth="false" />          
+                    </image>
+                </ImageView>
+            </graphic>    
+        </ToggleButton>
+        <ToggleButton minHeight="100" prefWidth="100" fx:id="coverFlowToggle" mnemonicParsing="false" toggleGroup="$albumViewToggleGroup">
+            <graphic>
+                <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                    <image>       
+                        <Image url="@icons/user.png" preserveRatio="false" smooth="false" />          
+                    </image>
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        
 <!--        <VBox fx:id="userButton" prefHeight="80.0" prefWidth="80.0">
             <ImageView fitHeight="60.0" fitWidth="60.0" 
                        layoutX="61.0"

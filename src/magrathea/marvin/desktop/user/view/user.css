@@ -21,6 +21,7 @@
 #newUserButton,
 #editUserButton,
 #deleteUserButton,
+#sendMail,
 #resetPassButton{
     -fx-padding: 0;
     -fx-background-color: none;
@@ -43,3 +44,4 @@
     
    -fx-background-color: red;
 }*/
+

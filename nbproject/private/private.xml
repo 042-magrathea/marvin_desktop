@@ -4,10 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/view/user.fxml</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/model/User.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/controller/MainMenuBarController.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/UserDAO.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/view/ribbonBar.fxml</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/controller/RibbonBarController.java</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/controller/UserController.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/prize/controller/PrizeController.java</file>
-            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/game/view/game.fxml</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/service/UserService.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/DerbyDAO/DerbyUserDAO.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/model/marvin.properties</file>
             <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/game/controller/GameController.java</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/app/model/marvin_defaults.properties</file>
+            <file>file:/home/tricoman/webserver/marvin_desktop/src/magrathea/marvin/desktop/user/dao/HTTPRequest/HTTPRequestUserDAO.java</file>
         </group>
     </open-files>
 </project-private>

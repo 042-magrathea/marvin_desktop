@@ -101,13 +101,11 @@ public class LoginService {
         try {
             // Load Menu by Controller ( we need a ref. for LoginOut)
             FXMLLoader barLoader = new FXMLLoader();
-            MenuBar menuBar = (MenuBar) loaderFXML("/magrathea/marvin/desktop/app/view/mainMenuBar.fxml", barLoader);
+            AnchorPane menuBar = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/mainMenuBar.fxml", barLoader);
             MainMenuBarController barController = barLoader.<MainMenuBarController>getController();
             barController.setApp(this);
 
             // Load by FXML
-            AnchorPane centerPane = 
-                    (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/ribbonBar.fxml", new FXMLLoader());
             AnchorPane bottomPane = 
                     (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main.fxml", new FXMLLoader());
             
@@ -115,8 +113,7 @@ public class LoginService {
             URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_1.fxml");
             root = FXMLLoader.load(rootPaneURL);
             root.setTop(menuBar);
-            root.setCenter(centerPane);
-            root.setBottom(bottomPane);
+            root.setCenter(bottomPane);
 
             setStage(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 

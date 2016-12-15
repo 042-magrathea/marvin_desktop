@@ -49,7 +49,7 @@ public class MainMenuBarController implements Initializable {
                     .getResource("/magrathea/marvin/desktop/app/view/main.fxml");
             AnchorPane paneOne = FXMLLoader.load(paneOneUrl);
             BorderPane border = LoginService.getRoot();
-            border.setBottom(paneOne);
+            border.setCenter(paneOne);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane paneTwo = FXMLLoader.load(paneTwoUrl);
 
             BorderPane border = LoginService.getRoot();
-            border.setBottom(paneTwo);
+            border.setCenter(paneTwo);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane paneThree = FXMLLoader.load(paneThreeUrl);
 
             BorderPane border = LoginService.getRoot();
-            border.setBottom(paneThree);
+            border.setCenter(paneThree);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,7 +102,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane paneThree = FXMLLoader.load(paneFourUrl);
 
             BorderPane border = LoginService.getRoot();
-            border.setBottom(paneThree);
+            border.setCenter(paneThree);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +144,7 @@ public class MainMenuBarController implements Initializable {
             AnchorPane pane = FXMLLoader.load(paneURL);
 
             BorderPane border = LoginService.getRoot();
-            border.setBottom(pane);
+            border.setCenter(pane);
         } catch (IOException e) {
             e.printStackTrace();
         }

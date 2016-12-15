@@ -333,14 +333,18 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
             user.setName(jsonobject.get("name").getAsString());
             user.setPhone(jsonobject.get("phone").getAsString());
             user.setEmail(jsonobject.get("eMail").getAsString());
-            if (jsonobject.has("administrator") && jsonobject.get("administrator").getAsBoolean()) {
+            if (jsonobject.has("administrator") 
+                    && !jsonobject.get("administrator").isJsonNull() 
+                    && jsonobject.get("administrator").getAsBoolean()) {
                 user.setAdministrator();
-            } else if (jsonobject.has("editor") && jsonobject.get("editor").getAsBoolean()) {
+            } else if (jsonobject.has("editor") 
+                    && !jsonobject.get("editor").isJsonNull() 
+                    && jsonobject.get("editor").getAsBoolean()) {
                 user.setEditor();
             } else {
                 user.setRegularUser();
             }
-            if (jsonobject.has("language")) {
+            if (jsonobject.has("language") && !jsonobject.get("language").isJsonNull()) {
                 String language = jsonobject.get("language").getAsString();
                 if (language.equalsIgnoreCase(PreferedLanguage.catalan.toString())) {
                     user.setLanguage(PreferedLanguage.catalan);                        
@@ -350,10 +354,10 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
                     user.setLanguage(PreferedLanguage.spanish);
                 }
             } 
-            if (jsonobject.has("publicDes")) {
+            if (jsonobject.has("publicDes")&& !jsonobject.get("publicDes").isJsonNull()) {
                 user.setPublicDes(jsonobject.get("publicDes").getAsString());
             }
-            if (jsonobject.has("privateDes")) {
+            if (jsonobject.has("privateDes")&& !jsonobject.get("privateDes").isJsonNull()) {
                 user.setPrivateDes(jsonobject.get("privateDes").getAsString());
             }
             

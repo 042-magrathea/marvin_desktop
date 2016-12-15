@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -22,8 +23,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import magrathea.marvin.desktop.user.dao.PreferedLanguage;
 import magrathea.marvin.desktop.user.dao.UserRole;
@@ -50,6 +51,9 @@ public class UserController {
             + "-\\x7f])+)\\])";
     public static final String PHONE_REGEX = "\\d{9}";
     public static final String NAME_REGEX = "^[\\p{L}\\p{M}' \\.\\-]+$";
+    public static final String PASS_REGEX = "((?=.*\\d)(?=.*[a-zA-Z]).{6,20})";
+    
+    public static final String DEFAULT_PASS = "marvin42";    
 
     @FXML
     private TableView<User> userTable;
@@ -74,11 +78,11 @@ public class UserController {
     @FXML
     private TextField nicknameField;
     @FXML
-    private DataTextField nameField, phoneField;
+    private TextField nameField, phoneField;
     @FXML
-    private EmailTextField emailField;
+    private TextField emailField;
     @FXML
-    private PasswordTextField passwordField, passConfirmationField;
+    private PasswordField passwordField, passConfirmationField;
     @FXML
     private TextArea pubDescField, privDescField;
     @FXML
@@ -115,13 +119,9 @@ public class UserController {
         for (Node node : inputFields.getChildren()) {
             if (node instanceof TextField) {
                 userTextFields.add((TextField) node);
-            } else if (node instanceof DataTextField) {
-                userTextFields.add((DataTextField) node);
-            } else if (node instanceof EmailTextField) {
-                userTextFields.add((EmailTextField) node);
-            } else if (node instanceof PasswordTextField) {
-                userTextFields.add((PasswordTextField) node);
-            }
+            } else if (node instanceof PasswordField) {
+                userTextFields.add((PasswordField) node);
+            } 
         }
         // Add all instances of TextInputControl in a List for iterate later
         for (Node node : extraFields.getChildren()) {
@@ -162,31 +162,50 @@ public class UserController {
             }
         });     
         
-        
+        userTable.getSelectionModel().selectFirst();
         
         //---------------------------------------------------------------------
         
         // FORM FIELDS
-        nameField.setInputRegex(NAME_REGEX);
-        phoneField.setInputRegex(PHONE_REGEX);        
-//        resetPassButton.setText("   set\ndefault");
         languageBox.getItems().setAll(PreferedLanguage.values());     // ENUM values
         languageBox.getSelectionModel().selectFirst();               // Only select one item
-        roleBox.getItems().setAll(UserRole.values());     // ENUM values
+        UserRole[] userRoles = {UserRole.values()[1], UserRole.values()[2], UserRole.values()[3]};
+        roleBox.getItems().setAll(userRoles);     // ENUM values
         roleBox.getSelectionModel().selectFirst();               // Only select one item
 
         
+        
         //LISTENER
+        
+        
+        EventHandler<KeyEvent> nameCheck = makeFieldCheckerHandler(NAME_REGEX, nameField);
+        EventHandler<KeyEvent> phoneCheck = makeFieldCheckerHandler(PHONE_REGEX, phoneField);
+        EventHandler<KeyEvent> emailCheck = makeFieldCheckerHandler(EMAIL_REGEX, emailField);
+        EventHandler<KeyEvent> passCheck = makeFieldCheckerHandler(PASS_REGEX, passwordField);
+        EventHandler<KeyEvent> passConfirmCheck = makeFieldCheckerHandler(PASS_REGEX, passConfirmationField);
+        
+        
+        nameField.setOnKeyReleased(nameCheck);
+        phoneField.setOnKeyReleased(phoneCheck);
+        emailField.setOnKeyReleased(emailCheck);
+        passwordField.setOnKeyReleased(passCheck);
+        passConfirmationField.setOnKeyReleased(passConfirmCheck);
+        
         passConfirmationField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue == false) {
-                    inputDataValidation();
+                    if (!passwordFieldsValidation()) {
+                        showErrorAlert("edition", "\"password\" and \"confirm password\" fields does not match, please confirm password");
+                    }
                 }
             }
 
         });
+        
+        
+        
         state = STATE.READ;
         setInterface();
         
@@ -220,21 +239,6 @@ public class UserController {
         
     }
     
-    public void onAction() {
-        
-        switch ( state ) {
-            case NEW:
-                insertUser();
-                break;
-            case EDIT:
-                modifyUser();
-                break;
-        }        
-        
-        refreshUserTable();
-        
-    }
-    
     public void onSearch(ActionEvent event) {
         String param = ((TextField) event.getSource()).getText();
         //listView.getItems().setAll(service.search(choiceBox.getValue(), param));
@@ -252,6 +256,45 @@ public class UserController {
             System.err.println("ERROR: NO select USER");
         }
     }
+    
+    public void onPassReset() {
+        passwordField.setText(DEFAULT_PASS);
+        passConfirmationField.setText(DEFAULT_PASS);
+    }
+    
+    public void onAction() {
+        
+        if ( inputDataValidation() ) {
+            switch (state) {
+                case NEW:
+                    insertUser();
+                    break;
+                case EDIT:
+                    modifyUser();
+                    break;
+            }
+
+            refreshUserTable();
+        } else {
+            switch (state) {
+                case NEW:
+                    showErrorAlert("creation", "please check al data and try again");
+                    break;
+                case EDIT:
+                    showErrorAlert("edition", "please check al data and try again");
+                    break;
+            }
+            
+        }                       
+    }
+    
+    public void onCancel(ActionEvent event) {
+        refreshUserTable();
+        for (TextInputControl tf : userTextFields) {
+            tf.setStyle(null);
+        }
+    }
+    
     
     private void insertUser() {
         
@@ -286,7 +329,7 @@ public class UserController {
         } else if (operationResult == UserService.EMAIL_FOUND) {
             showErrorAlert(operationKind, "\"email adress\" already exists");
         } else if (operationResult >= 1) {
-            showSuccessAlert("User " + operationResult + " succesfully completed");
+            showSuccessAlert("User " + operationKind + " succesfully completed");
         }
         
     }
@@ -313,12 +356,47 @@ public class UserController {
         alert.showAndWait();
     }
     
-    private void inputDataValidation() {
+    private EventHandler makeFieldCheckerHandler(String regex, TextField field) {
+        EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                String input = field.getText().toString();
+                if(!input.matches(regex)) {
+                    field.setStyle("-fx-background-color: #ff8777;");
+                } else {
+                    field.setStyle(null);
+                }
+            }
+        };
+        
+        return handler;
+    }
+    
+    private boolean inputDataValidation() {
+        if ( nameField.getText().matches(NAME_REGEX) &&
+        phoneField.getText().matches(PHONE_REGEX) &&
+        emailField.getText().matches(EMAIL_REGEX) &&
+        passwordField.getText().matches(PASS_REGEX) &&
+        passConfirmationField.getText().matches(PASS_REGEX) &&
+        passwordFieldsValidation() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private boolean passwordFieldsValidation() {
         if (passConfirmationField != null && !passConfirmationField.
                 getText().toString().equals(passwordField.getText().toString())) {
-
-            showErrorAlert("edition", "\"password\" and \"confirm password\" fields does not match, please confirm password");
-        } 
+         
+            return false;
+            
+        } else if (passConfirmationField == null) {
+            return false;
+        } else {
+            return true;
+        }
+        
     }
     
     private void refreshUserTable() {
@@ -379,6 +457,7 @@ public class UserController {
             case NEW:
                 createUserButton.setDisable(false);
                 createUserButton.setText("create user");
+                resetPassButton.setDisable(false);
                 for (TextInputControl tf : userTextFields) {
                     tf.toString();
                     tf.setText("");
@@ -391,6 +470,7 @@ public class UserController {
             case EDIT:
                 createUserButton.setDisable(false);
                 createUserButton.setText("update user");
+                resetPassButton.setDisable(false);
                 for (TextInputControl tf : userTextFields) {
                     tf.toString();
                     tf.setEditable(true);

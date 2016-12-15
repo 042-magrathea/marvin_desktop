@@ -25,3 +25,17 @@
     -fx-background-color: none;
 }
 
+.toggle-button {
+    -fx-background-color: none;
+
+}
+
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(from 0% 75% to 0% 100%, rgba(255,0,0,0), #CECEF6);
+    -fx-background-radius:50%;
+
+}
+/*#ribbonPane {
+    -fx-background-color: red;
+}*/
+

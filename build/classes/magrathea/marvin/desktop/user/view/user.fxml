@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.ImageView?>
@@ -42,28 +43,28 @@
             </Label> -->
             <VBox maxWidth="1020">
                 <padding>
-                    <Insets bottom="10.0" left="20" top="10" right="20"/>
+                    <Insets bottom="5.0" left="20" top="20" right="20"/>
                 </padding>
-                <TableView fx:id="userTable" editable="true" prefHeight="140.0" maxWidth="980">
+                <TableView fx:id="userTable" editable="true" minHeight="80.0" maxHeight="130" minWidth="700" maxWidth="980">
                 
                     <columns>
-                        <TableColumn fx:id="userId" minWidth="50" maxWidth="50.0" text="ID" /> 
-                        <TableColumn fx:id="nickname" minWidth="100" prefWidth="150.0" text="Nickname" /> 
-                        <TableColumn fx:id="name" minWidth="100" prefWidth="150.0" text="name" /> 
-                        <TableColumn fx:id="email" minWidth="125" prefWidth="150.0" text="Email" />
-                        <TableColumn fx:id="phone" minWidth="90" maxWidth="120.0" text="phone" />
-                        <TableColumn fx:id="userRole" minWidth="30" prefWidth="30.0" text="Role" /> 
+                        <TableColumn fx:id="userId" minWidth="50" maxWidth="110.0" text="ID" /> 
+                        <TableColumn fx:id="nickname" minWidth="150" prefWidth="200.0" text="Nickname" /> 
+                        <TableColumn fx:id="name" minWidth="150" prefWidth="200.0" text="name" /> 
+                        <TableColumn fx:id="email" minWidth="170" prefWidth="200.0" text="Email" />
+                        <TableColumn fx:id="phone" minWidth="150" maxWidth="200.0" text="phone" />
+                        <TableColumn fx:id="userRole" minWidth="30" prefWidth="60.0" text="Role" /> 
                     </columns>
                 </TableView>
-                <HBox maxHeight="30.0" maxWidth="980.0">
+                <HBox maxHeight="30.0" maxWidth="1020.0">
                     <padding>
                         <Insets top="10.0" />
                     </padding>
                     <children>
-                        <HBox prefWidth="500.0">
+                        <HBox prefWidth="510.0">
                             <Button fx:id="newUserButton" minWidth="30" mnemonicParsing="false" onAction="#onNewUser">
                                 <graphic>
-                                    <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
                                         <image>       
                                             <Image url="@icons/addUserSmall.png" preserveRatio="false" smooth="false" />          
                                         </image>
@@ -72,7 +73,7 @@
                             </Button>
                             <Button fx:id="editUserButton" minWidth="30" mnemonicParsing="false" onAction="#onEditUser">
                                 <graphic>
-                                    <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
                                         <image>       
                                             <Image url="@icons/editSmall.png" preserveRatio="false" smooth="false" />          
                                         </image>
@@ -81,172 +82,214 @@
                             </Button>
                             <Button fx:id="deleteUserButton" minWidth="30" mnemonicParsing="false" onAction="#onDeleteUser">
                                 <graphic>
-                                    <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
                                         <image>       
                                             <Image url="@icons/trashSmall.png" preserveRatio="false" smooth="false" />          
                                         </image>
                                     </ImageView>
                                 </graphic>
                             </Button>
+                            <Button fx:id="sendMail" minWidth="30" mnemonicParsing="false"  onAction="#onSendMail">
+                                <graphic>
+                                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
+                                        <image>       
+                                            <Image url="@icons/mail.png" preserveRatio="false" smooth="false" />          
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefWidth="500.0">
-                            <TextField fx:id="searchField" onAction="#onSearch" prefHeight="26.0" minWidth="300" maxWidth="350.0" promptText="Insert a filter"/>
+                        <HBox alignment="CENTER_RIGHT" prefWidth="510.0">
+                            <TextField fx:id="searchField" onAction="#onSearch" prefHeight="30.0" minWidth="270" maxWidth="330.0" promptText="Insert a filter"/>
                         </HBox>
                     </children>
                 </HBox>
                 
             </VBox>
             
-            <HBox maxHeight="273" maxWidth="1020">
-                <GridPane fx:id="inputFields" vgap="2.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="200.0" prefWidth="250.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="30.0" prefWidth="50.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
+            <HBox maxHeight="273" maxWidth="1000">
+                <VBox>
+                    <GridPane fx:id="inputFields" vgap="2.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="150.0" prefWidth="200.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="200.0" prefWidth="250.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="30.0" prefWidth="50.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" maxHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
                         
-                        <Label text="nickname" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
-                            <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
-                            </padding>
-                        </Label>
-                        <TextField fx:id="nicknameField" 
-                            promptText="Insert user's nickname" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                            <padding>
-                                <Insets top="5" right="5" bottom="5" left="5" />
-                            </padding>
-                        </TextField>
-                        <Label text="name" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
-                            <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
-                            </padding>
-                        </Label>
-                        <DataTextField fx:id="nameField" 
-                            promptText="Insert user's complete name" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <padding>
-                                <Insets top="5" right="5" bottom="5" left="5" />
-                            </padding>
-                        </DataTextField>
-                        <Label text="phone" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
-                            <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
-                            </padding>
-                        </Label>
-                        <DataTextField fx:id="phoneField"  
-                            promptText="Insert user's phone number" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <padding>
-                                <Insets top="5" right="5" bottom="5" left="5" />
-                            </padding>
-                        </DataTextField>
-                        <Label  text="email" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
-                            <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
-                            </padding>
-                        </Label>
-                        <EmailTextField fx:id="emailField"  
-                            promptText="Insert user's email address" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                            <padding>
-                                <Insets top="5" right="5" bottom="5" left="5" />
-                            </padding>
-                        </EmailTextField>  
-                        <Label text="password" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
-                            <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
-                            </padding>
-                        </Label>
-                        <PasswordTextField fx:id="passwordField" 
+                            <Label text="nickname" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <TextField fx:id="nicknameField" 
+                                       promptText="Insert user's nickname" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5" />
+                                </padding>
+                            </TextField>
+                            <Label text="name" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <TextField fx:id="nameField" 
+                                       promptText="Insert user's complete name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5" />
+                                </padding>
+                            </TextField>
+                            <Label text="phone" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <TextField fx:id="phoneField"  
+                                       promptText="Insert user's phone number" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5" />
+                                </padding>
+                            </TextField>
+                            <Label  text="email" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <TextField fx:id="emailField"  
+                                       promptText="Insert user's email address" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5" />
+                                </padding>
+                            </TextField>  
+                            <Label text="password" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <PasswordField fx:id="passwordField" 
                                            GridPane.columnIndex="1" GridPane.rowIndex="4">
-                            <padding>
-                                <Insets top="5" right="5" bottom="5" left="5" />
-                            </padding>
-                        </PasswordTextField>
-                        <Label text="confirm pass" GridPane.columnIndex="0" GridPane.rowIndex="5">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
-                            <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
-                            </padding>
-                        </Label>
-                        <PasswordTextField fx:id="passConfirmationField" 
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5" />
+                                </padding>
+                            </PasswordField>
+                            <Label text="confirm pass" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <PasswordField fx:id="passConfirmationField" 
                                            GridPane.columnIndex="1" GridPane.rowIndex="5">
-                            <padding>
-                                <Insets top="5" right="5" bottom="5" left="5" />
-                            </padding>
-                        </PasswordTextField>
-                        <Button fx:id="resetPassButton" alignment="CENTER_RIGHT" 
-                                GridPane.columnIndex="2" GridPane.rowIndex="4">
-                            <graphic>
-                                <ImageView fitHeight="25" fitWidth="25" pickOnBounds="true" preserveRatio="true">
-                                    <image>       
-                                       <Image url="@icons/reload.png" preserveRatio="false" smooth="false" />          
-                                    </image>
-                                </ImageView>
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5" />
+                                </padding>
+                            </PasswordField>
+                            <Button fx:id="resetPassButton" alignment="CENTER_RIGHT" 
+                                    GridPane.columnIndex="2" GridPane.rowIndex="4"
+                                    onAction="#onPassReset">
+                                <graphic>
+                                    <ImageView fitHeight="25" fitWidth="25" pickOnBounds="true" preserveRatio="true">
+                                        <image>       
+                                            <Image url="@icons/reload.png" preserveRatio="false" smooth="false" />          
+                                        </image>
+                                    </ImageView>
                                 
-                            </graphic>                            
-                        </Button>
-                        <Label id="languageLabel" text="language" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
+                                </graphic>                            
+                            </Button>
+                            <Label id="languageLabel" text="language" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <ChoiceBox fx:id="languageBox" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                <HBox.margin>
+                                    <Insets right="50.0"/>
+                                </HBox.margin>    
+                            </ChoiceBox>
+                            <Label id="roleLabel" text="role" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                                <font>
+                                    <Font name="System" size="16.0" />
+                                </font>
+                                <padding>
+                                    <Insets top="3" right="5" bottom="7" left="5" />
+                                </padding>
+                            </Label>
+                            <ChoiceBox fx:id="roleBox" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                <HBox.margin>
+                                    <Insets right="15.0"/>
+                                </HBox.margin> 
+                            </ChoiceBox>
+                        
+                        </children>
+                        <padding>
+                            <Insets bottom="10" left="10" />
+                        </padding>
+                    </GridPane>
+                    <VBox alignment="CENTER_RIGHT">
+                        <Separator orientation="horizontal" minWidth="300" maxWidth="400" prefHeight="10" maxHeight="10"></Separator>
+                    </VBox>
+                    <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
+                            <Button fx:id="createUserButton"  onAction="#onAction" text="Create user" prefWidth="100" >
+                                <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </HBox.margin>
+                            </Button>
                             <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
+                                <Insets top="10" bottom="5" />
                             </padding>
-                        </Label>
-                        <ChoiceBox fx:id="languageBox" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                            <HBox.margin>
-                                <Insets right="50.0"/>
-                            </HBox.margin>    
-                        </ChoiceBox>
-                        <Label id="roleLabel" text="role" GridPane.columnIndex="0" GridPane.rowIndex="7">
-                            <font>
-                                <Font name="System" size="16.0" />
-                            </font>
+                        </HBox>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <Button fx:id="cancelButton" alignment="CENTER" onAction="#onCancel" text="cancel" prefWidth="100">
+                                <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </HBox.margin>
+                            </Button>
                             <padding>
-                                <Insets top="3" right="5" bottom="7" left="5" />
+                                <Insets top="10" bottom="5" />
                             </padding>
-                        </Label>
-                        <ChoiceBox fx:id="roleBox" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                            <HBox.margin>
-                                <Insets right="15.0"/>
-                            </HBox.margin> 
-                        </ChoiceBox>                                             
-                    </children>
+                        </HBox>
+                    </HBox>
                     <padding>
-                        <Insets bottom="20" left="20" />
+                        <Insets top="10" right="20" bottom="10" left="20" />
                     </padding>
-                </GridPane>
+                </VBox>
                 <VBox alignment="CENTER" maxHeight="273">
-                    <Separator orientation="vertical" prefWidth="4" maxWidth="4" prefHeight="200" maxHeight="200"></Separator>
+                    <Separator orientation="vertical" prefWidth="4" maxWidth="4" minHeight="300" maxHeight="350"></Separator>
                 </VBox>
                 <GridPane fx:id="extraFields" vgap="2.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="250.0" prefWidth="300.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="150.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="50.0" prefWidth="300.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
@@ -296,16 +339,16 @@
                             promptText="Insert user's private description" GridPane.columnIndex="1" GridPane.rowIndex="1"/>                        
                     </children>
                     <padding>
-                        <Insets right="20" bottom="20" left="20" />
+                        <Insets top="10" right="20" bottom="10" left="20" />
                     </padding>
                     
                 </GridPane>    
             </HBox>    
             <VBox alignment="CENTER">
-                <Separator orientation="horizontal" prefWidth="700" maxWidth="700" prefHeight="10" maxHeight="10"></Separator>
+                <Separator orientation="horizontal" prefWidth="800" maxWidth="950" prefHeight="10" maxHeight="10"></Separator>
             </VBox>
             <HBox maxWidth="1020">
-                <VBox prefHeight="150.0" prefWidth="508.0">
+                <VBox prefHeight="150.0" prefWidth="510.0">
                     <children>
                         <Label prefWidth="200.0" text="unsolved requests">
                             <font>
@@ -323,7 +366,7 @@
                         <Insets bottom="5" top="10" left="20" right="5"/>
                     </padding>
                 </VBox>
-                <VBox prefHeight="150.0" prefWidth="508.0">
+                <VBox prefHeight="150.0" prefWidth="510.0">
                     <children>
                         <Label prefWidth="200.0" text="user tournaments list">
                             <font>
@@ -342,23 +385,7 @@
                     </padding>
                 </VBox>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="200.0">
-                <children>
-                    <Button fx:id="createUserButton" onAction="#onAction" text="Create user" prefWidth="100">
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </Button>
-                    <Button fx:id="sendMail" onAction="#onSendMail" text="Send Mail" prefWidth="100">
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </Button>
-                </children>
-                <padding>
-                    <Insets bottom="10" top="5"/>
-                </padding>
-            </HBox>
+            
         </VBox>
         
     </children>
