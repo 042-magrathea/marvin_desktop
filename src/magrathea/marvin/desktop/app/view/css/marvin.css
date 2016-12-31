@@ -1,6 +1,28 @@
 /* 
     TODO: Implement with app style. Select an author.
 */
+.label {
+    -fx-font-size: 13px;
+}
+
+.label-error {
+    -fx-font-size: 13px;
+    -fx-color: red;
+}
+
+.label-bright {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.label-header {
+
+}
+
+.label-h2 {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+}
 
 .text-field.error {
     -fx-border-color: red;

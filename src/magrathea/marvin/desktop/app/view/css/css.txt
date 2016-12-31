@@ -1,0 +1,5 @@
+Modena es el segundo layout de FX después de caspian.
+Se puede acceder a el en el jar /jdk1.8.x/jre/lib/ext/jfxrt.jar
+Se descomprime y com/sun/javafx/scene/control/skin/modena/.
+Se puede utilizar de base para un styling completo.
+Como mínimo de consulta para ver los que queremos sobreescribir.

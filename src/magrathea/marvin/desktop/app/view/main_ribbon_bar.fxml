@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- 
+    Select the different options in the App.
+    The controller call different view in the action pane
+    @author: Iván Cañizares Gómez
+    TODO: Change menu style for Ribbon style like design
+    TODO: Refactor all style annotations in a css file. Like padding and margin
+    TODO: Refactor all hardcode Strings for i18N
+-->
+
+<AnchorPane fx:id="ribbonPane" maxHeight="120.0" maxWidth="1000.0" minHeight="120.0" minWidth="800" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.app.controller.RibbonBarController">
+    <stylesheets>
+        <URL value="@css/marvin.css" />
+    </stylesheets>
+    
+    <VBox>
+        <MenuBar id="mainMenuBar" prefHeight="30.0" prefWidth="1000">
+            <menus>
+                <Menu mnemonicParsing="false" text="%ribbonbar_menu_marvin_title">
+                    <items>
+                        <MenuItem fx:id="HOME" mnemonicParsing="false" onAction="#changeView" text="%ribbonbar_menu-marvin_view-marvin" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%ribbonbar_menu_tournament_title">
+                    <items>
+                        <MenuItem fx:id="TOURNAMENT" mnemonicParsing="false" onAction="#changeView" text="%ribbonbar_menu-tournament_view-tournament" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%ribbonbar_menu_user_title">
+                    <items>
+                        <MenuItem fx:id="USER" mnemonicParsing="false" onAction="#changeView" text="%ribbonbar_menu-user_view-user" />
+                    </items>
+                </Menu>
+    
+    
+                <Menu mnemonicParsing="false" text="%ribbonbar_menu_game_title">
+                    <items>
+                        <MenuItem fx:id="GAME" mnemonicParsing="false" onAction="#changeView" text="%ribbonbar_menu-game_view-game" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%ribbonbar_menu_host_title">
+                    <items>
+                        <MenuItem fx:id="HOST" mnemonicParsing="false" onAction="#changeView" text="%ribbonbar_menu-host_view-host" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%ribbonbar_menu_config_title">
+                    <items>
+                        <MenuItem fx:id="CONFIG" mnemonicParsing="false" onAction="#changeView" text="%ribbonbar_menu-config_view-config" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <HBox fx:id="ribbonBox" maxHeight="90.0" maxWidth="1000.0" minHeight="90.0">    
+            <fx:define>
+                <ToggleGroup fx:id="albumViewToggleGroup" />
+            </fx:define>
+            <ToggleButton fx:id="HOME" minHeight="100" mnemonicParsing="false" onAction="#changeView" prefWidth="100" selected="true">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/home.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>
+            <toggleGroup>
+               <ToggleGroup fx:id="albumViewToggleGroup" />
+            </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="TOURNAMENT" minHeight="100" mnemonicParsing="false" onAction="#changeView" prefWidth="100" toggleGroup="$albumViewToggleGroup">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/tournament.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>    
+            </ToggleButton>
+            <ToggleButton fx:id="USER" minHeight="100" mnemonicParsing="false" onAction="#changeView" prefWidth="100" toggleGroup="$albumViewToggleGroup">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/user.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="GAME" minHeight="100" mnemonicParsing="false" onAction="#changeView" prefWidth="100" toggleGroup="$albumViewToggleGroup">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/dices.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="CONFIG" minHeight="100" mnemonicParsing="false" onAction="#changeView" prefWidth="100" toggleGroup="$albumViewToggleGroup">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/settings.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="HOST" minHeight="100" mnemonicParsing="false" onAction="#changeView" prefWidth="100" toggleGroup="$albumViewToggleGroup">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/hosts.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="logoutButton" minHeight="100" mnemonicParsing="false" onAction="#loginOut" prefWidth="100" toggleGroup="$albumViewToggleGroup">
+                <graphic>
+                    <ImageView fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+                        <image>       
+                            <Image preserveRatio="false" smooth="false" url="@icons/logout.png" />          
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -3,20 +3,21 @@ package magrathea.marvin.desktop.app.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.controller.LoginController;
-import magrathea.marvin.desktop.app.controller.MainMenuBarController;
-import magrathea.marvin.desktop.app.controller.ProfileController;
+import magrathea.marvin.desktop.app.controller.RibbonBarController;
+import magrathea.marvin.desktop.app.controller.ProfileReviewController;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
@@ -30,7 +31,7 @@ public class LoginService {
     private static final MarvinConfig PROPS = MarvinConfig.getInstance();
     private static BorderPane root = new BorderPane();
 
-    private Stage stage;
+    private Stage mainStage;
     private UserService userService = new UserService();
 
     private double MINIMUM_WINDOW_WIDTH;
@@ -38,12 +39,17 @@ public class LoginService {
     private double WINDOW_WIDTH;
     private double WINDOW_HEIGHT;
 
+    private Locale locale;
+    private ResourceBundle bundle;
+    
+    private String css;
+
     ////////////////////// CONSTRUCTOR /////////////////////////
     private LoginService() {
         // We need ref. To root pane
         fillConfig();
     }
-    
+
     /**
      * fill from properties
      */
@@ -52,10 +58,14 @@ public class LoginService {
         MINIMUM_WINDOW_WIDTH = Double.parseDouble(PROPS.getProperty("MINIMUM_WINDOW_WIDTH"));
         WINDOW_HEIGHT = Double.parseDouble(PROPS.getProperty("WINDOW_HEIGHT"));
         WINDOW_WIDTH = Double.parseDouble(PROPS.getProperty("WINDOW_WIDTH"));
+        
+        locale = new Locale(PROPS.getProperty("LANG"));
+        bundle = ResourceBundle.getBundle("magrathea/marvin/desktop/app/view/i18n/marvin_i18n" , locale);
+        
+        css =  String.format("/magrathea/marvin/desktop/app/view/css/%s.css", PROPS.getProperty("STYLE"));
     }
 
     ////////////////////// END CONSTRUCTOR /////////////////////
-    
     ////////////////////// SINGLETON ///////////////////////////
     // Bill Pugh singleton pattern
     private static class LazyHolder {
@@ -67,21 +77,20 @@ public class LoginService {
         return LazyHolder.INSTANCE;
     }
     ////////////////////// END SINGLETON ////////////////////////
-    
+
     // First point in interface
-    public void initializeApp(Stage stage){
-            this.stage = stage;
-            stage.setTitle("Marvin Login");
-            stage.setWidth(MINIMUM_WINDOW_WIDTH);
-            stage.setHeight(MINIMUM_WINDOW_HEIGHT);
-            gotoLogin();
-            stage.show();
+    public void initializeApp(Stage stage) {
+        mainStage = stage;
+        mainStage.setTitle(bundle.getString("login_windows_title_text"));
+        mainStage.setResizable(false);
+        mainStage.show();
+        gotoLogin();
     }
-        
+
     // Change Stage logic
     public void gotoLogin() {
         FXMLLoader loader = new FXMLLoader();
-        AnchorPane pane = (AnchorPane) loaderFXML("view/login.fxml", loader);
+        AnchorPane pane = (AnchorPane) loaderFXML("view/login_user.fxml", loader);
         setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
         LoginController login = loader.getController();
         login.setApp(this);
@@ -89,11 +98,10 @@ public class LoginService {
 
     public void gotoProfile() {
         FXMLLoader loader = new FXMLLoader();
-        AnchorPane pane = (AnchorPane) loaderFXML("view/profile.fxml", loader);
-        // setStage(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        stage.setTitle(getLoggedUser().getNickname() + " profile" );
+        AnchorPane pane = (AnchorPane) loaderFXML("view/login_profile.fxml", loader);
+        mainStage.setTitle(getLoggedUser().getNickname() + " profile");
         setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
-        ProfileController profile = loader.getController();
+        ProfileReviewController profile = loader.getController();
         profile.setApp(this);
     }
 
@@ -101,16 +109,16 @@ public class LoginService {
         try {
             // Load Menu by Controller ( we need a ref. for LoginOut)
             FXMLLoader barLoader = new FXMLLoader();
-            AnchorPane menuBar = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/mainMenuBar.fxml", barLoader);
-            MainMenuBarController barController = barLoader.<MainMenuBarController>getController();
+            AnchorPane menuBar = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main_ribbon_bar.fxml", barLoader);
+            RibbonBarController barController = barLoader.<RibbonBarController>getController();
             barController.setApp(this);
 
             // Load by FXML
-            AnchorPane bottomPane = 
-                    (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main.fxml", new FXMLLoader());
-            
+            AnchorPane bottomPane
+                    = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main_tab_home.fxml", new FXMLLoader());
+
             // Load Root container by controller
-            URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_1.fxml");
+            URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_root_cont.fxml");
             root = FXMLLoader.load(rootPaneURL);
             root.setTop(menuBar);
             root.setCenter(bottomPane);
@@ -137,7 +145,11 @@ public class LoginService {
             in = Main.class.getResourceAsStream(fxml);
             loader.setBuilderFactory(new JavaFXBuilderFactory());
             loader.setLocation(Main.class.getResource(fxml));
+            loader.setResources(bundle);
             region = (Region) loader.load(in);
+            // Assign CSS
+            region.getStylesheets().clear();
+            region.getStylesheets().add( css );
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -154,21 +166,21 @@ public class LoginService {
 
     private void setStage(Region region, double width, double height) {
         Scene scene = new Scene(region, width, height);
-        stage.setScene(scene);
-        //stage.sizeToScene();
-        stage.setWidth(width);
-        stage.setHeight(height);
+        mainStage.setScene(scene);
+        mainStage.setWidth(width);
+        mainStage.setHeight(height);
+        //mainStage.sizeToScene();
     }
 
     // Return root
     public static BorderPane getRoot() {
         return root;
     }
-    
+
     //////////////// USER stuff
     // User Login
     private User loggedUser = new User();
-    
+
     public User getLoggedUser() {
         return loggedUser;
     }
@@ -179,8 +191,8 @@ public class LoginService {
         //if ( loggedUser.getAdds() == null ){
         //    gotoProfile();
         //}
-        
-        if ( loggedUser != null ) {
+
+        if (loggedUser != null) {
             //gotoProfile();      // TODO: Check if user needs to fill fields
             return true;
         } else {
@@ -191,5 +203,11 @@ public class LoginService {
     public void userLogout() {
         loggedUser = null;
         gotoLogin();
+    }
+    
+    /** CSS
+     * @return  css path*/
+    public String getCSS(){
+        return this.css;
     }
 }
