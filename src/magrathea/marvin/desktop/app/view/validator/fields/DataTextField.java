@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.user.view.fields;
+package magrathea.marvin.desktop.app.view.validator.fields;
 
 
 
@@ -22,23 +22,22 @@ import org.controlsfx.validation.decoration.StyleClassValidationDecoration;
  *
  * @author tricoman
  */
-public class EmailTextField extends TextField {
+public class DataTextField extends TextField {
     
-    public EmailTextField() {
-        this.setPromptText("Insert your email address");
+    private String inputRegex = "";
+    
+    
+    public DataTextField() {
         
         ValidationSupport support = new ValidationSupport();
 
         Validator<String> validator = new Validator<String>() {
             @Override
             public ValidationResult apply(Control control, String value) {
-                
-                EmailValidator validator = EmailValidator.getInstance();
-                
-                boolean condition = value != null ? !validator.isValid(value)
-                                : value == null;
+                boolean condition = value != null ? !value
+                        .matches(inputRegex) : value == null;
 
-                return ValidationResult.fromMessageIf(control, "not a number", Severity.ERROR, condition);
+                return ValidationResult.fromMessageIf(control, "input error", Severity.ERROR, condition);
             }
 
         };
@@ -46,8 +45,14 @@ public class EmailTextField extends TextField {
         support.setValidationDecorator(decorator);
         support.registerValidator(this, true, validator);
     }
-    
 
-    
-       
+    /**
+     * @return the inputRegex
+     */
+    public String getInputRegex() {return inputRegex;}
+
+    /**
+     * @param inputRegex the inputRegex to set
+     */
+    public void setInputRegex(String inputRegex) {this.inputRegex = inputRegex;}  
 }

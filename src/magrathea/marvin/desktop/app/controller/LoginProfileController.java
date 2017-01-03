@@ -17,7 +17,7 @@ import magrathea.marvin.desktop.app.service.LoginService;
 /**
  * Profile Controller
  */
-public class ProfileReviewController extends AnchorPane implements Initializable {
+public class LoginProfileController extends AnchorPane implements Initializable {
     @FXML private AnchorPane anchorPane;
     @FXML private WebView eula;
     @FXML private CheckBox subscribed, newletter;

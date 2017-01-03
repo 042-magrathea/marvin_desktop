@@ -1,63 +1,102 @@
-/* 
-    TODO: Implement with app style. Select an author.
-*/
-.label {
-    -fx-font-size: 13px;
+/* TODO: Implement with app style. Select an author. */
+
+/* ICONS for marvin.css style 
+   reference of images from marvin.css, not icons.css */
+@import "marvin/bar.css";
+@import "marvin/controls.css";
+@import "marvin/icons.css";
+
+/********************/
+/* STRUCTURAL CSS ***/
+/********************/
+/* . = class, # = id */
+
+/*  1er lvl ROOT Pane, usually AnchorPane --CYAN-- */
+.root_pane { 
+    /*-fx-background-color: #f4f4f4; /* Default */
+    -fx-background-image: url(marvin/space_marvin_main.jpg);
 }
 
-.label-error {
-    -fx-font-size: 13px;
-    -fx-color: red;
+/* 2nd level layout VBox  -- GREEN --*/
+.root_vertical {
+    -fx-spacing: 15;
+    -fx-padding: 10 20 20 20;
 }
 
-.label-bright {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
+/* 3er lvl TABLE red */
+.table_section { 
+    -fx-spacing: 15;
 }
 
-.label-header {
-
+.table_list_subsection { 
+    -fx-max-height: 240;
 }
 
-.label-h2 {
-    -fx-font-size: 16pt;
-    -fx-font-weight: bold;
+.table_tools_subsection { 
+    -fx-spacing: 30px;
+    -fx-border-color: #c8c8c8; /* Gray like table border */
+    -fx-border-width: 1;
+    -fx-background-color: #e6ffff; /*light blue*/
+    -fx-padding: 5;
+}
+.table_crud_buttons {
+    
+}
+.search_spacer{
+    -fx-max-width: 1000;
+    -fx-pref-width: 500;
+    
 }
 
-.text-field.error {
-    -fx-border-color: red;
-    -fx-border-width: 2px;
+.table_search { 
+    -fx-text-align: right;
 }
 
-.text-input:readonly {
-    -fx-background-color: transparent;
-}
-.text-area:readonly  {
-    -fx-background-color: transparent;
+/* 3er lvl FORM-ASIDE red */    
+.form_aside_section {
+    -fx-spacing: 20px;
 }
 
-.profileTitle{
-    font-weight: bold;
-    font-size: 24px;
+.form_subsection {
+    -fx-padding: 10 15 10 15;
+    -fx-border-color: #c8c8c8; /* Gray like table border */
+    -fx-border-width: 1;
+    -fx-background-color: white;
+    -fx-pref-width: 596;  /* 1024/2.618*1.618 633-37px (padding) = gold ratio (big) */ 
 }
 
-.menu-bar {
-    /*-fw-border-width: 1;
-    -fx-border-color: red;*/
-    -fx-background-color: none;
+.form_grid {}
+.form_grid > .label {
+    /* All labels inside grid to adjust baseline to textfield*/
+    -fx-padding: 4 0 0 0;
+}
+.separator_grid{
+    -fx-padding: 10 0 5 0;
+}
+.dynamic_buttons_form {
+    -fx-padding: 5 0 5 0;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_RIGHT;
 }
 
-.toggle-button {
-    -fx-background-color: none;
+.separator_aside{}
 
+.aside_subsection {
+    /*tab*/
+    -fx-pref-width: 369;  /* 1024/2.618*1 392-23px (padding) = gold ratio (small) */
+}
+.aside_content {
+    -fx-spacing: 10;
+    -fx-border-color: #c8c8c8; /* Gray like table border */
+    -fx-border-width: 1 1 0 1;
+    -fx-background-color: white;
+    -fx-padding: 15;
 }
 
-.toggle-button:selected {
-    -fx-background-color: linear-gradient(from 0% 75% to 0% 100%, rgba(255,0,0,0), #CECEF6);
-    -fx-background-radius:50%;
-
+/* 3er lvl FOOTER red */
+.footer_section {
+    -fx-padding: 10;
+    -fx-border-color: #c8c8c8; /* Gray like table border */
+    -fx-border-width: 1;
+    -fx-background-color: white;
 }
-/*#ribbonPane {
-    -fx-background-color: red;
-}*/
-

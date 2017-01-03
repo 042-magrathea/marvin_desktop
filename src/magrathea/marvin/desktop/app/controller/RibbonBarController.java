@@ -56,7 +56,7 @@ public class RibbonBarController implements Initializable {
         String idControlOnAction;
         // ItemView extends Object, can't be cast in control/node...
         if (event.getSource() instanceof MenuItem) {
-            idControlOnAction = ( (MenuItem) event.getSource() ).getId();
+            idControlOnAction = ((MenuItem) event.getSource() ).getId();
         } else {
             idControlOnAction = ((Node) event.getSource()).getId();
         }

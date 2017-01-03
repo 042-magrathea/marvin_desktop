@@ -1,0 +1,90 @@
+
+/**********************/
+/** ELEMENTS CSS ******/
+/**********************/
+
+/******  LABELS **********/
+.label {
+    -fx-font-size: 13px;
+}
+
+.label-error {
+    -fx-font-size: 13px;
+    -fx-color: red;
+}
+
+.label-bright {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.label-header {
+
+}
+
+.label-h2 {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+}
+
+
+/****** TEXT - FIELD ********/
+.text-field.error {
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+}
+
+.text-input:readonly {
+    -fx-background-color: transparent;
+}
+.text-area:readonly  {
+    -fx-background-color: transparent;
+}
+
+.profileTitle{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* From Arnau USER */
+#searchField {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+    -fx-border: none;
+}
+
+/* Buttons */
+.button {
+    -fx-padding: 5 12 5 12;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d8d8d8;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:focused {
+    -fx-border-color: white;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+
+/**  TEXT AREA ***/
+.description {
+    /* description text area like in User*/
+    -fx-pref-row-count: 4;
+}

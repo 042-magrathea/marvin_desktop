@@ -24,7 +24,7 @@ import magrathea.marvin.desktop.app.service.LoginService;
  *
  * @author boscalent
  */
-public class MainController extends BorderPane implements Initializable {
+public class RootContainerController extends BorderPane implements Initializable {
 
     private LoginService application;
 

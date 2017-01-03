@@ -1,0 +1,57 @@
+/* 
+    Created on : 31-dic-2016, 13:22:42
+    Author     : boscalent
+*/
+
+/* ICONS */
+/*  !!! This file is included from /css/style*.css 
+    These images needs to be referenced from this style sheet.
+    url like marvin/icons/*.*. Local reference *.* not work.
+*/ 
+
+/* !!!! Modify button style*/
+.icon_button_small{
+    -fx-width: 30px;
+    -fx-height: 30px;
+    -fx-background-color: none;
+    -fx-border-width: 0;
+    -fx-padding: 2 5 2 5 px;
+}
+
+.icon_button_small:hover {
+    -fx-background-color: #DFDFDF;
+}
+
+.icon_button_small:pressed, .icon_button_small:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.icon_button_small:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.icon_button_small:disabled, .icon_button_small:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+
+
+/*ICONS*/
+.add-user-col{-fx-graphic: url("marvin/icons/add-user-col.png");}
+.addUserSmall{-fx-graphic: url("marvin/icons/addUserSmall.png");}
+.edit {-fx-graphic: url("marvin/icons/edit.png");}
+.editSmall{-fx-graphic: url("marvin/icons/editSmall.png");}
+.letter{-fx-graphic: url("marvin/icons/letter.png");}
+.sendMail{-fx-graphic: url("marvin/icons/mail.png");}
+.note{-fx-graphic: url("marvin/icons/note.png");}
+.reload{-fx-graphic: url("marvin/icons/reload.png");}
+.trash{-fx-graphic: url("marvin/icons/trash.png");}
+.trashSmall{-fx-graphic: url("marvin/icons/trashSmall.png");}
+

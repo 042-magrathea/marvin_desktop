@@ -23,7 +23,7 @@ import magrathea.marvin.desktop.app.model.MarvinConfig;
  *
  * @author boscalent
  */
-public class ConfigController implements Initializable {
+public class TabConfigController implements Initializable {
 
     private static final MarvinConfig PROPS = MarvinConfig.getInstance();
     
@@ -83,7 +83,7 @@ public class ConfigController implements Initializable {
         saveProps.setDisable(true);
     }
     
-    // TODO ConfigController
+    // TODO TabConfigController
     // Change boolean stuff in buttons for observableBoolean (binding)
 
 }

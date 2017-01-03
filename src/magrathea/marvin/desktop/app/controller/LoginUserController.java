@@ -17,7 +17,7 @@ import magrathea.marvin.desktop.app.service.LoginService;
 /**
  * Login Controller.
  */
-public class LoginController extends AnchorPane implements Initializable {
+public class LoginUserController extends AnchorPane implements Initializable {
 
     @FXML
     TextField userId;

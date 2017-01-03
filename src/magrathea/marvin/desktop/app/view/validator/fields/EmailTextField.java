@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.user.view.fields;
+package magrathea.marvin.desktop.app.view.validator.fields;
 
 
 
-import javafx.scene.Node;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
-import org.controlsfx.control.textfield.CustomPasswordField;
+import javafx.scene.control.TextField;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -21,21 +22,23 @@ import org.controlsfx.validation.decoration.StyleClassValidationDecoration;
  *
  * @author tricoman
  */
-public class PasswordTextField extends CustomPasswordField {
+public class EmailTextField extends TextField {
     
-    public PasswordTextField() {
-        this.setPromptText("Enter user's desired password");
-
+    public EmailTextField() {
+        this.setPromptText("Insert your email address");
+        
         ValidationSupport support = new ValidationSupport();
 
         Validator<String> validator = new Validator<String>() {
             @Override
             public ValidationResult apply(Control control, String value) {
-                boolean condition = value != null ? !value
-                        .matches("((?=.*\\d)(?=.*[a-zA-Z]).{6,20})"): value == null;
+                
+                EmailValidator validator = EmailValidator.getInstance();
+                
+                boolean condition = value != null ? !validator.isValid(value)
+                                : value == null;
 
-                return ValidationResult.fromMessageIf(control, "not a number", 
-                        Severity.ERROR, condition);
+                return ValidationResult.fromMessageIf(control, "not a number", Severity.ERROR, condition);
             }
 
         };
@@ -44,4 +47,7 @@ public class PasswordTextField extends CustomPasswordField {
         support.registerValidator(this, true, validator);
     }
     
+
+    
+       
 }

@@ -15,9 +15,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import magrathea.marvin.desktop.app.Main;
-import magrathea.marvin.desktop.app.controller.LoginController;
+import magrathea.marvin.desktop.app.controller.LoginUserController;
 import magrathea.marvin.desktop.app.controller.RibbonBarController;
-import magrathea.marvin.desktop.app.controller.ProfileReviewController;
+import magrathea.marvin.desktop.app.controller.LoginProfileController;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
@@ -92,7 +92,7 @@ public class LoginService {
         FXMLLoader loader = new FXMLLoader();
         AnchorPane pane = (AnchorPane) loaderFXML("view/login_user.fxml", loader);
         setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
-        LoginController login = loader.getController();
+        LoginUserController login = loader.getController();
         login.setApp(this);
     }
 
@@ -101,7 +101,7 @@ public class LoginService {
         AnchorPane pane = (AnchorPane) loaderFXML("view/login_profile.fxml", loader);
         mainStage.setTitle(getLoggedUser().getNickname() + " profile");
         setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
-        ProfileReviewController profile = loader.getController();
+        LoginProfileController profile = loader.getController();
         profile.setApp(this);
     }
 
@@ -118,7 +118,7 @@ public class LoginService {
                     = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main_tab_home.fxml", new FXMLLoader());
 
             // Load Root container by controller
-            URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_root_cont.fxml");
+            URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_root_container.fxml");
             root = FXMLLoader.load(rootPaneURL);
             root.setTop(menuBar);
             root.setCenter(bottomPane);

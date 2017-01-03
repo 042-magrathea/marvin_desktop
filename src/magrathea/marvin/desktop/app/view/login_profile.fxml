@@ -14,7 +14,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="Profile" maxHeight="540.0" maxWidth="390.0" minHeight="540.0" minWidth="390.0" styleClass="background" stylesheets="@css/marvin.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.app.controller.ProfileReviewController">
+<AnchorPane id="Profile" maxHeight="540.0" maxWidth="390.0" minHeight="540.0" minWidth="390.0" 
+            styleClass="background" stylesheets="@css/marvin.css" 
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="magrathea.marvin.desktop.app.controller.LoginProfileController">
   <children>
   <VBox id="VBox" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <children>

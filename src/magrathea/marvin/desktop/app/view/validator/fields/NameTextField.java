@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.user.view.fields;
+package magrathea.marvin.desktop.app.view.validator.fields;
 
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;

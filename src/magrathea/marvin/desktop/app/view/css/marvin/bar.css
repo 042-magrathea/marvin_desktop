@@ -1,0 +1,21 @@
+/* 
+    Created on : 01-ene-2017, 14:37:28
+    Author     : Arnau
+*/
+.root_pane_bar {
+    -fx-background-image: url(marvin/space_marvin_top.jpg);
+}
+.menu-bar {
+    -fx-background-color: none;
+}
+
+.toggle-button {
+    -fx-background-color: none;
+
+}
+
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(from 0% 75% to 0% 100%, rgba(255,0,0,0), #CECEF6);
+    -fx-background-radius:50%;
+
+}

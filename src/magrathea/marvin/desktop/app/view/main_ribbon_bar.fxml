@@ -21,7 +21,7 @@
     TODO: Refactor all hardcode Strings for i18N
 -->
 
-<AnchorPane fx:id="ribbonPane" maxHeight="120.0" maxWidth="1000.0" minHeight="120.0" minWidth="800" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.app.controller.RibbonBarController">
+<AnchorPane fx:id="ribbonPane" maxHeight="120.0" maxWidth="1024.0" minHeight="120.0" minWidth="800" styleClass="root_pane_bar" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.app.controller.RibbonBarController">
     <stylesheets>
         <URL value="@css/marvin.css" />
     </stylesheets>
