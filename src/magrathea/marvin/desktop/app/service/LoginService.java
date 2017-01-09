@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -18,6 +19,7 @@ import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.controller.LoginUserController;
 import magrathea.marvin.desktop.app.controller.RibbonBarController;
 import magrathea.marvin.desktop.app.controller.LoginProfileController;
+import magrathea.marvin.desktop.app.controller.TabHomeController;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
@@ -32,6 +34,7 @@ public class LoginService {
     private static BorderPane root = new BorderPane();
 
     private Stage mainStage;
+    private Scene scene;
     private UserService userService = new UserService();
 
     private double MINIMUM_WINDOW_WIDTH;
@@ -82,13 +85,22 @@ public class LoginService {
     public void initializeApp(Stage stage) {
         mainStage = stage;
         mainStage.setTitle(bundle.getString("login_windows_title_text"));
+        
+        // Icon
+        stage.getIcons().add(new Image("file:/magrathea/marvin/desktop/app/view/img/marvin-icon.png"));        
+        
         mainStage.setResizable(false);
         mainStage.show();
         gotoLogin();
     }
-
+    
     // Change Stage logic
     public void gotoLogin() {
+        /**
+         * FIX: Error in reentring. Start with borderPane root. Gravity: MODERATE, not break execution
+         * http://stackoverflow.com/questions/37437388/javafx-error-with-changing-scene-multiple-times
+         * You should not change the scenes. Instead, update a part of the Scene with the Parent returned by the FXMLLoader.
+         */
         FXMLLoader loader = new FXMLLoader();
         AnchorPane pane = (AnchorPane) loaderFXML("view/login_user.fxml", loader);
         setStage(pane, MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT);
@@ -114,9 +126,13 @@ public class LoginService {
             barController.setApp(this);
 
             // Load by FXML
-            AnchorPane bottomPane
-                    = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main_tab_home.fxml", new FXMLLoader());
-
+            //AnchorPane bottomPane
+            //        = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main_tab_home.fxml", new FXMLLoader());
+            FXMLLoader centerPaneLoader = new FXMLLoader();
+            AnchorPane bottomPane = (AnchorPane) loaderFXML("/magrathea/marvin/desktop/app/view/main_tab_home.fxml", centerPaneLoader);
+            TabHomeController tabHomeController = centerPaneLoader.<TabHomeController>getController();
+            tabHomeController.setApp(this);
+            
             // Load Root container by controller
             URL rootPaneURL = getClass().getResource("/magrathea/marvin/desktop/app/view/main_root_container.fxml");
             root = FXMLLoader.load(rootPaneURL);
@@ -138,7 +154,7 @@ public class LoginService {
      * @param loader
      * @return
      */
-    private Region loaderFXML(String fxml, FXMLLoader loader) {
+    public Region loaderFXML(String fxml, FXMLLoader loader) {
         Region region = null;
         InputStream in = null;
         try {
@@ -165,7 +181,8 @@ public class LoginService {
     }
 
     private void setStage(Region region, double width, double height) {
-        Scene scene = new Scene(region, width, height);
+        scene = null;   /* try to avoid memory lacks */
+        scene = new Scene(region, width, height); 
         mainStage.setScene(scene);
         mainStage.setWidth(width);
         mainStage.setHeight(height);
@@ -209,5 +226,10 @@ public class LoginService {
      * @return  css path*/
     public String getCSS(){
         return this.css;
+    }
+    
+    /* Get Bundle from BorderPane center */
+    public ResourceBundle getBundle(){
+        return this.bundle;
     }
 }

@@ -15,8 +15,6 @@ import magrathea.marvin.desktop.user.dao.UserRole;
  */
 public class User {
 
-    
-
     private long id;
     private String nickname;
     private String password;  // only for user of the app
@@ -25,7 +23,7 @@ public class User {
 
     UserRole userRole;
     private PreferedLanguage language;
-    
+
     //implemented just for user insertion
     private String name, privateDes, publicDes,
             datePassword, memberSince;

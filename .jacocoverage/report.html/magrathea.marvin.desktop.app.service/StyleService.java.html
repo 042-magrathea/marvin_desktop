@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>StyleService.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.service</a> &gt; <span class="el_source">StyleService.java</span></div><h1>StyleService.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app.service;
+
+import java.util.HashMap;
+import java.util.Map;
+import javafx.scene.text.Font;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
+
+/**
+ * Class for all stuff of Style Inspired in Android R
+ *
+ * @author boscalent
+ */
+public class StyleService {
+
+    // Active Style
+    private Map&lt;String, String&gt; layoutDesign;
+
+<span class="nc" id="L18">    public StyleService() {</span>
+<span class="nc" id="L19">        layoutDesign = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L20">        chargeLayout();</span>
+<span class="nc" id="L21">    }</span>
+
+    ////////////////////// SINGLETON ///////////////////////////
+    // Bill Pugh singleton pattern
+<span class="nc" id="L25">    private static class LazyHolder {</span>
+<span class="nc" id="L26">        private static final StyleService INSTANCE = new StyleService();</span>
+    }
+
+    public static StyleService getInstance() {
+<span class="nc" id="L30">        return LazyHolder.INSTANCE;</span>
+    }
+    ////////////////////// END SINGLETON ////////////////////////
+
+    private void chargeLayout() {
+        // load Layout based on style NOT FULLY IMPLEMENTED!!!
+<span class="nc" id="L36">        String style = MarvinConfig.getInstance().getProperty(&quot;STYLE&quot;);</span>
+        // Then load property layout like style name
+        // Here only one, hardcode
+        
+<span class="nc" id="L40">        layoutDesign.put(&quot;TOURNAMENT&quot;, &quot;/magrathea/marvin/desktop/tournament/view/tournament.fxml&quot;);</span>
+<span class="nc" id="L41">        layoutDesign.put(&quot;HOME&quot;, &quot;/magrathea/marvin/desktop/app/view/main_tab_home.fxml&quot;);</span>
+<span class="nc" id="L42">        layoutDesign.put(&quot;HOST&quot;, &quot;/magrathea/marvin/desktop/host/view/host.fxml&quot;);</span>
+<span class="nc" id="L43">        layoutDesign.put(&quot;CONFIG&quot;, &quot;/magrathea/marvin/desktop/app/view/main_tab_config.fxml&quot;);</span>
+<span class="nc" id="L44">        layoutDesign.put(&quot;GAME&quot;, &quot;/magrathea/marvin/desktop/game/view/game.fxml&quot;);</span>
+        
+        // Example in User only
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if ( style.equals(&quot;marvin&quot;)){</span>
+<span class="nc" id="L48">            layoutDesign.put(&quot;USER&quot;, &quot;/magrathea/marvin/desktop/user/view/user.fxml&quot;);</span>
+        } else {
+<span class="nc" id="L50">            layoutDesign.put(&quot;USER&quot;, &quot;/magrathea/marvin/desktop/user/view/user.fxml&quot;);</span>
+        }
+        
+        // layoutDesign.put(&quot;Xx&quot;, &quot;/magrathea/marvin/desktop/Yyy.fxml&quot;);
+<span class="nc" id="L54">    }</span>
+    
+    public Map getLayout(){
+<span class="nc" id="L57">        return this.layoutDesign;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

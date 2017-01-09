@@ -2,20 +2,55 @@
     Created on : 01-ene-2017, 14:37:28
     Author     : Arnau
 */
+
+/* LIKE var for css*/
+.root{
+    -icons-color: black;
+}
+
+
 .root_pane_bar {
     -fx-background-image: url(marvin/space_marvin_top.jpg);
 }
+
+.root_bar_vertical {}
+
+.mainMenuBar {}
+
+.ribbonBox{
+    -fx-padding: 10;
+    -fx-spacing: 12;
+}
+
+
 .menu-bar {
     -fx-background-color: none;
 }
 
 .toggle-button {
+    -fx-min-height: 48;
+    -fx-pref-width: 48;
     -fx-background-color: none;
-
 }
 
 .toggle-button:selected {
-    -fx-background-color: linear-gradient(from 0% 75% to 0% 100%, rgba(255,0,0,0), #CECEF6);
-    -fx-background-radius:50%;
-
+    -fx-background-color: linear-gradient(from 0% 90% to 25% 90%, rgba(255,0,0,0), #CECEF6);
+    -fx-background-radius:100%;
 }
+
+.toggle-button:selected > .glyph-icon {
+     -fx-fill: blueviolet;
+}
+
+/* Font awesome */
+.glyph-icon{
+    -fx-text-fill: -icons-color;
+    -fx-fill: -icons-color;
+    -glyph-size: 38px;
+}
+
+.glyph-icon:hover{
+        -fx-fill: linear-gradient(-icons-color 0%, 
+        derive(-icons-color, 100%) 30%, derive(blueviolet, 30%) 85%);
+}
+

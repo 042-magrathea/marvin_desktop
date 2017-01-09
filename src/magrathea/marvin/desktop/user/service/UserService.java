@@ -10,7 +10,6 @@ import java.util.List;
 import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
 import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
 import magrathea.marvin.desktop.user.dao.UserDAO;
-import magrathea.marvin.desktop.user.dao.UserRole;
 import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
 
@@ -37,17 +36,6 @@ public class UserService {
             ex.printStackTrace();
         }
     }
-
-    /*public void addNewUser(String nickName, String password,
-            String email, UserRole userRole) {
-        User user = new User();
-        user.setNickname(nickName);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setUserRole(userRole);
-
-        userDAO.insertUser(user);
-    }*/
 
     public List<User> search(UserSearchType searchType, String value) {
         return userDAO.findUsersByProperty(searchType, value);

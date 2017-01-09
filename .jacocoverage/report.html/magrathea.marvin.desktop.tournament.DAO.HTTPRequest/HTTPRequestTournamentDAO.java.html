@@ -1,14 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestTournamentDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.tournament.DAO.HTTPRequest</a> &gt; <span class="el_source">HTTPRequestTournamentDAO.java</span></div><h1>HTTPRequestTournamentDAO.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.tournament.DAO.HTTPRequest;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestTournamentDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.tournament.DAO.HTTPRequest</a> &gt; <span class="el_source">HTTPRequestTournamentDAO.java</span></div><h1>HTTPRequestTournamentDAO.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.tournament.DAO.HTTPRequest;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,32 +21,32 @@ import magrathea.marvin.desktop.user.model.User;
  * Concrete DAO implementation for Tournament Class
  * @author Iván Cañizares Gómez
  */
-<span class="nc" id="L28">public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements TournamentDAO {</span>
+<span class="nc" id="L24">public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements TournamentDAO {</span>
 
     // dummy List for null returns
-<span class="nc" id="L31">    private static final List&lt;Tournament&gt; EMPTY = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L27">    private static final List&lt;Tournament&gt; EMPTY = new ArrayList&lt;&gt;();</span>
 
     @Override
     public long insertTournament(Tournament tournament) {
-<span class="nc" id="L35">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L31">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public boolean updateTournament(Tournament tournament) {
-<span class="nc" id="L41">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L37">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public boolean deleteTournament(Tournament tournament) {
-<span class="nc" id="L47">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L43">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public List&lt;Tournament&gt; findTournamentByProperty(TournamentSearchType searchType, Object tournament) {
-<span class="nc" id="L53">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L49">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
@@ -58,28 +54,28 @@ import magrathea.marvin.desktop.user.model.User;
     public List&lt;Tournament&gt; findAll() {
         try {
             // URL
-<span class="nc" id="L61">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+<span class="nc" id="L57">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
                     + &quot;tournamentsQuery.php&quot;);
 
             // PARAMS POST
-<span class="nc" id="L65">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
-<span class="nc" id="L66">            params.put(&quot;user&quot;, &quot;&quot;);</span>
-<span class="nc" id="L67">            byte[] postDataBytes = putParams(params);</span>
+<span class="nc" id="L61">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L62">            params.put(&quot;user&quot;, &quot;&quot;);</span>
+<span class="nc" id="L63">            byte[] postDataBytes = helper.putParams(params);</span>
 
             // GET READER FROM CONN (Super)
-<span class="nc" id="L70">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+<span class="nc" id="L66">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
 
             // PARSER
-<span class="nc" id="L73">            JsonArray jarray = getArrayFromJson(in, null);</span>
+<span class="nc" id="L69">            JsonArray jarray = helper.getArrayFromJson(in, null);</span>
 
             // MAKE OBJECTS
-<span class="nc" id="L76">            return makeTournamentsFromJson(jarray);</span>
+<span class="nc" id="L72">            return makeTournamentsFromJson(jarray);</span>
 
-<span class="nc" id="L78">        } catch (Exception ex) {</span>
-<span class="nc" id="L79">            ex.printStackTrace();</span>
+<span class="nc" id="L74">        } catch (Exception ex) {</span>
+<span class="nc" id="L75">            ex.printStackTrace();</span>
         }
 
-<span class="nc" id="L82">        return EMPTY;</span>
+<span class="nc" id="L78">        return EMPTY;</span>
     }
     
     // TODO: Refactor the process of make attribute class (Users &amp; Prizes)
@@ -94,88 +90,45 @@ import magrathea.marvin.desktop.user.model.User;
      * @return 
      */
     private List&lt;Tournament&gt; makeTournamentsFromJson(JsonArray jarray) {
-<span class="nc" id="L97">        List&lt;Tournament&gt; tournaments = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L93">        List&lt;Tournament&gt; tournaments = new ArrayList&lt;&gt;();</span>
         Tournament tournament;
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
-<span class="nc" id="L100">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
+<span class="nc" id="L96">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
 
-<span class="nc" id="L102">            tournament = new Tournament();</span>
-<span class="nc" id="L103">            tournament.setId(jsonobject.get(&quot;idTOURNAMENT&quot;).getAsLong());</span>
-<span class="nc" id="L104">            tournament.setName(&quot;Tournament &quot; + i );</span>
+<span class="nc" id="L98">            tournament = new Tournament();</span>
+<span class="nc" id="L99">            tournament.setId(jsonobject.get(&quot;idTOURNAMENT&quot;).getAsLong());</span>
+<span class="nc" id="L100">            tournament.setName(&quot;Tournament &quot; + i );</span>
             
             // PRIZES --&gt; Move to Json Service
-<span class="nc" id="L107">            JsonArray arrayPrize = jsonobject.getAsJsonArray(&quot;prizes&quot;);</span>
-<span class="nc" id="L108">            List&lt;Prize&gt; prizes = new ArrayList&lt;&gt;(arrayPrize.size());</span>
-<span class="nc" id="L109">            Prize prize = null;</span>
-<span class="nc bnc" id="L110" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayPrize.size(); j++){</span>
-<span class="nc" id="L111">                JsonObject jsonPrize = arrayPrize.get(j).getAsJsonObject();</span>
-<span class="nc" id="L112">                prize = new Prize();</span>
-<span class="nc" id="L113">                prize.setId(jsonPrize.get(&quot;idPRIZE&quot;).getAsLong());</span>
-<span class="nc" id="L114">                prize.setName(jsonPrize.get(&quot;name&quot;).getAsString());</span>
-<span class="nc" id="L115">                prizes.add(prize);</span>
+<span class="nc" id="L103">            JsonArray arrayPrize = jsonobject.getAsJsonArray(&quot;prizes&quot;);</span>
+<span class="nc" id="L104">            List&lt;Prize&gt; prizes = new ArrayList&lt;&gt;(arrayPrize.size());</span>
+<span class="nc" id="L105">            Prize prize = null;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayPrize.size(); j++){</span>
+<span class="nc" id="L107">                JsonObject jsonPrize = arrayPrize.get(j).getAsJsonObject();</span>
+<span class="nc" id="L108">                prize = new Prize();</span>
+<span class="nc" id="L109">                prize.setId(jsonPrize.get(&quot;idPRIZE&quot;).getAsLong());</span>
+<span class="nc" id="L110">                prize.setName(jsonPrize.get(&quot;name&quot;).getAsString());</span>
+<span class="nc" id="L111">                prizes.add(prize);</span>
                 //int order = jsonPrize.get(&quot;position&quot;).getAsInt();
                 //prizes.add(order, prize);  // !NOT in prototype
             }
-<span class="nc" id="L119">            tournament.setPrizes(prizes);</span>
+<span class="nc" id="L115">            tournament.setPrizes(prizes);</span>
             
             // USERS --&gt; Move to Json Service
-<span class="nc" id="L122">            JsonArray arrayUsers = jsonobject.getAsJsonArray(&quot;users&quot;);</span>
-<span class="nc" id="L123">            List&lt;User&gt; users = new ArrayList&lt;&gt;(arrayUsers.size());</span>
-<span class="nc" id="L124">            User user = null;</span>
-<span class="nc bnc" id="L125" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayUsers.size(); j++){</span>
-<span class="nc" id="L126">                JsonObject jsonUser = arrayUsers.get(j).getAsJsonObject();</span>
-<span class="nc" id="L127">                user = new User();</span>
-<span class="nc" id="L128">                user.setId(jsonUser.get(&quot;idUSER&quot;).getAsLong());</span>
-<span class="nc" id="L129">                user.setNickname(jsonUser.get(&quot;publicName&quot;).getAsString());</span>
-<span class="nc" id="L130">                users.add(user);</span>
+<span class="nc" id="L118">            JsonArray arrayUsers = jsonobject.getAsJsonArray(&quot;users&quot;);</span>
+<span class="nc" id="L119">            List&lt;User&gt; users = new ArrayList&lt;&gt;(arrayUsers.size());</span>
+<span class="nc" id="L120">            User user = null;</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            for ( int j = 0; j &lt; arrayUsers.size(); j++){</span>
+<span class="nc" id="L122">                JsonObject jsonUser = arrayUsers.get(j).getAsJsonObject();</span>
+<span class="nc" id="L123">                user = new User();</span>
+<span class="nc" id="L124">                user.setId(jsonUser.get(&quot;idUSER&quot;).getAsLong());</span>
+<span class="nc" id="L125">                user.setNickname(jsonUser.get(&quot;publicName&quot;).getAsString());</span>
+<span class="nc" id="L126">                users.add(user);</span>
             }
-<span class="nc" id="L132">            tournament.setUsers(users);</span>
-<span class="nc" id="L133">            tournaments.add(tournament);</span>
+<span class="nc" id="L128">            tournament.setUsers(users);</span>
+<span class="nc" id="L129">            tournaments.add(tournament);</span>
         }
-<span class="nc" id="L135">        return tournaments;</span>
-    }
-
-    // TODO: Move this method to HTTPRequestDAO 
-    // is generic for all query with POST parameters.
-    /**
-     * Binay UTF-8 encode for POST params stuff
-     * @param params
-     * @return 
-     */
-    private byte[] putParams(Map&lt;String, Object&gt; params) {
-<span class="nc" id="L146">        byte[] postDataBytes = null;</span>
-        try {
-<span class="nc" id="L148">            StringBuilder postData = new StringBuilder();</span>
-<span class="nc bnc" id="L149" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
-<span class="nc bnc" id="L150" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
-<span class="nc" id="L151">                    postData.append('&amp;');</span>
-                }
-<span class="nc" id="L153">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L154">                postData.append('=');</span>
-<span class="nc" id="L155">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L156">            }</span>
-<span class="nc" id="L157">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
-<span class="nc" id="L158">        } catch (UnsupportedEncodingException ex) {</span>
-<span class="nc" id="L159">        }</span>
-<span class="nc" id="L160">        return postDataBytes;</span>
-    }
-
-    /**
-     * First parse on JsonData to JsonArray
-     * @param in
-     * @param node if the data contain a root object
-     * @return JsonArray of Objects for the invoker class parser
-     */
-    private JsonArray getArrayFromJson(Reader in, String node) {
-<span class="nc" id="L170">        JsonArray jarray = null;</span>
-<span class="nc" id="L171">        JsonElement jelement = new JsonParser().parse(in);</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (node != null) {</span>
-<span class="nc" id="L173">            JsonObject jobject = jelement.getAsJsonObject();</span>
-<span class="nc" id="L174">            jarray = jobject.getAsJsonArray(node);</span>
-<span class="nc" id="L175">        } else {</span>
-<span class="nc" id="L176">            jarray = jelement.getAsJsonArray();</span>
-        }
-<span class="nc" id="L178">        return jarray;</span>
+<span class="nc" id="L131">        return tournaments;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

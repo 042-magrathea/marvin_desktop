@@ -37,16 +37,15 @@
                     <Insets bottom="10.0" left="20" top="10"/>
                 </padding>
             </Label> -->
-            <VBox fx:id="table_section" styleClass="table_section">
+            <VBox fx:id="table_section" maxHeight="300.0" styleClass="table_section">
                 <TableView fx:id="table_list_subsection" editable="true" styleClass="table_list_subsection">
-                
                     <columns>
-                        <TableColumn fx:id="userId" maxWidth="80.0" minWidth="30.0" prefWidth="60.0" text="ID" /> 
-                        <TableColumn fx:id="nickname" maxWidth="200.0" minWidth="80.0" prefWidth="100.0" text="Nickname" /> 
-                        <TableColumn fx:id="name" maxWidth="300.0" minWidth="80.0" prefWidth="100.0" text="name" /> 
-                        <TableColumn fx:id="email" maxWidth="300.0" minWidth="100.0" prefWidth="150.0" text="Email" />
-                        <TableColumn fx:id="phone" maxWidth="100.0" minWidth="80.0" prefWidth="90.0" text="phone" />
-                        <TableColumn fx:id="userRole" maxWidth="120.0" minWidth="80.0" prefWidth="100.0" text="Role" /> 
+                        <TableColumn fx:id="id" maxWidth="80.0" minWidth="30.0" prefWidth="60.0" text="%user_id" /> 
+                        <TableColumn fx:id="nickname" maxWidth="200.0" minWidth="80.0" prefWidth="100.0" text="%user_nickname" /> 
+                        <TableColumn fx:id="name" maxWidth="300.0" minWidth="80.0" prefWidth="100.0" text="%user_name" /> 
+                        <TableColumn fx:id="email" maxWidth="300.0" minWidth="100.0" prefWidth="150.0" text="%user_email" />
+                        <TableColumn fx:id="phone" maxWidth="100.0" minWidth="80.0" prefWidth="90.0" text="%user_phone" />
+                        <TableColumn fx:id="userRole" maxWidth="120.0" minWidth="80.0" prefWidth="100.0" text="%user_role" /> 
                     </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -55,34 +54,34 @@
                 <HBox fx:id="table_tools_subsection" styleClass="table_tools_subsection">
                     <children>
                         <HBox fx:id="table_crud_buttons" styleClass="table_crud_buttons">
-                            <Button fx:id="newUserButton" minWidth="30" mnemonicParsing="false" onAction="#onNewUser">
+                            <Button fx:id="crud_new" minWidth="30" mnemonicParsing="false" onAction="#onNew">
                                 <styleClass>
                                     <String fx:value="icon_button_small" />
                                     <String fx:value="addUserSmall" />
                                 </styleClass>
                             </Button>
-                            <Button fx:id="editUserButton" minWidth="30" mnemonicParsing="false" onAction="#onEditUser">
+                            <Button fx:id="crud_edit" minWidth="30" mnemonicParsing="false" onAction="#onEdit">
                                 <styleClass>
                                     <String fx:value="icon_button_small" />
                                     <String fx:value="editSmall" />
                                 </styleClass>
                             </Button>
-                            <Button fx:id="deleteUserButton" minWidth="30" mnemonicParsing="false" onAction="#onDeleteUser">
+                            <Button fx:id="crud_delete" minWidth="30" mnemonicParsing="false" onAction="#onDelete">
                                 <styleClass>
                                     <String fx:value="icon_button_small" />
                                     <String fx:value="trashSmall" />
                                 </styleClass>
                             </Button>
-                            <Button fx:id="sendMailButton" minWidth="30" mnemonicParsing="false" onAction="#onSendMail">
+                            <Button fx:id="crud_user_send_mail" minWidth="30" mnemonicParsing="false" onAction="#onSendMail">
                                 <styleClass>
                                     <String fx:value="icon_button_small" />
                                     <String fx:value="sendMail" />
                                 </styleClass>
                             </Button>
                         </HBox>
-                  <Region styleClass="search_spacer" />
+                  <Region fx:id="search_spacer" />
                         <HBox fx:id="table_search" alignment="CENTER_RIGHT" fillHeight="false" styleClass="table_search">
-                            <TextField fx:id="searchField" maxWidth="330.0" minWidth="270" onAction="#onSearch" prefHeight="30.0" promptText="Insert a filter" />
+                            <TextField fx:id="searchField" promptText="%user_insert_filter" styleClass="searchField" />
                         </HBox>
                     </children>
                 </HBox>
@@ -91,9 +90,9 @@
             
             <HBox fx:id="form_aside_section" spacing="20.0" styleClass="form_aside_section">
                 <VBox fx:id="form_subsection" styleClass="form_subsection">
-                    <GridPane fx:id="form_grid" maxHeight="1000.0" styleClass="form_grid" vgap="2.0">
+                    <GridPane fx:id="form_grid" styleClass="form_grid" vgap="2.0">
                         <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="150.0" prefWidth="200.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="150.0" prefWidth="180.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="250.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="30.0" prefWidth="35.0" />
                         </columnConstraints>
@@ -109,7 +108,7 @@
                         </rowConstraints>
                         <children>
                         
-                            <Label styleClass="label-bright" text="nickname" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label styleClass="label-bright" text="%user_nickname" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
@@ -119,7 +118,7 @@
                                     <Insets bottom="5" left="5" right="5" top="5" />
                                 </padding>
                             </TextField>
-                            <Label styleClass="label-bright" text="name" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label styleClass="label-bright" text="%user_name" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
@@ -129,7 +128,7 @@
                                     <Insets bottom="5" left="5" right="5" top="5" />
                                 </padding>
                             </TextField>
-                            <Label styleClass="label-bright" text="phone" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label styleClass="label-bright" text="%user_phone" GridPane.columnIndex="0" GridPane.rowIndex="2">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
@@ -139,7 +138,7 @@
                                     <Insets bottom="5" left="5" right="5" top="5" />
                                 </padding>
                             </TextField>
-                            <Label styleClass="label-bright" text="email" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Label styleClass="label-bright" text="%user_email" GridPane.columnIndex="0" GridPane.rowIndex="3">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
@@ -149,22 +148,22 @@
                                     <Insets bottom="5" left="5" right="5" top="5" />
                                 </padding>
                             </TextField>  
-                            <Label styleClass="label-bright" text="password" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                            <Label styleClass="label-bright" text="%user_password" GridPane.columnIndex="0" GridPane.rowIndex="4">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
                             </Label>
-                            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <PasswordField fx:id="passwordField" promptText="********" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                 <padding>
                                     <Insets bottom="5" left="5" right="5" top="5" />
                                 </padding>
                             </PasswordField>
-                            <Label styleClass="label-bright" text="confirm pass" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                            <Label styleClass="label-bright" text="%user_confirm_password" GridPane.columnIndex="0" GridPane.rowIndex="5">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
                             </Label>
-                            <PasswordField fx:id="passConfirmationField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <PasswordField fx:id="passConfirmationField" promptText="********" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                 <padding>
                                     <Insets bottom="5" left="5" right="5" top="5" />
                                 </padding>
@@ -175,7 +174,7 @@
                                     <String fx:value="reload" />
                                 </styleClass>                            
                             </Button>
-                            <Label id="languageLabel" styleClass="label-bright" text="language" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                            <Label id="languageLabel" styleClass="label-bright" text="%user_language" GridPane.columnIndex="0" GridPane.rowIndex="6">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
@@ -185,7 +184,7 @@
                                     <Insets right="50.0" />
                                 </HBox.margin>    
                             </ChoiceBox>
-                            <Label id="roleLabel" styleClass="label-bright" text="role" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                            <Label id="roleLabel" styleClass="label-bright" text="%user_role" GridPane.columnIndex="0" GridPane.rowIndex="7">
                                 <font>
                                     <Font name="System" size="16.0" />
                                 </font>
@@ -204,12 +203,12 @@
                   </VBox.margin>
                </Separator>
                     <HBox alignment="CENTER_RIGHT" fillHeight="false" styleClass="dynamic_buttons_form" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                         <Button fx:id="createUserButton" onAction="#onAction" text="Create user">
+                         <Button fx:id="createButton" onAction="#onAction" text="Create user">
                              <HBox.margin>
                                  <Insets />
                              </HBox.margin>
                          </Button>
-                         <Button fx:id="cancelButton" alignment="CENTER" onAction="#onCancel" text="cancel">
+                         <Button fx:id="cancelButton" alignment="CENTER" onAction="#onCancel" text="%crud_cancel">
                              <HBox.margin>
                                  <Insets />
                              </HBox.margin>
@@ -218,31 +217,31 @@
                 </VBox>
             <TabPane fx:id="aside_subsection" side="BOTTOM" styleClass="aside_subsection">
                <tabs>
-                  <Tab closable="false" text="Description">
+                  <Tab closable="false" text="%user_description">
                      <content>
                         <VBox fx:id="extraFields" styleClass="aside_content">
                            <children>
-                                     <Label styleClass="label-bright" text="public description">
+                                     <Label styleClass="label-bright" text="%user_public_description">
                                          <font>
                                              <Font name="System" size="16.0" />
                                          </font>
                                      </Label>                                                    
-                                    <TextArea fx:id="pubDescField" promptText="Insert user's public description" styleClass="description" />
-                                     <Label styleClass="label-bright" text="private description">
+                                    <TextArea fx:id="pubDescField" promptText="%user_public_description_prompt" styleClass="description" />
+                                     <Label styleClass="label-bright" text="%user_private_description">
                                          <font>
                                              <Font name="System" size="16.0" />
                                          </font>
                                      </Label>
-                                    <TextArea fx:id="privDescField" promptText="Insert user's private description" styleClass="description" />
+                                    <TextArea fx:id="privDescField" promptText="%user_private_description_prompt" styleClass="description" />
                            </children>
                         </VBox>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Request">
+                  <Tab closable="false" text="%user_request">
                      <content>
                             <VBox prefHeight="150.0" styleClass="aside_content">
                                 <children>
-                                    <Label graphicTextGap="0.0" styleClass="label-bright" text="unsolved requests">
+                                    <Label graphicTextGap="0.0" styleClass="label-bright" text="%user_unsolved_request">
                                         <font>
                                             <Font name="System" size="16.0" />
                                         </font>
@@ -250,7 +249,7 @@
                                     <ListView fx:id="requestsList">
                             
                         </ListView>
-                                    <Label styleClass="label-bright" text="user tournaments list">
+                                    <Label styleClass="label-bright" text="%user_tournament_list">
                                         <font>
                                             <Font name="System" size="16.0" />
                                         </font>
@@ -271,7 +270,10 @@
                </HBox.margin>
             </TabPane>    
             </HBox>
-         <HBox fx:id="footer_section" styleClass="footer_section" />
+         <HBox fx:id="footer_section" styleClass="footer_section">
+            <children>
+               <Label text="%user_info_footer" />
+            </children></HBox>
             
         </VBox>
         

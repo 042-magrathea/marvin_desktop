@@ -1,32 +1,25 @@
 package magrathea.marvin.desktop.user.controller;
 
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
+import magrathea.marvin.desktop.app.utils.Crud;
+import magrathea.marvin.desktop.app.utils.CrudState;
+import magrathea.marvin.desktop.app.utils.MessageHelper;
 import magrathea.marvin.desktop.user.dao.PreferedLanguage;
 import magrathea.marvin.desktop.user.dao.UserRole;
 import magrathea.marvin.desktop.user.model.User;
@@ -34,342 +27,211 @@ import magrathea.marvin.desktop.user.service.UserService;
 
 /**
  *
- * @author tricoman
+ * @author Arnau, Iván
  */
-public class UserController {
+public class UserController extends Crud {
 
-    public static final String EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:"
-            + "\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c"
-            + "\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b"
-            + "\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-            + "\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4]"
-            + "[0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?"
-            + "[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e"
-            + "-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e"
-            + "-\\x7f])+)\\])";
-    public static final String PHONE_REGEX = "\\d{9}";
-    public static final String NAME_REGEX = "^[\\p{L}\\p{M}' \\.\\-]+$";
-    public static final String PASS_REGEX = "((?=.*\\d)(?=.*[a-zA-Z]).{6,20})";
-    public static final String DEFAULT_PASS = "marvin42";
-
-    @FXML
-    private TableView<User> table_list_subsection;
-    @FXML
-    private TableColumn<User, String> userId;
-    @FXML
-    private TableColumn<User, String> nickname;
-    @FXML
-    private TableColumn<User, String> name;
-    @FXML
-    private TableColumn<User, String> email;
-    @FXML
-    private TableColumn<User, String> phone;
-    @FXML
-    private TableColumn<User, String> userRole;
-    @FXML
-    private Button resetPassButton;
-    @FXML
-    private ChoiceBox<UserRole> roleBox;
-    @FXML
-    private ChoiceBox<PreferedLanguage> languageBox;
-    @FXML
-    private TextField nicknameField;
-    @FXML
-    private TextField nameField, phoneField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private PasswordField passwordField, passConfirmationField;
-    @FXML
-    private TextArea pubDescField, privDescField;
-    @FXML
-    private Button createUserButton;
+    @FXML private TableView table_list_subsection;    // updates super
+    @FXML private Button resetPassButton, createButton, cancelButton;
+    @FXML private ChoiceBox<UserRole> roleBox;
+    @FXML private ChoiceBox<PreferedLanguage> languageBox;
+    @FXML private TextField nicknameField, nameField, phoneField, emailField, searchField;
+    @FXML private PasswordField passwordField, passConfirmationField;
+    @FXML private TextArea pubDescField, privDescField;
 
     private UserService service = null;
+    private ObservableList<User> items;
+    private FilteredList<? extends Object> itemsFilter;
+    
 
-    @FXML
-    GridPane form_grid;
-    @FXML
-    VBox extraFields;
-    private List<TextInputControl> userTextFields;
-
-    private enum STATE {
-        READ, NEW, EDIT, DELETE
-    }
-    private STATE state;
-
+    // Constructors //
     public UserController() {
         this.service = new UserService();
     }
 
-    @Deprecated
-    public UserController(UserService service, Stage stage) {
-        this.service = service;
-    }
-
-    public void initialize() {
-        userTextFields = new ArrayList<>();
-
-        // Add all instances of TextInputControl in a List for iterate later
-        for (Node node : form_grid.getChildren()) {
-            if (node instanceof TextField) {
-                userTextFields.add((TextField) node);
-            } else if (node instanceof PasswordField) {
-                userTextFields.add((PasswordField) node);
-            }
-        }
-        // Add all instances of TextInputControl in a List for iterate later
-        for (Node node : extraFields.getChildren()) {
-            if (node instanceof TextArea) {
-                userTextFields.add((TextArea) node);
-            }
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.table_list_subsection = table_list_subsection;
+        super.initialize(location, resources);     // stuff for all controllers
+        
+        setListenerToSearchField();
+        refreshTable();
 
         //---------------------------------------------------------------------
-        //USER TABLE SPECS
-        //COLUMNS
-        userId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        email.setCellValueFactory(new PropertyValueFactory<>("email"));
-        phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        userRole.setCellValueFactory(new PropertyValueFactory<>("userRole"));
+        // SPECIAL Stuff for User
+        // ENUMS
+        languageBox.getItems().setAll(PreferedLanguage.values());   // ENUM values
+        languageBox.getSelectionModel().selectFirst();              // select first
+        roleBox.getItems().setAll(UserRole.getValuesOK());          // method in ENUM          
+        roleBox.getSelectionModel().selectFirst();
 
-        //TABLE MODEL
-        table_list_subsection.setEditable(false);
-        refreshUserTable();
-        table_list_subsection.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar
+        // CHECKS FORM
+        checkFields = new HashMap<TextInputControl, String>();
+        setFieldsCheck(nameField, MessageHelper.NAME_REGEX);
+        setFieldsCheck(phoneField, MessageHelper.PHONE_REGEX);
+        setFieldsCheck(emailField, MessageHelper.EMAIL_REGEX);
+        setFieldsCheck(passwordField, MessageHelper.PASS_REGEX);
+        setFieldsCheck(passConfirmationField, MessageHelper.PASS_REGEX);
 
-        //LISTENER
-        table_list_subsection.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                //Check whether item is selected and set value of selected item to Label
-                if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
-                    User person = table_list_subsection.getSelectionModel().getSelectedItem();
-                    fromUserToForm(person);
-                    state = STATE.READ;
-                    setInterface();
-                }
-            }
-        });
+        // Link two passwords fields
+        setPasswordFieldConfirmation(passwordField, passConfirmationField);
 
-        table_list_subsection.getSelectionModel().selectFirst();
-
-        //---------------------------------------------------------------------
-        // FORM FIELDS
-        languageBox.getItems().setAll(PreferedLanguage.values());     // ENUM values
-        languageBox.getSelectionModel().selectFirst();               // Only select one item
-        UserRole[] userRoles = {UserRole.values()[1], UserRole.values()[2], UserRole.values()[3]};
-        roleBox.getItems().setAll(userRoles);     // ENUM values
-        roleBox.getSelectionModel().selectFirst();               // Only select one item
-
-        //LISTENER
-        EventHandler<KeyEvent> nameCheck = makeFieldCheckerHandler(NAME_REGEX, nameField);
-        EventHandler<KeyEvent> phoneCheck = makeFieldCheckerHandler(PHONE_REGEX, phoneField);
-        EventHandler<KeyEvent> emailCheck = makeFieldCheckerHandler(EMAIL_REGEX, emailField);
-        EventHandler<KeyEvent> passCheck = makeFieldCheckerHandler(PASS_REGEX, passwordField);
-        EventHandler<KeyEvent> passConfirmCheck = makeFieldCheckerHandler(PASS_REGEX, passConfirmationField);
-
-        phoneField.setOnKeyReleased(phoneCheck);
-        emailField.setOnKeyReleased(emailCheck);
-        passwordField.setOnKeyReleased(passCheck);
-        passConfirmationField.setOnKeyReleased(passConfirmCheck);
-
-        passConfirmationField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue == false) {
-                    if (!passwordFieldsValidation()) {
-                        showErrorAlert("edition", "\"password\" and \"confirm password\" fields does not match, please confirm password");
-                    }
-                }
-            }
-        });
-
-        state = STATE.READ;
+        state = CrudState.READ;
         setInterface();
-
     }
 
     //ACTIONS
     //-------------------------------------------------------------------------
-    public void onNewUser() {
-        state = STATE.NEW;
-        setInterface();
-    }
-
-    public void onEditUser() {
-        state = STATE.EDIT;
-        setInterface();
-    }
-
-    public void onDeleteUser() {
-        User user = table_list_subsection.getSelectionModel().getSelectedItem();
-
+    @Override
+    public void onDelete() {
+        User user = (User)table_list_subsection.getSelectionModel().getSelectedItem();
         boolean deletionResult = service.deleteItem(user);
-
         if (deletionResult) {
-            showSuccessAlert("User has been deleted");
+            MessageHelper.showSuccessAlert( resources.getString("marvin_USER" ) 
+                    + " " + user.getNickname() + resources.getString("crud_x_deleted"));
         } else {
-            showErrorAlert("deletion", "Error deleting user");
+            MessageHelper.showErrorAlert(resources.getString("crud_delete"), 
+                    resources.getString("crud_delete_error") + resources.getString("marvin_USER"));
         }
-        refreshUserTable();
+        refreshTable();
     }
+    
 
-    public void onSearch(ActionEvent event) {
-        String param = ((TextField) event.getSource()).getText();
-        //listView.getItems().setAll(service.search(choiceBox.getValue(), param));
-    }
-
-    public void onSendMail(ActionEvent event) {
-        if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
-            if (table_list_subsection.getSelectionModel().getSelectedItem().getEmail() != null) {
-                String mail = table_list_subsection.getSelectionModel().getSelectedItem().getEmail();
-                System.out.println("mailto:" + mail);
-            } else {
-                System.err.println("ERROR: USER with NULL mail");
-            }
-        } else {
-            System.err.println("ERROR: NO select USER");
-        }
+    @Override
+    public void onCancel(ActionEvent event) {
+        super.onCancel(event);
+        // Works because propmt text already defined
+        passwordField.setText("");
+        passConfirmationField.setText("");
     }
 
     public void onPassReset() {
-        passwordField.setText(DEFAULT_PASS);
-        passConfirmationField.setText(DEFAULT_PASS);
+        passwordField.setText(MessageHelper.DEFAULT_PASS);
+        passConfirmationField.setText(MessageHelper.DEFAULT_PASS);
     }
 
     public void onAction() {
-
         if (inputDataValidation()) {
             switch (state) {
-                case NEW: insertUser();
+                case NEW:
+                    insert();
                     break;
                 case EDIT:
-                    modifyUser();
+                    modify();
                     break;
             }
-
-            refreshUserTable();
+            refreshTable();
         } else {
             switch (state) {
                 case NEW:
-                    showErrorAlert("creation", "please check al data and try again");
+                    MessageHelper.showErrorAlert(
+                            resources.getString("crud_create"),
+                            resources.getString("crud_generic_error_text"));
                     break;
                 case EDIT:
-                    showErrorAlert("edition", "please check al data and try again");
+                    MessageHelper.showErrorAlert(
+                            resources.getString("crud_edit"),
+                            resources.getString("crud_generic_error_text"));
                     break;
             }
-
         }
     }
 
-    public void onCancel(ActionEvent event) {
-        refreshUserTable();
-        for (TextInputControl tf : userTextFields) {
-            tf.setStyle(null);
-        }
-    }
-
-    private void insertUser() {
-        User user = formFormToUser();
+    private void insert() {
+        User user = fromFormToItem();
         int insertionResult = service.insertItem(user);
         showResultAlert(insertionResult, "insertion");
     }
 
-    private void modifyUser() {
-        User userNew = formFormToUser();
-        userNew.setId(table_list_subsection.getSelectionModel().getSelectedItem().getId());
+    private void modify() {
+        User userNew = fromFormToItem();
+        userNew.setId(((User)(table_list_subsection.getSelectionModel().getSelectedItem())).getId());
         int modificationResult = service.modifyItem(userNew);
         showResultAlert(modificationResult, "modification");
     }
 
+    // Messages from checks in Service Layer
     private void showResultAlert(int operationResult, String operationKind) {
         if (operationResult == UserService.NO_MATCH || operationResult == UserService.UNKNOW_ERROR) {
-            showErrorAlert(operationKind, "please check al data and try again");
+            MessageHelper.showErrorAlert(operationKind, resources.getString("crud_generic_error_text"));
+            
         } else if (operationResult == UserService.PUBLICNAME_FOUND) {
-            showErrorAlert(operationKind, "\"public name\" already exists");
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_nickname") 
+                            + resources.getString("crud_error_exist_text"));
+            
         } else if (operationResult == UserService.NAME_FOUND) {
-            showErrorAlert(operationKind, "\"name\" already exists");
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_name") 
+                    + resources.getString("crud_error_exist_text"));
+            
         } else if (operationResult == UserService.PHONE_FOUND) {
-            showErrorAlert(operationKind, "\"phone number\" already exists");
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_phone")  
+                    + resources.getString("crud_error_exist_text"));
+            
         } else if (operationResult == UserService.EMAIL_FOUND) {
-            showErrorAlert(operationKind, "\"email adress\" already exists");
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_email")  
+                    + resources.getString("crud_error_exist_text"));
+
         } else if (operationResult >= 1) {
-            showSuccessAlert("User " + operationKind + " succesfully completed");
+            MessageHelper.showSuccessAlert( operationKind + resources.getString("crud_operation_complete"));
         }
 
     }
 
-    //FORM AUXILIAR METHODS
     //-------------------------------------------------------------------------
-    private void showErrorAlert(String actionRelated, String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("\"User " + actionRelated + " has failed");
-        alert.setContentText(message);
-
-        alert.showAndWait();
+    //  FORM AUXILIAR METHODS FOR CONCRETE CLASS
+    //  1 - refreshTable()
+    //  2 - fromItemToForm(Object item)
+    //  3 - fromFormToItem()
+    //  -----
+    //  4 - setRead()
+    //  5 - setNew()
+    //  6 - setEdit()
+    //-------------------------------------------------------------------------
+    @Override
+    protected void refreshTable() {
+        /*
+         * Very expensive query to server, OK for this project.
+         * SearchField & String is a trick for remember filter on refreshTable
+         */
+        String search = searchField.getText();
+        searchField.setText("");
+        
+        items = FXCollections.observableArrayList(service.getAll());
+        // Wrap all data in FilteredList
+        itemsFilter = new FilteredList<>(items, p -> true);
+        
+        searchField.setText(search);
+        
+        // filter predicate
+        table_list_subsection.setItems(itemsFilter);
+        table_list_subsection.getSelectionModel().selectFirst();
     }
 
-    private void showSuccessAlert(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        alert.showAndWait();
-    }
-
-    private EventHandler makeFieldCheckerHandler(String regex, TextField field) {
-        EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                String input = field.getText();
-                if (!input.matches(regex)) {
-                    field.setStyle("-fx-background-color: #ff8777;");
-                } else {
-                    field.setStyle(null);
+    protected void setListenerToSearchField() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            itemsFilter.setPredicate(item -> {
+                // If filter text is empty, display all data.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
                 }
-            }
-        };
 
-        return handler;
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Filters
+                if (((User)item).getNickname().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (((User)item).getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+        });
     }
 
-    private boolean inputDataValidation() {
-        if (nameField.getText().matches(NAME_REGEX)
-                && phoneField.getText().matches(PHONE_REGEX)
-                && emailField.getText().matches(EMAIL_REGEX)
-                && passwordField.getText().matches(PASS_REGEX)
-                && passConfirmationField.getText().matches(PASS_REGEX)
-                && passwordFieldsValidation()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean passwordFieldsValidation() {
-        if (passConfirmationField != null && !passConfirmationField.
-                getText().equals(passwordField.getText())) {
-
-            return false;
-
-        } else if (passConfirmationField == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void refreshUserTable() {
-        ObservableList<User> users = FXCollections.observableArrayList(service.getAll());
-        table_list_subsection.setItems(users);
-    }
-
-    private void fromUserToForm(User user) {
+    @Override
+    protected void fromItemToForm(Object item) {
+        User user = (User) item;
         roleBox.getSelectionModel().select(user.getUserRole());
         languageBox.getSelectionModel().select(user.getLanguage());
         nicknameField.setText(user.getNickname());
@@ -380,7 +242,8 @@ public class UserController {
         privDescField.setText(user.getPrivateDes());
     }
 
-    private User formFormToUser() {
+    @Override
+    protected User fromFormToItem() {
         User user = new User();
 
         user.setNickname(nicknameField.getText());
@@ -401,44 +264,52 @@ public class UserController {
         return user;
     }
 
-    private void setInterface() {
-        switch (state) {
-            case READ:
-                createUserButton.setDisable(true);
-                resetPassButton.setDisable(true);
-                // Set Interface to READ:VIEW
-                for (TextInputControl tf : userTextFields) {
-                    tf.setEditable(false);
-                    tf.setMouseTransparent(true);
-                    tf.setFocusTraversable(false);
-                }
+    /*
+     * Special Stuff in User STATE 
+     */
+    
+    
+    
+    
+    @Override
+    protected void setRead() {
+        createButton.setVisible(false);
+        resetPassButton.setVisible(false);
+        cancelButton.setVisible(false);
+        // Set Interface to READ:VIEW
+        for (TextInputControl tf : textFields) {
+            tf.setEditable(false);
+            tf.setMouseTransparent(true);
+            tf.setFocusTraversable(false);
+        }
+    }
 
-                break;
-            case NEW:
-                createUserButton.setDisable(false);
-                createUserButton.setText("create user");
-                resetPassButton.setDisable(false);
-                for (TextInputControl tf : userTextFields) {
-                    tf.toString();
-                    tf.setText("");
-                    tf.setEditable(true);
-                    tf.setMouseTransparent(false);
-                    tf.setFocusTraversable(true);
-                }
+    @Override
+    protected void setNew() {
+        cancelButton.setVisible(true);
+        createButton.setVisible(true);
+        createButton.setText(resources.getString("crud_create"));
+        resetPassButton.setVisible(true);
+        for (TextInputControl tf : textFields) {
+            tf.toString();
+            tf.setText("");
+            tf.setEditable(true);
+            tf.setMouseTransparent(false);
+            tf.setFocusTraversable(true);
+        }
+    }
 
-                break;
-            case EDIT:
-                createUserButton.setDisable(false);
-                createUserButton.setText("update user");
-                resetPassButton.setDisable(false);
-                for (TextInputControl tf : userTextFields) {
-                    tf.toString();
-                    tf.setEditable(true);
-                    tf.setMouseTransparent(false);
-                    tf.setFocusTraversable(true);
-                }
-
-                break;
+    @Override
+    protected void setEdit() {
+        cancelButton.setVisible(true);
+        createButton.setVisible(true);
+        createButton.setText(resources.getString("crud_update"));
+        resetPassButton.setVisible(true);
+        for (TextInputControl tf : textFields) {
+            tf.toString();
+            tf.setEditable(true);
+            tf.setMouseTransparent(false);
+            tf.setFocusTraversable(true);
         }
     }
 }

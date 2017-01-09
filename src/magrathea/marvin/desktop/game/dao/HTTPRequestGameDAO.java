@@ -54,7 +54,7 @@ public class HTTPRequestGameDAO extends HTTPRequestDAO implements GameDAO {
         return EMPTY;
         */
         String fakeJson = "["
-                + "{'idGame':'1','name':'Magic The Gathering','description':'Juego de cartas coleccionables',"
+                + "{'idGame':'1','name':'Magic The Gathering','description':'Magic: The Gathering (MTG; also known as Magic) is a trading card game created by Richard Garfield. First published in 1993 by Wizards of the Coast, Magic was the first trading card game produced and it continues to thrive, with approximately twenty million players as of 2015.',"
                 + "'image':'http://www.allcsgaming.com/wp-content/uploads/2014/03/MTGlogo.jpg'},"
                 + "{'idGame':'2','name':'Pokemon TCG','description':'Juego de cartas coleccionables',"
                 + "'image':'http://www.arkadian.vg/wp-content/uploads/2013/10/Pokemon-TCG.jpg'},"

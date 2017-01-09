@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Crud.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.utils</a> &gt; <span class="el_source">Crud.java</span></div><h1>Crud.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import magrathea.marvin.desktop.app.service.LoginService;
+import magrathea.marvin.desktop.user.model.User;
+
+/**
+ *
+ * @author boscalent
+ */
+public abstract class Crud {
+
+    @FXML protected TableView&lt;User&gt; table_list_subsection;
+    @FXML protected VBox extraFields;
+    @FXML protected HBox table_crud_buttons;
+    @FXML protected GridPane form_grid;
+
+    protected CrudState state;
+    protected List&lt;TextInputControl&gt; textFields;
+    protected Map&lt;TextInputControl, String&gt; checkFields;
+    protected ResourceBundle resources;
+
+<span class="nc" id="L45">    public Crud() {</span>
+        // For now, bundle is injected in view (fxml) but need a ref in controller
+        // from 'static' source (singleton).
+<span class="nc" id="L48">        this.resources = LoginService.getInstance().getBundle();</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * JavaFX Like Constructor //
+     */
+    public void initialize(){
+        // Override in concrete
+<span class="nc" id="L56">        setArrayTextFields();</span>
+<span class="nc" id="L57">        setCrudTooltip();</span>
+<span class="nc" id="L58">        setColumnsFromTable();</span>
+<span class="nc" id="L59">        configureTable();</span>
+<span class="nc" id="L60">    }</span>
+
+    public void configureTable() {
+<span class="nc" id="L63">        table_list_subsection.setEditable(false);</span>
+<span class="nc" id="L64">        refreshTable();</span>
+<span class="nc" id="L65">        table_list_subsection.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar</span>
+
+        //LISTENER
+<span class="nc" id="L68">        table_list_subsection.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+                //Check whether item is selected and set value of selected item to Label
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {</span>
+<span class="nc" id="L73">                    Object itemSelected = table_list_subsection.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L74">                    fromItemToForm(itemSelected);</span>
+<span class="nc" id="L75">                    state = CrudState.READ;</span>
+<span class="nc" id="L76">                    setInterface();</span>
+                }
+<span class="nc" id="L78">            }</span>
+        });
+
+<span class="nc" id="L81">        table_list_subsection.getSelectionModel().selectFirst();</span>
+<span class="nc" id="L82">    }</span>
+
+    protected abstract void fromItemToForm(Object item);
+
+    protected abstract Object fromFormToItem();
+
+    /* STATE of the CRUD stuff */
+    protected void setInterface() {
+<span class="nc bnc" id="L90" title="All 4 branches missed.">        switch (state) {</span>
+            case READ:
+<span class="nc" id="L92">                setRead();</span>
+<span class="nc" id="L93">                break;</span>
+            case NEW:
+<span class="nc" id="L95">                setNew();</span>
+<span class="nc" id="L96">                break;</span>
+            case EDIT:
+<span class="nc" id="L98">                setEdit();</span>
+                break;
+        }
+<span class="nc" id="L101">    }</span>
+
+    // ACTIONS
+    public void onEdit() {
+<span class="nc" id="L105">        state = CrudState.EDIT;</span>
+<span class="nc" id="L106">        setInterface();</span>
+<span class="nc" id="L107">    }</span>
+
+    public void onNew() {
+<span class="nc" id="L110">        state = CrudState.NEW;</span>
+<span class="nc" id="L111">        setInterface();</span>
+<span class="nc" id="L112">    }</span>
+
+    public void onSearch(ActionEvent event) {
+<span class="nc" id="L115">        String param = ((TextField) event.getSource()).getText();</span>
+        //listView.getItems().setAll(service.search(choiceBox.getValue(), param));
+<span class="nc" id="L117">    }</span>
+
+    public void onDelete() {
+<span class="nc" id="L120">    }</span>
+
+    public void onSendMail(ActionEvent event) {
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (table_list_subsection.getSelectionModel().getSelectedItem().getEmail() != null) {</span>
+<span class="nc" id="L125">                String mail = table_list_subsection.getSelectionModel().getSelectedItem().getEmail();</span>
+<span class="nc" id="L126">                System.out.println(&quot;mailto:&quot; + mail);</span>
+<span class="nc" id="L127">            } else {</span>
+<span class="nc" id="L128">                System.err.println(&quot;ERROR: USER with NULL mail&quot;);</span>
+            }
+        } else {
+<span class="nc" id="L131">            System.err.println(&quot;ERROR: NO select USER&quot;);</span>
+        }
+<span class="nc" id="L133">    }</span>
+
+    // STATE    
+    protected abstract void setRead();
+
+    protected abstract void setNew();
+
+    protected abstract void setEdit();
+
+    // MODEL
+    protected abstract void refreshTable();
+
+    public void onCancel(ActionEvent event) {
+<span class="nc" id="L146">        refreshTable();</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        for (TextInputControl tf : textFields) {</span>
+<span class="nc" id="L148">            tf.setStyle(null);</span>
+<span class="nc" id="L149">        }</span>
+<span class="nc" id="L150">    }</span>
+
+    protected EventHandler makeFieldCheckerHandler(String regex, TextField field) {
+<span class="nc" id="L153">        EventHandler&lt;KeyEvent&gt; handler = new EventHandler&lt;KeyEvent&gt;() {</span>
+            @Override
+            public void handle(KeyEvent event) {
+<span class="nc" id="L156">                String input = field.getText();</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                if (!input.matches(regex)) {</span>
+<span class="nc" id="L158">                    field.setStyle(&quot;-fx-background-color: #ff8777;&quot;);</span>
+                } else {
+<span class="nc" id="L160">                    field.setStyle(null);</span>
+                }
+<span class="nc" id="L162">            }</span>
+        };
+<span class="nc" id="L164">        return handler;</span>
+    }
+
+    protected void setCrudTooltip() {
+        // Tooltip
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        for (Node node : table_crud_buttons.getChildren()) {</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">            if (node instanceof Button) {</span>
+<span class="nc" id="L171">                Tooltip tt = new Tooltip(resources.getString(node.getId()));</span>
+<span class="nc" id="L172">                ((Button) node).setTooltip(tt);</span>
+            }
+<span class="nc" id="L174">        }</span>
+<span class="nc" id="L175">    }</span>
+
+    protected void setArrayTextFields() {
+<span class="nc" id="L178">        textFields = new ArrayList&lt;&gt;();</span>
+
+        // Add all instances of TextInputControl in a List for iterate later
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        for (Node node : form_grid.getChildren()) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">            if (node instanceof TextField) {</span>
+<span class="nc" id="L183">                textFields.add((TextField) node);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            } else if (node instanceof PasswordField) {</span>
+<span class="nc" id="L185">                textFields.add((PasswordField) node);</span>
+            }
+<span class="nc" id="L187">        }</span>
+        // Add all instances of TextInputControl in a List for iterate later
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        for (Node node : extraFields.getChildren()) {</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">            if (node instanceof TextArea) {</span>
+<span class="nc" id="L191">                textFields.add((TextArea) node);</span>
+            }
+<span class="nc" id="L193">        }</span>
+<span class="nc" id="L194">    }</span>
+
+    protected void setColumnsFromTable() {
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        for (TableColumn column : table_list_subsection.getColumns()) {</span>
+<span class="nc" id="L198">            column.setCellValueFactory(new PropertyValueFactory&lt;&gt;(column.getId()));</span>
+<span class="nc" id="L199">        }</span>
+<span class="nc" id="L200">    }</span>
+    
+    public void setFieldsCheck(TextField tf, String check) {
+<span class="nc" id="L203">        checkFields.put(tf, check);</span>
+<span class="nc" id="L204">        tf.setOnKeyReleased(makeFieldCheckerHandler(check, tf));</span>
+<span class="nc" id="L205">    }</span>
+
+    protected boolean inputDataValidation() {
+<span class="nc" id="L208">        boolean check = true;</span>
+        
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        for ( TextInputControl item : checkFields.keySet() ) {</span>
+<span class="nc bnc" id="L211" title="All 4 branches missed.">            check = check &amp;&amp; item.getText().matches(checkFields.get(item));</span>
+<span class="nc" id="L212">        }</span>
+<span class="nc" id="L213">        return check;</span>
+    }
+
+    protected boolean passwordFieldsValidation(PasswordField passwordField, PasswordField passwordFieldConfirmation ) {
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (passwordFieldConfirmation != null &amp;&amp; </span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">                !passwordFieldConfirmation.getText().equals(passwordField.getText())) {</span>
+<span class="nc" id="L219">            return false;</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        } else if (passwordFieldConfirmation == null) {</span>
+<span class="nc" id="L221">            return false;       // ?</span>
+        } else {
+<span class="nc" id="L223">            return true;</span>
+        }
+    }
+    
+    protected void setPasswordFieldConfirmation( PasswordField passwordField, PasswordField passwordFieldConfirmation){
+<span class="nc" id="L228">        passwordFieldConfirmation.focusedProperty().addListener(new ChangeListener&lt;Boolean&gt;() {</span>
+            @Override
+            public void changed(ObservableValue&lt;? extends Boolean&gt; observable, Boolean oldValue, Boolean newValue) {
+<span class="nc bnc" id="L231" title="All 2 branches missed.">                if (newValue == false) {</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">                    if (!passwordFieldsValidation(passwordField, passwordFieldConfirmation)) {</span>
+<span class="nc" id="L233">                        MessageHelper.showErrorAlert(&quot;edition&quot;, resources.getString(&quot;crud_error_password_check&quot;));</span>
+                    }
+                }
+<span class="nc" id="L236">            }</span>
+        });
+<span class="nc" id="L238">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

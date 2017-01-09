@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TabConfigController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.controller</a> &gt; <span class="el_source">TabConfigController.java</span></div><h1>TabConfigController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package magrathea.marvin.desktop.app.controller;
+
+import com.sun.javafx.property.adapter.PropertyDescriptor;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
+
+/**
+ * FXML Controller class
+ *
+ * @author boscalent
+ */
+<span class="nc" id="L26">public class TabConfigController implements Initializable {</span>
+
+<span class="nc" id="L28">    private static final MarvinConfig PROPS = MarvinConfig.getInstance();</span>
+    
+    @FXML
+    private GridPane grid;
+    
+    @FXML Button saveProps;
+
+<span class="nc" id="L35">    private boolean propsToSave = false;</span>
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L41">        grid.add(new Label(&quot;Property&quot;), 0, 0);</span>
+<span class="nc" id="L42">        grid.add(new Label(&quot;Value&quot;), 1, 0);</span>
+
+        Label label;
+        TextField textfield;
+
+<span class="nc" id="L47">        String[] propertyNames</span>
+<span class="nc" id="L48">                = PROPS.getAllProperyNames().toArray(</span>
+<span class="nc" id="L49">                        new String[PROPS.getAllProperyNames().size()]);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L51">            label = new Label(propertyNames[i]);</span>
+<span class="nc" id="L52">            textfield = new TextField();</span>
+<span class="nc" id="L53">            textfield.setText(PROPS.getProperty(propertyNames[i]));</span>
+<span class="nc" id="L54">            textfield.setId(propertyNames[i]);</span>
+            // add a Listener for saving props modification
+<span class="nc" id="L56">            textfield.textProperty().addListener(new TextFieldListener(textfield));</span>
+<span class="nc" id="L57">            grid.addRow(i + 1, label, textfield);</span>
+        }
+<span class="nc" id="L59">    }</span>
+
+    // Private inner class for capture the ID of textfield
+    private class TextFieldListener implements ChangeListener&lt;String&gt; {
+
+        private final TextField textField;
+<span class="nc" id="L65">        public TextFieldListener(TextField textField) {</span>
+<span class="nc" id="L66">            this.textField = textField;</span>
+<span class="nc" id="L67">        }</span>
+        @Override
+        public void changed(ObservableValue&lt;? extends String&gt; observable, String oldValue, String newValue) {
+<span class="nc" id="L70">            PROPS.setProperty(textField.getId(), newValue);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (propsToSave == false) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                propsToSave = !propsToSave;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                saveProps.setDisable(!propsToSave);</span>
+            }
+<span class="nc" id="L75">        }</span>
+
+    }
+    
+    public void saveProperties(){
+        //PROPS.storeProps();
+        
+<span class="nc" id="L82">        propsToSave = false;</span>
+<span class="nc" id="L83">        saveProps.setDisable(true);</span>
+<span class="nc" id="L84">    }</span>
+    
+    // TODO TabConfigController
+    // Change boolean stuff in buttons for observableBoolean (binding)
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

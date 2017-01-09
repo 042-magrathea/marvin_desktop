@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestUserDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.dao.HTTPRequest</a> &gt; <span class="el_source">HTTPRequestUserDAO.java</span></div><h1>HTTPRequestUserDAO.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.user.dao.HTTPRequest;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestUserDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.dao.HTTPRequest</a> &gt; <span class="el_source">HTTPRequestUserDAO.java</span></div><h1>HTTPRequestUserDAO.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.user.dao.HTTPRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -16,7 +17,9 @@ import java.util.List;
 import java.util.Map;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
+import magrathea.marvin.desktop.user.dao.PreferedLanguage;
 import magrathea.marvin.desktop.user.dao.UserDAO;
+import magrathea.marvin.desktop.user.dao.UserRole;
 import magrathea.marvin.desktop.user.dao.UserSearchType;
 import magrathea.marvin.desktop.user.model.User;
 
@@ -24,89 +27,153 @@ import magrathea.marvin.desktop.user.model.User;
  *
  * @author boscalent
  */
-<span class="nc" id="L27">public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {</span>
+<span class="nc" id="L30">public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {</span>
 
-<span class="nc" id="L29">    private static final List&lt;User&gt; EMPTY = new ArrayList&lt;&gt;();</span>
-
-    @Override
-    public long insertUser(User user) {
-        
-<span class="nc" id="L34">        String[] fields = {</span>
+<span class="nc" id="L32">    private static final List&lt;User&gt; EMPTY = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L33">    private final String[] FIELDS = {</span>
         &quot;publicName&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;eMail&quot;, &quot;ads&quot;, &quot;privateDes&quot;, &quot;publicDes&quot;, 
         &quot;userRole&quot;, &quot;language&quot;, &quot;datePassword&quot;, &quot;password&quot;, &quot;memberSince&quot;
         };
-        //values array creation
-<span class="nc" id="L39">        String[] values = new String[12];</span>
-<span class="nc" id="L40">        values[0] = user.getNickname();</span>
-<span class="nc" id="L41">        values[1] = user.getName();</span>
-<span class="nc" id="L42">        values[2] = user.getPhone();</span>
-<span class="nc" id="L43">        values[3] = user.getEmail();</span>
-<span class="nc" id="L44">        values[4] = String.valueOf(user.getAds());</span>
-<span class="nc" id="L45">        values[5] = user.getPrivateDes();</span>
-<span class="nc" id="L46">        values[6] = user.getPublicDes();</span>
-<span class="nc" id="L47">        values[7] = user.getUserRole();</span>
-<span class="nc" id="L48">        values[8] = user.getLanguage();</span>
-<span class="nc" id="L49">        values[9] = user.getDatePassword();</span>
-<span class="nc" id="L50">        values[10] = user.getPassword();</span>
-<span class="nc" id="L51">        values[11] = user.getMemberSince();</span>
-        
-<span class="nc" id="L53">        Gson gson = new Gson();</span>
-        
-<span class="nc" id="L55">        String fieldsJson = gson.toJson(fields);</span>
-<span class="nc" id="L56">        String valuesJson = gson.toJson(values);</span>
 
-<span class="nc" id="L58">        System.out.println(fieldsJson);</span>
-<span class="nc" id="L59">        System.out.println(valuesJson);</span>
+    @Override
+    public int insertUser(User user) {
+        
+
+        //values array creation
+<span class="nc" id="L43">        String[] values = buildValuesArray(user);</span>
+        
+<span class="nc" id="L45">        Gson gson = new Gson();</span>
+        
+<span class="nc" id="L47">        String fieldsJson = gson.toJson(FIELDS);</span>
+<span class="nc" id="L48">        String valuesJson = gson.toJson(values);</span>
+
         
         try {
             // URL (TODO: fix URL server as Constant)
-<span class="nc" id="L63">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+<span class="nc" id="L53">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
                     + &quot;usersQuery.php&quot;);
 
             // PARAMS POST
-<span class="nc" id="L67">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
-<span class="nc" id="L68">            params.put(&quot;requestName&quot;, &quot;insertItem&quot;);               // User has rights?</span>
+<span class="nc" id="L57">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L58">            params.put(&quot;requestName&quot;, &quot;insertItem&quot;);               // User has rights?</span>
             
             
-<span class="nc" id="L71">            params.put(&quot;values&quot;, valuesJson);</span>
-<span class="nc" id="L72">            params.put(&quot;fields&quot;, fieldsJson);</span>
+<span class="nc" id="L61">            params.put(&quot;values&quot;, valuesJson);</span>
+<span class="nc" id="L62">            params.put(&quot;fields&quot;, fieldsJson);</span>
                            
-<span class="nc" id="L74">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+<span class="nc" id="L64">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
 
             // GET READER FROM CONN (SUPER)
-<span class="nc" id="L77">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+<span class="nc" id="L67">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
 
             // PARSER
-<span class="nc" id="L80">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
+<span class="nc" id="L70">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
 
-<span class="nc" id="L82">            JsonObject jObject = jarray.get(0).getAsJsonObject();</span>
+<span class="nc" id="L72">            JsonObject jObject = jarray.get(0).getAsJsonObject();</span>
             // MAKE OBJECTS
-<span class="nc" id="L84">            System.out.println(jObject.get(&quot;insertionId&quot;).getAsInt());</span>
-<span class="nc" id="L85">            return jObject.get(&quot;insertionId&quot;).getAsLong();</span>
+<span class="nc" id="L74">            return jObject.get(&quot;insertionId&quot;).getAsInt();</span>
 
-<span class="nc" id="L87">        } catch (Exception ex) {</span>
-<span class="nc" id="L88">            ex.printStackTrace();</span>
+<span class="nc" id="L76">        } catch (Exception ex) {</span>
+<span class="nc" id="L77">            ex.printStackTrace();</span>
         } finally {
-<span class="nc" id="L90">            con.disconnect();</span>
-<span class="nc" id="L91">        }</span>
-<span class="nc" id="L92">        return 0;</span>
+<span class="nc" id="L79">            con.disconnect();</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">        return 0;</span>
     }
 
     @Override
-    public boolean updateUser(User user) {
-<span class="nc" id="L97">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
-        //To change body of generated methods, choose Tools | Templates.
+    public int updateUser(User user) {
+        //values array creation
+<span class="nc" id="L87">        String[] values = buildValuesArray(user);</span>
+        
+<span class="nc" id="L89">        Gson gson = new Gson();</span>
+        
+        //get POST parameters Strings converted to JSON
+<span class="nc" id="L92">        String fieldsJson = gson.toJson(FIELDS);</span>
+<span class="nc" id="L93">        String valuesJson = gson.toJson(values);</span>
+
+        
+        try {
+            // URL (TODO: fix URL server as Constant)
+<span class="nc" id="L98">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+                    + &quot;usersQuery.php&quot;);
+
+            // PARAMS POST
+<span class="nc" id="L102">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L103">            params.put(&quot;requestName&quot;, &quot;modifyItem&quot;);               // User has rights?</span>
+            
+<span class="nc" id="L105">            params.put(&quot;itemId&quot;, user.getId());</span>
+<span class="nc" id="L106">            params.put(&quot;values&quot;, valuesJson);</span>
+<span class="nc" id="L107">            params.put(&quot;fields&quot;, fieldsJson);</span>
+                           
+<span class="nc" id="L109">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+
+            // GET READER FROM CONN (SUPER)
+<span class="nc" id="L112">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+
+            // PARSER
+<span class="nc" id="L115">            JsonArray jarray = getArrayFromJson(in, null);</span>
+
+<span class="nc" id="L117">            JsonObject jObject = jarray.get(0).getAsJsonObject();</span>
+            // MAKE OBJECTS
+<span class="nc" id="L119">            int serverResponse = jObject.get(&quot;modifiedRowsNum&quot;).getAsInt();</span>
+            
+            
+<span class="nc" id="L122">            return serverResponse;</span>
+
+<span class="nc" id="L124">        } catch (Exception ex) {</span>
+<span class="nc" id="L125">            ex.printStackTrace();</span>
+        } finally {
+<span class="nc" id="L127">            con.disconnect();</span>
+            
+<span class="nc" id="L129">        } </span>
+<span class="nc" id="L130">        return 0;</span>
     }
 
     @Override
-    public boolean deleteUser(User user) {
-<span class="nc" id="L103">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
-        //To change body of generated methods, choose Tools | Templates.
+    public int deleteUser(User user) {
+<span class="nc" id="L135">        boolean result = false;</span>
+       
+        try {
+            // URL (TODO: fix URL server as Constant)
+<span class="nc" id="L139">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+                    + &quot;usersQuery.php&quot;);
+
+            // PARAMS POST
+<span class="nc" id="L143">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L144">            params.put(&quot;requestName&quot;, &quot;deleteItem&quot;);               // User has rights?</span>
+<span class="nc" id="L145">            params.put(&quot;itemId&quot;, user.getId());</span>
+                           
+<span class="nc" id="L147">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+
+            // GET READER FROM CONN (SUPER)
+<span class="nc" id="L150">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+
+            // PARSER
+<span class="nc" id="L153">            JsonArray jarray = getArrayFromJson(in, null);</span>
+
+<span class="nc" id="L155">            JsonObject jObject = jarray.get(0).getAsJsonObject();</span>
+            
+<span class="nc" id="L157">            int serverResponse = jObject.get(&quot;deletedRowsNum&quot;).getAsInt();</span>
+
+
+<span class="nc" id="L160">            return serverResponse;</span>
+
+<span class="nc" id="L162">        } catch (Exception ex) {</span>
+            
+<span class="nc" id="L164">            ex.printStackTrace();</span>
+        } finally {
+            
+<span class="nc" id="L167">            con.disconnect();</span>
+
+<span class="nc" id="L169">        }</span>
+<span class="nc" id="L170">        return 0;</span>
+        
     }
 
     @Override
     public List&lt;User&gt; findUsersByProperty(UserSearchType searchType, Object user) {
-<span class="nc" id="L109">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L176">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -114,34 +181,94 @@ import magrathea.marvin.desktop.user.model.User;
     public List&lt;User&gt; findAll() {
         try {
             // URL (TODO: fix URL server as Constant)
-<span class="nc" id="L117">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+<span class="nc" id="L184">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
                     + &quot;usersQuery.php&quot;);
 
             // PARAMS POST
-<span class="nc" id="L121">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
-<span class="nc" id="L122">            params.put(&quot;user&quot;, &quot;LOGIN_USER&quot;);               // User has rights?           </span>
-<span class="nc" id="L123">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+<span class="nc" id="L188">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L189">            params.put(&quot;user&quot;, &quot;LOGIN_USER&quot;);               // User has rights?           </span>
+<span class="nc" id="L190">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
 
             // GET READER FROM CONN (SUPER)
-<span class="nc" id="L126">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+<span class="nc" id="L193">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
 
             // PARSER
-<span class="nc" id="L129">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
+<span class="nc" id="L196">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
 
             // MAKE OBJECTS
-<span class="nc" id="L132">            return makeUsersFromJson(jarray);</span>
+<span class="nc" id="L199">            return makeUsersFromJson(jarray);</span>
 
-<span class="nc" id="L134">        } catch (Exception ex) {</span>
-<span class="nc" id="L135">            ex.printStackTrace();</span>
+<span class="nc" id="L201">        } catch (Exception ex) {</span>
+<span class="nc" id="L202">            ex.printStackTrace();</span>
         } finally {
-<span class="nc" id="L137">            con.disconnect();</span>
-<span class="nc" id="L138">        }</span>
-<span class="nc" id="L139">        return EMPTY;</span>
+<span class="nc" id="L204">            con.disconnect();</span>
+<span class="nc" id="L205">        }</span>
+<span class="nc" id="L206">        return EMPTY;</span>
     }
     
-    public boolean userExist(String userPublicName, String userEmail) {
-<span class="nc" id="L143">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
-        //To change body of generated methods, choose Tools | Templates.
+
+    private String[] buildValuesArray(User user) {
+<span class="nc" id="L211">        String[] values = new String[12];</span>
+<span class="nc" id="L212">        values[0] = user.getNickname();</span>
+<span class="nc" id="L213">        values[1] = user.getName();</span>
+<span class="nc" id="L214">        values[2] = user.getPhone();</span>
+<span class="nc" id="L215">        values[3] = user.getEmail();</span>
+<span class="nc" id="L216">        values[4] = null;</span>
+<span class="nc" id="L217">        values[5] = user.getPrivateDes();</span>
+<span class="nc" id="L218">        values[6] = user.getPublicDes();</span>
+<span class="nc" id="L219">        values[7] = user.getUserRole().toString();</span>
+<span class="nc" id="L220">        values[8] = user.getLanguage().toString();</span>
+<span class="nc" id="L221">        values[9] = user.getDatePassword();</span>
+<span class="nc" id="L222">        values[10] = user.getPassword();</span>
+<span class="nc" id="L223">        values[11] = user.getMemberSince();</span>
+        
+<span class="nc" id="L225">        return values;</span>
+    }
+    
+    
+    /**
+     * Checks if exists any entry in USER table of DB with an specific value for 
+     * an specific field
+     * 
+     * @param field field to check
+     * @param value value of the field
+     * @return boolean
+     */
+    public boolean valueExists(String field, String value) {
+<span class="nc" id="L238">        boolean result = false;</span>
+        
+        try {
+            // URL (TODO: fix URL server as Constant)
+<span class="nc" id="L242">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+                    + &quot;usersQuery.php&quot;);
+
+            // PARAMS POST
+<span class="nc" id="L246">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+
+<span class="nc" id="L248">            params.put(&quot;requestName&quot;, &quot;valueExists&quot;);</span>
+<span class="nc" id="L249">            params.put(&quot;field&quot;, field);</span>
+<span class="nc" id="L250">            params.put(&quot;value&quot;, value);</span>
+            
+<span class="nc" id="L252">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+
+            // GET READER FROM CONN (SUPER)
+<span class="nc" id="L255">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+
+            // PARSER
+<span class="nc" id="L258">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
+
+<span class="nc" id="L260">            JsonObject jObject = jarray.get(0).getAsJsonObject();</span>
+            
+<span class="nc" id="L262">            result = jObject.get(&quot;result&quot;).getAsBoolean();</span>
+
+<span class="nc" id="L264">        } catch (Exception ex) {</span>
+<span class="nc" id="L265">            ex.printStackTrace();</span>
+        } finally {
+            
+<span class="nc" id="L268">            con.disconnect();</span>
+<span class="nc" id="L269">            return result;</span>
+        }
+        
     }
 
     /**
@@ -151,22 +278,22 @@ import magrathea.marvin.desktop.user.model.User;
      * @return un byte[] amb els paràmetres
      */
     private byte[] putParams(Map&lt;String, Object&gt; params) {
-<span class="nc" id="L154">        byte[] postDataBytes = null;</span>
+<span class="nc" id="L281">        byte[] postDataBytes = null;</span>
         try {
-<span class="nc" id="L156">            StringBuilder postData = new StringBuilder();</span>
-<span class="nc bnc" id="L157" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
-<span class="nc bnc" id="L158" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
-<span class="nc" id="L159">                    postData.append('&amp;');</span>
+<span class="nc" id="L283">            StringBuilder postData = new StringBuilder();</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
+<span class="nc bnc" id="L285" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
+<span class="nc" id="L286">                    postData.append('&amp;');</span>
                 }
-<span class="nc" id="L161">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L162">                postData.append('=');</span>
-<span class="nc" id="L163">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L164">            }</span>
-<span class="nc" id="L165">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
-<span class="nc" id="L166">            System.out.println(params.toString());</span>
-<span class="nc" id="L167">        } catch (UnsupportedEncodingException ex) {</span>
-<span class="nc" id="L168">        }</span>
-<span class="nc" id="L169">        return postDataBytes;</span>
+<span class="nc" id="L288">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L289">                postData.append('=');</span>
+<span class="nc" id="L290">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L291">            }</span>
+<span class="nc" id="L292">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
+<span class="nc" id="L293">            System.out.println(postData.toString());</span>
+<span class="nc" id="L294">        } catch (UnsupportedEncodingException ex) {</span>
+<span class="nc" id="L295">        }</span>
+<span class="nc" id="L296">        return postDataBytes;</span>
     }
 
     /**
@@ -177,16 +304,17 @@ import magrathea.marvin.desktop.user.model.User;
      * @return un array d'objectes Json.
      */
     private JsonArray getArrayFromJson(Reader in, String node) {
-<span class="nc" id="L180">        JsonArray jarray = null;</span>
+<span class="nc" id="L307">        JsonArray jarray = null;</span>
         
-<span class="nc" id="L182">        JsonElement jelement = new JsonParser().parse(in);</span>
-<span class="nc bnc" id="L183" title="All 2 branches missed.">        if ( node != null){</span>
-<span class="nc" id="L184">            JsonObject jobject = jelement.getAsJsonObject();</span>
-<span class="nc" id="L185">            jarray = jobject.getAsJsonArray(node);</span>
-<span class="nc" id="L186">        } else {</span>
-<span class="nc" id="L187">            jarray = jelement.getAsJsonArray();</span>
+
+<span class="nc" id="L310">        JsonElement jelement = new JsonParser().parse(in);</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">        if ( node != null){</span>
+<span class="nc" id="L312">            JsonObject jobject = jelement.getAsJsonObject();</span>
+<span class="nc" id="L313">            jarray = jobject.getAsJsonArray(node);</span>
+<span class="nc" id="L314">        } else {</span>
+<span class="nc" id="L315">            jarray = jelement.getAsJsonArray();</span>
         }
-<span class="nc" id="L189">        return jarray;</span>
+<span class="nc" id="L317">        return jarray;</span>
     }
 
     /**
@@ -195,22 +323,90 @@ import magrathea.marvin.desktop.user.model.User;
      * @return List&lt;User&gt; que es pot retornar a la capa de servei
      */
     private List&lt;User&gt; makeUsersFromJson(JsonArray jarray) {
-<span class="nc" id="L198">        List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L326">        List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
         User user;
-<span class="nc bnc" id="L200" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
-<span class="nc" id="L201">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
-<span class="nc" id="L202">            user = new User();</span>
-<span class="nc" id="L203">            user.setId(jsonobject.get(&quot;idUser&quot;).getAsLong());</span>
-<span class="nc" id="L204">            user.setNickname(jsonobject.get(&quot;publicName&quot;).getAsString());</span>
-<span class="nc" id="L205">            user.setPassword(jsonobject.get(&quot;password&quot;).getAsString());</span>
-<span class="nc" id="L206">            user.setEmail(jsonobject.get(&quot;eMail&quot;).getAsString());</span>
-            // getAsBoolean falla, fico el if
-            // user.setAdministrator(jsonobject.get(&quot;administrator&quot;).getAsBoolean());
-<span class="nc" id="L209">            user.setAdministrator(jsonobject.get(&quot;administrator&quot;).getAsBoolean());</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
+<span class="nc" id="L329">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L330">            user = new User();</span>
+<span class="nc" id="L331">            user.setId(jsonobject.get(&quot;idUser&quot;).getAsLong());</span>
+<span class="nc" id="L332">            user.setNickname(jsonobject.get(&quot;publicName&quot;).getAsString());</span>
+<span class="nc" id="L333">            user.setName(jsonobject.get(&quot;name&quot;).getAsString());</span>
+<span class="nc" id="L334">            user.setPhone(jsonobject.get(&quot;phone&quot;).getAsString());</span>
+<span class="nc" id="L335">            user.setEmail(jsonobject.get(&quot;eMail&quot;).getAsString());</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">            if (jsonobject.has(&quot;administrator&quot;) </span>
+<span class="nc bnc" id="L337" title="All 2 branches missed.">                    &amp;&amp; !jsonobject.get(&quot;administrator&quot;).isJsonNull() </span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">                    &amp;&amp; jsonobject.get(&quot;administrator&quot;).getAsBoolean()) {</span>
+<span class="nc" id="L339">                user.setAdministrator();</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">            } else if (jsonobject.has(&quot;editor&quot;) </span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">                    &amp;&amp; !jsonobject.get(&quot;editor&quot;).isJsonNull() </span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">                    &amp;&amp; jsonobject.get(&quot;editor&quot;).getAsBoolean()) {</span>
+<span class="nc" id="L343">                user.setEditor();</span>
+            } else {
+<span class="nc" id="L345">                user.setRegularUser();</span>
+            }
+<span class="nc bnc" id="L347" title="All 4 branches missed.">            if (jsonobject.has(&quot;language&quot;) &amp;&amp; !jsonobject.get(&quot;language&quot;).isJsonNull()) {</span>
+<span class="nc" id="L348">                String language = jsonobject.get(&quot;language&quot;).getAsString();</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">                if (language.equalsIgnoreCase(PreferedLanguage.catalan.toString())) {</span>
+<span class="nc" id="L350">                    user.setLanguage(PreferedLanguage.catalan);                        </span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">                } else if (language.equalsIgnoreCase(PreferedLanguage.english.toString())) {</span>
+<span class="nc" id="L352">                    user.setLanguage(PreferedLanguage.english);</span>
+<span class="nc bnc" id="L353" title="All 2 branches missed.">                } else if (language.equalsIgnoreCase(PreferedLanguage.spanish.toString())) {</span>
+<span class="nc" id="L354">                    user.setLanguage(PreferedLanguage.spanish);</span>
+                }
+            } 
+<span class="nc bnc" id="L357" title="All 4 branches missed.">            if (jsonobject.has(&quot;publicDes&quot;)&amp;&amp; !jsonobject.get(&quot;publicDes&quot;).isJsonNull()) {</span>
+<span class="nc" id="L358">                user.setPublicDes(jsonobject.get(&quot;publicDes&quot;).getAsString());</span>
+            }
+<span class="nc bnc" id="L360" title="All 4 branches missed.">            if (jsonobject.has(&quot;privateDes&quot;)&amp;&amp; !jsonobject.get(&quot;privateDes&quot;).isJsonNull()) {</span>
+<span class="nc" id="L361">                user.setPrivateDes(jsonobject.get(&quot;privateDes&quot;).getAsString());</span>
+            }
             
-<span class="nc" id="L211">            users.add(user);</span>
+            
+            
+<span class="nc" id="L366">            users.add(user);</span>
         }
-<span class="nc" id="L213">        return users;</span>
+<span class="nc" id="L368">        return users;</span>
+    }
+
+
+    @Override
+    public User validateAuthenticator(String login, String password) {
+<span class="nc" id="L374">        User loginUser = null;</span>
+        try { 
+            
+<span class="nc" id="L377">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;)</span>
+                    + &quot;usersQuery.php&quot;);
+<span class="nc" id="L379">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L380">            params.put(&quot;requestName&quot;, &quot;userLogin&quot;);            </span>
+<span class="nc" id="L381">            params.put(&quot;userPublicName&quot;, login);                           </span>
+<span class="nc" id="L382">            params.put(&quot;userPassword&quot;, password);           // TODO: plain text, secure IT!!!!!               </span>
+<span class="nc" id="L383">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+            
+            // GET READER FROM CONN (SUPER)
+<span class="nc" id="L386">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+
+            // PARSER
+<span class="nc" id="L389">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
+<span class="nc" id="L390">            JsonObject jsonobject = jarray.get(0).getAsJsonObject();</span>
+<span class="nc" id="L391">            int role = jsonobject.get(&quot;loginResult&quot;).getAsInt();</span>
+            
+            //int role = 3;
+<span class="nc bnc" id="L394" title="All 2 branches missed.">            if (role == 0){</span>
+                // !!! Server says wrong User 
+<span class="nc bnc" id="L396" title="All 4 branches missed.">            } else if( role &gt; 0 &amp;&amp; role &lt; UserRole.values().length ){</span>
+<span class="nc" id="L397">                loginUser = new User();         // TODO: FILL with Query of user</span>
+<span class="nc" id="L398">                loginUser.setNickname(login);</span>
+<span class="nc" id="L399">                loginUser.setUserRole( UserRole.getById(role));</span>
+            } else {
+                // Unexpected result !!!
+            }
+           
+<span class="nc" id="L404">        } catch (MalformedURLException ex ) {</span>
+            //
+<span class="nc" id="L406">        } catch (Exception ex) {</span>
+            //
+<span class="nc" id="L408">        }</span>
+<span class="nc" id="L409">        return loginUser;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

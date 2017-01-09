@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MessageHelper.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.utils</a> &gt; <span class="el_source">MessageHelper.java</span></div><h1>MessageHelper.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package magrathea.marvin.desktop.app.utils;
+
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
+import magrathea.marvin.desktop.app.service.LoginService;
+
+/**
+ *
+ * @author boscalent
+ */
+public class MessageHelper {
+    public static final String EMAIL_REGEX = &quot;(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:&quot;
+            + &quot;\\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|\&quot;(?:[\\x01-\\x08\\x0b\\x0c&quot;
+            + &quot;\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b&quot;
+            + &quot;\\x0c\\x0e-\\x7f])*\&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?&quot;
+            + &quot;\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4]&quot;
+            + &quot;[0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?&quot;
+            + &quot;[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e&quot;
+            + &quot;-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e&quot;
+            + &quot;-\\x7f])+)\\])&quot;;
+    public static final String PHONE_REGEX = &quot;\\d{9}&quot;;
+    public static final String NAME_REGEX = &quot;^[\\p{L}\\p{M}' \\.\\-]+$&quot;;
+    public static final String PASS_REGEX = &quot;((?=.*\\d)(?=.*[a-zA-Z]).{6,20})&quot;;
+    public static final String DEFAULT_PASS = &quot;marvin42&quot;;
+    
+    private final static String TOKENIZER = &quot;\\. &quot;; // \\ for scape special . || [. ]
+    private static final ResourceBundle RESOURCES;
+    
+    static {
+<span class="nc" id="L41">        RESOURCES = LoginService.getInstance().getBundle();</span>
+<span class="nc" id="L42">    }</span>
+    
+    
+<span class="nc" id="L45">    private MessageHelper(){</span>
+        
+<span class="nc" id="L47">    }</span>
+    
+    public static void showErrorAlert(String actionRelated, String message) {
+<span class="nc" id="L50">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="nc" id="L51">        alert.setTitle(&quot;Error&quot;);</span>
+<span class="nc" id="L52">        alert.setHeaderText(&quot;User &quot; + actionRelated + &quot; has failed&quot;);</span>
+        // Linux FIX to show multiline
+<span class="nc" id="L54">        String[] messageMultiLine = message.split(TOKENIZER);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if ( messageMultiLine.length == 1){</span>
+<span class="nc" id="L56">            alert.setContentText(message);</span>
+        } else {
+<span class="nc" id="L58">            VBox vBox = new VBox();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">            for ( String s : messageMultiLine ){</span>
+<span class="nc" id="L60">                Label l = new Label(s);</span>
+<span class="nc" id="L61">                vBox.getChildren().add(l);</span>
+            }
+<span class="nc" id="L63">             alert.getDialogPane().setContent(vBox);  </span>
+        }
+
+<span class="nc" id="L66">        alert.showAndWait();</span>
+<span class="nc" id="L67">    }</span>
+
+    public static void showSuccessAlert(String message) {
+<span class="nc" id="L70">        Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L71">        alert.setTitle(&quot;Success&quot;);</span>
+<span class="nc" id="L72">        alert.setHeaderText(null);</span>
+        
+        // Linux FIX to show multiline
+<span class="nc" id="L75">        String[] messageMultiLine = message.split(TOKENIZER);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if ( messageMultiLine.length == 1){</span>
+<span class="nc" id="L77">            alert.setContentText(message);</span>
+        } else {
+<span class="nc" id="L79">            VBox vBox = new VBox();</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            for ( String s : messageMultiLine ){</span>
+<span class="nc" id="L81">                Label l = new Label(s);</span>
+<span class="nc" id="L82">                vBox.getChildren().add(l);</span>
+            }
+<span class="nc" id="L84">             alert.getDialogPane().setContent(vBox);  </span>
+        }
+<span class="nc" id="L86">        alert.showAndWait();</span>
+<span class="nc" id="L87">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestPrizeDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.prize.dao</a> &gt; <span class="el_source">HTTPRequestPrizeDAO.java</span></div><h1>HTTPRequestPrizeDAO.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.prize.dao;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import java.io.Reader;
+import java.net.Proxy;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
+import magrathea.marvin.desktop.prize.model.Prize;
+
+/**
+ *
+ * @author boscalent
+ */
+<span class="nc" id="L22">public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {</span>
+
+<span class="nc" id="L24">    private static final List&lt;Prize&gt; EMPTY = new ArrayList&lt;&gt;();</span>
+
+
+    @Override
+    public List&lt;Prize&gt; findAll() {
+        /* try {
+            
+            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) 
+                    + &quot;prizeQuery.php&quot;);
+
+            // PARAMS POST
+            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();
+            params.put(&quot;requestName&quot;, &quot;allValues&quot;);               // User has rights?           
+            byte[] postDataBytes = helper.putParams(params);       // Mètode aux. make POST
+
+            // GET READER FROM CONN (SUPER)
+            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);
+
+            // PARSER
+            JsonArray jarray = helper.getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects
+
+            // MAKE OBJECTS
+            return makePrizeFromJson(jarray);
+        
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            con.disconnect();
+        }
+        return EMPTY;
+        */
+<span class="nc" id="L56">        String fakeJson = &quot;[&quot;</span>
+                + &quot;{'idPrize':'1','name':'Magic The Gathering','description':'Juego de cartas coleccionables',&quot;
+                + &quot;'image':'http://www.allcsgaming.com/wp-content/uploads/2014/03/MTGlogo.jpg'},&quot;
+                + &quot;{'idPrize':'2','name':'Pokemon TCG','description':'Juego de cartas coleccionables',&quot;
+                + &quot;'image':'http://www.arkadian.vg/wp-content/uploads/2013/10/Pokemon-TCG.jpg'},&quot;
+                + &quot;{'idPrize':'3','name':'Aquelarre 2ª edición','description':'Juego de rol',&quot;
+                + &quot;'image':'http://3.bp.blogspot.com/_M7qnJE4I_pA/TL2DVT7HQ1I/AAAAAAAAAQQ/V_mkFAqA4H4/s1600/aquelarre_latentacion_300.jpg'}&quot;
+                + &quot;]&quot;;
+<span class="nc" id="L64">        JsonParser jsonParser = new JsonParser();</span>
+<span class="nc" id="L65">        JsonArray fakeJsonArray = (JsonArray) jsonParser.parse(fakeJson);</span>
+<span class="nc" id="L66">        return makePrizeFromJson(fakeJsonArray);</span>
+    }
+
+    @Override
+    public long insertHost(Prize prize) {
+<span class="nc" id="L71">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+        // TODO: Implement
+    }
+
+    @Override
+    public boolean updateHost(Prize prize) {
+<span class="nc" id="L77">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+        // TODO: Implement
+    }
+
+    @Override
+    public boolean deleteHost(Prize prize) {
+<span class="nc" id="L83">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+        // TODO: Implement
+    }
+
+    @Override
+    public List&lt;Prize&gt; findPrizeByProperties(PrizeSearchType searchType, Object host) {
+<span class="nc" id="L89">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+        // TODO: Implement
+    }
+
+    private List&lt;Prize&gt; makePrizeFromJson(JsonArray jarray) {
+<span class="nc" id="L94">        List&lt;Prize&gt; prizes = new ArrayList&lt;&gt;();</span>
+        Prize prize;
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
+<span class="nc" id="L97">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L98">            prize = new Prize();</span>
+
+<span class="nc" id="L100">            prize.setIdPrize(jsonobject.get(&quot;idPrize&quot;).getAsLong());</span>
+<span class="nc" id="L101">            prize.setName(jsonobject.get(&quot;name&quot;).getAsString());</span>
+<span class="nc" id="L102">            prize.setDescription(jsonobject.get(&quot;description&quot;).getAsString());</span>
+<span class="nc" id="L103">            prize.setImage(jsonobject.get(&quot;image&quot;).getAsString());</span>
+            
+<span class="nc" id="L105">            prizes.add(prize);</span>
+        }
+<span class="nc" id="L107">        return prizes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

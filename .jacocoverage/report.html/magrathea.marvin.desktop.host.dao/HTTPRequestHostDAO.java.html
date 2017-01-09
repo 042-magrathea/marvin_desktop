@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestHostDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.host.dao</a> &gt; <span class="el_source">HTTPRequestHostDAO.java</span></div><h1>HTTPRequestHostDAO.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HTTPRequestHostDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.host.dao</a> &gt; <span class="el_source">HTTPRequestHostDAO.java</span></div><h1>HTTPRequestHostDAO.java</h1><pre class="source lang-java linenums">/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,19 +6,14 @@
 package magrathea.marvin.desktop.host.dao;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import magrathea.marvin.desktop.app.Main;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.host.model.Host;
@@ -27,58 +22,9 @@ import magrathea.marvin.desktop.host.model.Host;
  *
  * @author boscalent
  */
-<span class="nc" id="L30">public class HTTPRequestHostDAO extends HTTPRequestDAO implements HostDAO {</span>
+<span class="nc" id="L25">public class HTTPRequestHostDAO extends HTTPRequestDAO implements HostDAO {</span>
 
-<span class="nc" id="L32">    private static final List&lt;Host&gt; EMPTY = new ArrayList&lt;&gt;();</span>
-
-    /**
-     * *****************************
-     * TO AUX LIB
-     */
-    /**
-     * Construeix el missatge POST per enviar al servidor PHP
-     *
-     * @param params paràmetres del webservice
-     * @return un byte[] amb els paràmetres
-     */
-    private byte[] putParams(Map&lt;String, Object&gt; params) {
-<span class="nc" id="L45">        byte[] postDataBytes = null;</span>
-        try {
-<span class="nc" id="L47">            StringBuilder postData = new StringBuilder();</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">            for (Map.Entry&lt;String, Object&gt; param : params.entrySet()) {</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (postData.length() != 0) {</span>
-<span class="nc" id="L50">                    postData.append('&amp;');</span>
-                }
-<span class="nc" id="L52">                postData.append(URLEncoder.encode(param.getKey(), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L53">                postData.append('=');</span>
-<span class="nc" id="L54">                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), &quot;UTF-8&quot;));</span>
-<span class="nc" id="L55">            }</span>
-<span class="nc" id="L56">            postDataBytes = postData.toString().getBytes(&quot;UTF-8&quot;);</span>
-
-<span class="nc" id="L58">        } catch (UnsupportedEncodingException ex) {</span>
-<span class="nc" id="L59">        }</span>
-<span class="nc" id="L60">        return postDataBytes;</span>
-    }
-
-    /**
-     * Processa el JSON i retorna un array JSON per construïr els objectes
-     *
-     * @param in Reader que retorna la connexió
-     * @param node Nom del objectes JSON o null si es un array
-     * @return un array d'objectes Json.
-     */
-    private JsonArray getArrayFromJson(Reader in, String node) {
-<span class="nc" id="L71">        JsonArray jarray = null;</span>
-
-<span class="nc" id="L73">        JsonElement jelement = new JsonParser().parse(in);</span>
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (node != null) {</span>
-<span class="nc" id="L75">            JsonObject jobject = jelement.getAsJsonObject();</span>
-<span class="nc" id="L76">            jarray = jobject.getAsJsonArray(node);</span>
-<span class="nc" id="L77">        } else {</span>
-<span class="nc" id="L78">            jarray = jelement.getAsJsonArray();</span>
-        }
-<span class="nc" id="L80">        return jarray;</span>
-    }
+<span class="nc" id="L27">    private static final List&lt;Host&gt; EMPTY = new ArrayList&lt;&gt;();</span>
 
     /**
      * Construeix objectes tipus User
@@ -87,77 +33,75 @@ import magrathea.marvin.desktop.host.model.Host;
      * @return List&lt;User&gt; que es pot retornar a la capa de servei
      */
     private List&lt;Host&gt; makeHostFromJson(JsonArray jarray) {
-<span class="nc" id="L90">        List&lt;Host&gt; hosts = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L36">        List&lt;Host&gt; hosts = new ArrayList&lt;&gt;();</span>
         Host host;
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
-<span class="nc" id="L93">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
-<span class="nc" id="L94">            host = new Host();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        for (int i = 0; i &lt; jarray.size(); i++) {</span>
+<span class="nc" id="L39">            JsonObject jsonobject = jarray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L40">            host = new Host();</span>
 
-<span class="nc" id="L96">            host.setId(jsonobject.get(&quot;idTournamentHost&quot;).getAsLong());</span>
-<span class="nc" id="L97">            host.setName(jsonobject.get(&quot;name&quot;).getAsString());</span>
-<span class="nc" id="L98">            host.setLatitude(jsonobject.get(&quot;latitude&quot;).getAsLong());</span>
-<span class="nc" id="L99">            host.setLongitude(jsonobject.get(&quot;longitude&quot;).getAsLong());</span>
-<span class="nc" id="L100">            host.setPhone(jsonobject.get(&quot;phone&quot;).getAsString());</span>
-<span class="nc" id="L101">            host.setAddress(jsonobject.get(&quot;adress&quot;).getAsString());</span>
-<span class="nc" id="L102">            host.seteMail(jsonobject.get(&quot;eMail&quot;).getAsString());</span>
+<span class="nc" id="L42">            host.setId(jsonobject.get(&quot;idTournamentHost&quot;).getAsLong());</span>
+<span class="nc" id="L43">            host.setName(jsonobject.get(&quot;name&quot;).getAsString());</span>
+<span class="nc" id="L44">            host.setLatitude(Float.parseFloat(jsonobject.get(&quot;latitude&quot;).getAsString()));</span>
+<span class="nc" id="L45">            host.setLongitude(Float.parseFloat(jsonobject.get(&quot;longitude&quot;).getAsString()));</span>
+<span class="nc" id="L46">            host.setPhone(jsonobject.get(&quot;phone&quot;).getAsString());</span>
+<span class="nc" id="L47">            host.setAddress(jsonobject.get(&quot;adress&quot;).getAsString());</span>
+<span class="nc" id="L48">            host.seteMail(jsonobject.get(&quot;eMail&quot;).getAsString());</span>
 
-<span class="nc" id="L104">            hosts.add(host);</span>
+<span class="nc" id="L50">            hosts.add(host);</span>
         }
-<span class="nc" id="L106">        return hosts;</span>
+<span class="nc" id="L52">        return hosts;</span>
     }
 
     @Override
     public long insertHost(Host host) {
-<span class="nc" id="L111">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L57">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public boolean updateHost(Host host) {
-<span class="nc" id="L117">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L63">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public boolean deleteHost(Host host) {
-<span class="nc" id="L123">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L69">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public List&lt;Host&gt; findHostByProperties(HostSearchType searchType, Object host) {
-<span class="nc" id="L129">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L75">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
         // TODO: Implement
     }
 
     @Override
     public List&lt;Host&gt; findAll() {
         try {
-            // URL (TODO: fix URL server as Constant)
-<span class="nc" id="L137">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
+<span class="nc" id="L82">            URL url = new URL( MarvinConfig.getInstance().getProperty(&quot;SERVER_ADDRESS&quot;) </span>
                     + &quot;hostsQuery.php&quot;);
 
             // PARAMS POST
-<span class="nc" id="L141">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
-            //params.put(&quot;user&quot;, &quot;LOGIN_USER&quot;);               // User has rights?           
-<span class="nc" id="L143">            byte[] postDataBytes = putParams(params);       // Mètode aux. make POST</span>
+<span class="nc" id="L86">            Map&lt;String, Object&gt; params = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L87">            params.put(&quot;requestName&quot;, &quot;allValues&quot;);               // User has rights?           </span>
+<span class="nc" id="L88">            byte[] postDataBytes = helper.putParams(params);       // Mètode aux. make POST</span>
 
             // GET READER FROM CONN (SUPER)
-<span class="nc" id="L146">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
+<span class="nc" id="L91">            Reader in = super.connect(url, Proxy.NO_PROXY, postDataBytes);</span>
 
             // PARSER
-<span class="nc" id="L149">            JsonArray jarray = getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
+<span class="nc" id="L94">            JsonArray jarray = helper.getArrayFromJson(in, null); // &quot;users&quot; Only Json Objects</span>
 
             // MAKE OBJECTS
-<span class="nc" id="L152">            return makeHostFromJson(jarray);</span>
+<span class="nc" id="L97">            return makeHostFromJson(jarray);</span>
 
-<span class="nc" id="L154">        } catch (Exception ex) {</span>
-<span class="nc" id="L155">            ex.printStackTrace();</span>
+<span class="nc" id="L99">        } catch (Exception ex) {</span>
+<span class="nc" id="L100">            ex.printStackTrace();</span>
         } finally {
-<span class="nc" id="L157">            con.disconnect();</span>
-<span class="nc" id="L158">        }</span>
-<span class="nc" id="L159">        return EMPTY;</span>
+<span class="nc" id="L102">            con.disconnect();</span>
+<span class="nc" id="L103">        }</span>
+<span class="nc" id="L104">        return EMPTY;</span>
     }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

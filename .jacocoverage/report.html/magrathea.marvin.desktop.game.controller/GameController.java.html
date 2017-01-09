@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.game.controller</a> &gt; <span class="el_source">GameController.java</span></div><h1>GameController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.game.controller;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import magrathea.marvin.desktop.game.model.Game;
+import magrathea.marvin.desktop.game.service.GameService;
+import net.coobird.thumbnailator.Thumbnails;
+
+/**
+ * FXML Controller class
+ *
+ * @author boscalent
+ */
+public class GameController implements Initializable {
+
+    @FXML
+    private AnchorPane gameAnchorPane;
+
+    @FXML
+    private TableView&lt;Game&gt; gameTable;
+    @FXML
+    private TableColumn&lt;Game, String&gt; gameId, gameName;
+
+    @FXML
+    private TextField gameNameField, gameImageField;
+
+    @FXML
+    private ImageView gameImageView;
+
+    @FXML
+    private TextArea gameDescriptionField;
+
+    @FXML
+    private GridPane form;
+
+    @FXML
+    private Button cancel, OK, loadImageButton;
+
+    private Image image;
+    private Game game;
+<span class="nc" id="L62">    private GameService service = null;</span>
+    private List&lt;TextInputControl&gt; gameTextFields;
+
+<span class="nc" id="L65">    private enum STATE {</span>
+<span class="nc" id="L66">        READ, NEW, EDIT, DELETE</span>
+    }
+    STATE state;
+
+<span class="nc" id="L70">    public GameController() {</span>
+<span class="nc" id="L71">        this.service = new GameService();</span>
+<span class="nc" id="L72">    }</span>
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L79">        gameTextFields = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L80">        game = null;</span>
+<span class="nc" id="L81">        image = new Image(&quot;/magrathea/marvin/desktop/game/view/notGameImage.png&quot;);</span>
+        
+        // Add all instances of TextInputControl in a List for iterate later
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        for (Node node : form.getChildren()) {</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (node instanceof TextField) {</span>
+<span class="nc" id="L86">                gameTextFields.add((TextField) node);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            } else if (node instanceof TextArea) {</span>
+<span class="nc" id="L88">                gameTextFields.add((TextArea) node);</span>
+            }
+<span class="nc" id="L90">        }</span>
+<span class="nc" id="L91">        gameTextFields.add(gameImageField);</span>
+
+        // COLUMNS
+<span class="nc" id="L94">        gameId.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idGame&quot;));</span>
+<span class="nc" id="L95">        gameName.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;name&quot;));</span>
+
+        // TABLE MODEL
+<span class="nc" id="L98">        ObservableList&lt;Game&gt; games = FXCollections.observableArrayList(service.getAll());</span>
+<span class="nc" id="L99">        gameTable.setEditable(true);</span>
+<span class="nc" id="L100">        gameTable.setItems(games);</span>
+<span class="nc" id="L101">        gameTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar   </span>
+
+<span class="nc" id="L103">        gameTable.getSelectionModel().selectedItemProperty().addListener(</span>
+                (observable, oldValue, newValue) -&gt; {
+<span class="nc" id="L105">                    game = newValue;</span>
+<span class="nc" id="L106">                    fillReadValues();</span>
+<span class="nc" id="L107">                });</span>
+<span class="nc" id="L108">        gameTable.getSelectionModel().selectFirst(); // First Selected, not void</span>
+<span class="nc" id="L109">    }</span>
+
+    public void fillReadValues() {
+<span class="nc" id="L112">        state = STATE.READ;</span>
+
+<span class="nc" id="L114">        gameNameField.setText(game.getName());</span>
+<span class="nc" id="L115">        gameDescriptionField.setText(game.getDescription());</span>
+<span class="nc" id="L116">        gameImageField.setText(game.getImage());</span>
+<span class="nc bnc" id="L117" title="All 4 branches missed.">        if (game.getImage() != null || !game.getImage().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L118">            gameImageView.setImage(new Image(game.getImage(), true));</span>
+        } else {
+<span class="nc" id="L120">            gameImageView.setImage(image);</span>
+        }
+
+<span class="nc" id="L123">        setInterface();</span>
+<span class="nc" id="L124">    }</span>
+
+    public void newGame() {
+        // Do stuff
+<span class="nc" id="L128">        Game newGame = new Game();</span>
+
+        // Set Interface to READ:VIEW
+<span class="nc" id="L131">        state = STATE.NEW;</span>
+<span class="nc" id="L132">        setInterface();</span>
+<span class="nc" id="L133">    }</span>
+    
+    private void saveNewGame(){
+<span class="nc" id="L136">        Alert alert = new Alert(AlertType.WARNING);</span>
+<span class="nc" id="L137">        alert.setTitle(&quot;Save Game&quot;);</span>
+<span class="nc" id="L138">        alert.setHeaderText(&quot;Do stuff for save the game&quot;);</span>
+<span class="nc" id="L139">        alert.setContentText(&quot;Find a way for save the image of the game&quot;);</span>
+<span class="nc" id="L140">        alert.showAndWait();</span>
+<span class="nc" id="L141">    }</span>
+
+    // TODO: Same with events from cancel/OK button for every state
+    private void setInterface() {
+<span class="nc bnc" id="L145" title="All 3 branches missed.">        switch (state) {</span>
+            case READ:
+                // Set Interface to READ:VIEW
+<span class="nc bnc" id="L148" title="All 2 branches missed.">                for (TextInputControl tf : gameTextFields) {</span>
+<span class="nc" id="L149">                    tf.setEditable(false);</span>
+<span class="nc" id="L150">                    tf.setMouseTransparent(true);</span>
+<span class="nc" id="L151">                    tf.setFocusTraversable(false);</span>
+<span class="nc" id="L152">                }</span>
+<span class="nc" id="L153">                cancel.setVisible(false);</span>
+<span class="nc" id="L154">                OK.setVisible(false);</span>
+<span class="nc" id="L155">                loadImageButton.setDisable(true);</span>
+<span class="nc" id="L156">                break;</span>
+            case NEW:
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                for (TextInputControl tf : gameTextFields) {</span>
+<span class="nc" id="L159">                    tf.toString();</span>
+<span class="nc" id="L160">                    tf.setText(&quot;&quot;);</span>
+<span class="nc" id="L161">                    tf.setEditable(true);</span>
+<span class="nc" id="L162">                    tf.setMouseTransparent(false);</span>
+<span class="nc" id="L163">                    tf.setFocusTraversable(true);</span>
+<span class="nc" id="L164">                }</span>
+<span class="nc" id="L165">                gameImageField.setText(&quot;&quot;);         // ¿?</span>
+<span class="nc" id="L166">                gameImageView.setImage(image);</span>
+<span class="nc" id="L167">                cancel.setVisible(true);</span>
+<span class="nc" id="L168">                OK.setText(&quot;Save&quot;);</span>
+<span class="nc" id="L169">                OK.setOnAction((ActionEvent e) -&gt; {saveNewGame();});    // lamfda exp (equals inner class)</span>
+<span class="nc" id="L170">                OK.setVisible(true);</span>
+<span class="nc" id="L171">                loadImageButton.setDisable(false);</span>
+                break;
+        }
+<span class="nc" id="L174">    }</span>
+
+    public void loadImage() {
+<span class="nc" id="L177">        FileChooser fileChooser = new FileChooser();</span>
+<span class="nc" id="L178">        fileChooser.setTitle(&quot;Select Game Image&quot;);</span>
+
+        // Extension Filter
+<span class="nc" id="L181">        fileChooser.getExtensionFilters().addAll(</span>
+                new ExtensionFilter(&quot;Image Files&quot;, &quot;*.png&quot;, &quot;*.jpg&quot;, &quot;*.gif&quot;));
+
+        //Show open file dialog
+<span class="nc" id="L185">        File file = fileChooser.showOpenDialog(null);</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        if (file != null) {</span>
+            try {
+<span class="nc" id="L188">                BufferedImage bufferedImage = Thumbnails.of(file).size(200, 300).keepAspectRatio(true).asBufferedImage();                </span>
+<span class="nc" id="L189">                gameImageView.setImage( SwingFXUtils.toFXImage(bufferedImage, null));</span>
+<span class="nc" id="L190">                gameImageField.setText(file.getName());</span>
+<span class="nc" id="L191">            } catch (IOException ex) {</span>
+                //
+<span class="nc" id="L193">            }</span>
+
+        }
+<span class="nc" id="L196">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

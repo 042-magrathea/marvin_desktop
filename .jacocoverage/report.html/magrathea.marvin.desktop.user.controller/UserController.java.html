@@ -1,85 +1,244 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.user.controller;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.user.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import magrathea.marvin.desktop.app.Main;
-import magrathea.marvin.desktop.user.dao.UserSearchType;
+
+import magrathea.marvin.desktop.app.utils.Crud;
+import magrathea.marvin.desktop.app.utils.CrudState;
+import magrathea.marvin.desktop.app.utils.MessageHelper;
+import magrathea.marvin.desktop.user.dao.PreferedLanguage;
+import magrathea.marvin.desktop.user.dao.UserRole;
 import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
 
 /**
  *
- * @author boscalent
+ * @author Arnau, Iván
  */
-public class UserController {
+public class UserController extends Crud {
 
-    @FXML private ChoiceBox&lt;UserSearchType&gt; choiceBox;
-    @FXML private TableView&lt;User&gt; userTable;
-    @FXML private ListView&lt;User&gt; listView;
-    @FXML private TableColumn&lt;User, String&gt; UserId;
-    @FXML private TableColumn&lt;User, String&gt; Nickname;
-    @FXML private TableColumn&lt;User, String&gt; Password;
-    @FXML private TableColumn&lt;User, String&gt; Email;
-    @FXML private TableColumn&lt;User, String&gt; Administrator;
+    @FXML private Button resetPassButton, createUserButton, cancelButton;
+    @FXML private ChoiceBox&lt;UserRole&gt; roleBox;
+    @FXML private ChoiceBox&lt;PreferedLanguage&gt; languageBox;
+    @FXML private TextField nicknameField, nameField, phoneField, emailField;
+    @FXML private PasswordField passwordField, passConfirmationField;
+    @FXML private TextArea pubDescField, privDescField;
 
-    
-<span class="nc" id="L35">    private UserService service = null;</span>
+<span class="nc" id="L38">    private UserService service = null;</span>
 
-<span class="nc" id="L37">    public UserController() {</span>
-<span class="nc" id="L38">        this.service = new UserService( );</span>
-<span class="nc" id="L39">    }</span>
+    // Constructors //
+<span class="nc" id="L41">    public UserController() {</span>
+<span class="nc" id="L42">        this.service = new UserService();</span>
+<span class="nc" id="L43">    }</span>
 
-    @Deprecated
-<span class="nc" id="L42">    public UserController(UserService service, Stage stage) {</span>
-<span class="nc" id="L43">        this.service = service;</span>
-<span class="nc" id="L44">    }</span>
-
+    @Override
     public void initialize() {
-<span class="nc" id="L47">        choiceBox.getItems().setAll(UserSearchType.values());     // ENUM values</span>
-<span class="nc" id="L48">        choiceBox.getSelectionModel().selectFirst();               // Only select one item</span>
+<span class="nc" id="L47">        super.initialize();     // stuff for all controllers</span>
 
-<span class="nc" id="L50">        listView.getItems().setAll(service.getAll());</span>
+        //---------------------------------------------------------------------
+        // SPECIAL Stuff for User
+        // ENUMS
+<span class="nc" id="L52">        languageBox.getItems().setAll(PreferedLanguage.values());   // ENUM values</span>
+<span class="nc" id="L53">        languageBox.getSelectionModel().selectFirst();              // select first</span>
+<span class="nc" id="L54">        roleBox.getItems().setAll(UserRole.getValuesOK());          // method in ENUM          </span>
+<span class="nc" id="L55">        roleBox.getSelectionModel().selectFirst();</span>
 
-        // COLUMNS
-<span class="nc" id="L53">        UserId.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
-<span class="nc" id="L54">        Nickname.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nickname&quot;));</span>
-<span class="nc" id="L55">        Password.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;password&quot;));</span>
-<span class="nc" id="L56">        Email.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;email&quot;));</span>
-<span class="nc" id="L57">        Administrator.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;administrator&quot;));</span>
+        // CHECKS FORM
+<span class="nc" id="L58">        checkFields = new HashMap&lt;TextInputControl, String&gt;();</span>
+<span class="nc" id="L59">        setFieldsCheck(nameField, MessageHelper.NAME_REGEX);</span>
+<span class="nc" id="L60">        setFieldsCheck(phoneField, MessageHelper.PHONE_REGEX);</span>
+<span class="nc" id="L61">        setFieldsCheck(emailField, MessageHelper.EMAIL_REGEX);</span>
+<span class="nc" id="L62">        setFieldsCheck(passwordField, MessageHelper.PASS_REGEX);</span>
+<span class="nc" id="L63">        setFieldsCheck(passConfirmationField, MessageHelper.PASS_REGEX);</span>
 
-        // TABLE MODEL
-<span class="nc" id="L60">        ObservableList&lt;User&gt; users = FXCollections.observableArrayList(service.getAll());</span>
-<span class="nc" id="L61">        userTable.setEditable(true);</span>
-<span class="nc" id="L62">        userTable.setItems(users);</span>
-<span class="nc" id="L63">        userTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar    </span>
-<span class="nc" id="L64">    }</span>
+        // Link two passwords fields
+<span class="nc" id="L66">        setPasswordFieldConfirmation(passwordField, passConfirmationField);</span>
 
-    // ACTIONS
-    public void onSearch(ActionEvent event) {
-<span class="nc" id="L68">        String param = ((TextField) event.getSource()).getText();</span>
-<span class="nc" id="L69">        listView.getItems().setAll(service.search(choiceBox.getValue(), param));</span>
+<span class="nc" id="L68">        state = CrudState.READ;</span>
+<span class="nc" id="L69">        setInterface();</span>
 <span class="nc" id="L70">    }</span>
 
-    public void onSendMail(ActionEvent event) {
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if ( userTable.getSelectionModel().getSelectedItem() != null ){</span>
-<span class="nc bnc" id="L74" title="All 2 branches missed.">            if (userTable.getSelectionModel().getSelectedItem().getEmail() != null ){</span>
-<span class="nc" id="L75">                String mail = userTable.getSelectionModel().getSelectedItem().getEmail();</span>
-<span class="nc" id="L76">                System.out.println(&quot;mailto:&quot; + mail);</span>
-<span class="nc" id="L77">            } else {</span>
-<span class="nc" id="L78">                System.err.println(&quot;ERROR: USER with NULL mail&quot;);</span>
-            }
+
+    //ACTIONS
+    //-------------------------------------------------------------------------
+    @Override
+    public void onDelete() {
+<span class="nc" id="L77">        User user = table_list_subsection.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L78">        boolean deletionResult = service.deleteItem(user);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (deletionResult) {</span>
+<span class="nc" id="L80">            MessageHelper.showSuccessAlert(&quot;User has been deleted&quot;);</span>
         } else {
-<span class="nc" id="L81">            System.err.println(&quot;ERROR: NO select USER&quot;);</span>
-        }     
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L82">            MessageHelper.showErrorAlert(&quot;deletion&quot;, &quot;Error deleting user&quot;);</span>
+        }
+<span class="nc" id="L84">        refreshTable();</span>
+<span class="nc" id="L85">    }</span>
+
+    @Override
+    public void onCancel(ActionEvent event){
+<span class="nc" id="L89">        super.onCancel(event);</span>
+<span class="nc" id="L90">        passwordField.setText(&quot;&quot;);</span>
+<span class="nc" id="L91">        passConfirmationField.setText(&quot;&quot;);</span>
+<span class="nc" id="L92">    }</span>
+    
+    public void onPassReset() {
+<span class="nc" id="L95">        passwordField.setText(MessageHelper.DEFAULT_PASS);</span>
+<span class="nc" id="L96">        passConfirmationField.setText(MessageHelper.DEFAULT_PASS);</span>
+<span class="nc" id="L97">    }</span>
+
+    public void onAction() {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (inputDataValidation()) {</span>
+<span class="nc bnc" id="L101" title="All 3 branches missed.">            switch (state) {</span>
+<span class="nc" id="L102">                case NEW: insert();break;</span>
+<span class="nc" id="L103">                case EDIT:modify();break;</span>
+            }
+<span class="nc" id="L105">            refreshTable();</span>
+        } else {
+<span class="nc bnc" id="L107" title="All 3 branches missed.">            switch (state) {</span>
+                case NEW:
+<span class="nc" id="L109">                    MessageHelper.showErrorAlert(&quot;creation&quot;, &quot;please check al data and try again&quot;);</span>
+<span class="nc" id="L110">                    break;</span>
+                case EDIT:
+<span class="nc" id="L112">                    MessageHelper.showErrorAlert(&quot;edition&quot;, &quot;please check al data and try again&quot;);</span>
+                    break;
+            }
+        }
+<span class="nc" id="L116">    }</span>
+
+    private void insert() {
+<span class="nc" id="L119">        User user = fromFormToItem();</span>
+<span class="nc" id="L120">        int insertionResult = service.insertItem(user);</span>
+<span class="nc" id="L121">        showResultAlert(insertionResult, &quot;insertion&quot;);</span>
+<span class="nc" id="L122">    }</span>
+
+    private void modify() {
+<span class="nc" id="L125">        User userNew = fromFormToItem();</span>
+<span class="nc" id="L126">        userNew.setId(table_list_subsection.getSelectionModel().getSelectedItem().getId());</span>
+<span class="nc" id="L127">        int modificationResult = service.modifyItem(userNew);</span>
+<span class="nc" id="L128">        showResultAlert(modificationResult, &quot;modification&quot;);</span>
+<span class="nc" id="L129">    }</span>
+
+    // Messages from checks in Service Layer
+    private void showResultAlert(int operationResult, String operationKind) {
+<span class="nc bnc" id="L133" title="All 4 branches missed.">        if (operationResult == UserService.NO_MATCH || operationResult == UserService.UNKNOW_ERROR) {</span>
+<span class="nc" id="L134">            MessageHelper.showErrorAlert(operationKind, &quot;please check al data and try again&quot;);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        } else if (operationResult == UserService.PUBLICNAME_FOUND) {</span>
+<span class="nc" id="L136">            MessageHelper.showErrorAlert(operationKind, &quot;\&quot;public name\&quot; already exists&quot;);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        } else if (operationResult == UserService.NAME_FOUND) {</span>
+<span class="nc" id="L138">            MessageHelper.showErrorAlert(operationKind, &quot;\&quot;name\&quot; already exists&quot;);</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        } else if (operationResult == UserService.PHONE_FOUND) {</span>
+<span class="nc" id="L140">            MessageHelper.showErrorAlert(operationKind, &quot;\&quot;phone number\&quot; already exists&quot;);</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">        } else if (operationResult == UserService.EMAIL_FOUND) {</span>
+<span class="nc" id="L142">            MessageHelper.showErrorAlert(operationKind, &quot;\&quot;email adress\&quot; already exists&quot;);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        } else if (operationResult &gt;= 1) {</span>
+<span class="nc" id="L144">            MessageHelper.showSuccessAlert(&quot;User &quot; + operationKind + &quot; succesfully completed&quot;);</span>
+        }
+
+<span class="nc" id="L147">    }</span>
+
+    //-------------------------------------------------------------------------
+    //  FORM AUXILIAR METHODS FOR CONCRETE CLASS
+    //  1 - refreshTable()
+    //  2 - fromItemToForm(Object item)
+    //  3 - fromFormToItem()
+    //  -----
+    //  4 - setRead()
+    //  5 - setNew()
+    //  6 - setEdit()
+    //-------------------------------------------------------------------------
+    @Override
+    protected void refreshTable() {
+<span class="nc" id="L161">        ObservableList&lt;User&gt; users = FXCollections.observableArrayList(service.getAll());</span>
+<span class="nc" id="L162">        table_list_subsection.setItems(users);</span>
+<span class="nc" id="L163">    }</span>
+
+    @Override
+    protected void fromItemToForm(Object item) {
+<span class="nc" id="L167">        User user = (User) item;</span>
+<span class="nc" id="L168">        roleBox.getSelectionModel().select(user.getUserRole());</span>
+<span class="nc" id="L169">        languageBox.getSelectionModel().select(user.getLanguage());</span>
+<span class="nc" id="L170">        nicknameField.setText(user.getNickname());</span>
+<span class="nc" id="L171">        nameField.setText(user.getName());</span>
+<span class="nc" id="L172">        phoneField.setText(user.getPhone());</span>
+<span class="nc" id="L173">        emailField.setText(user.getEmail());</span>
+<span class="nc" id="L174">        pubDescField.setText(user.getPublicDes());</span>
+<span class="nc" id="L175">        privDescField.setText(user.getPrivateDes());</span>
+<span class="nc" id="L176">    }</span>
+
+    @Override
+    protected User fromFormToItem() {
+<span class="nc" id="L180">        User user = new User();</span>
+
+<span class="nc" id="L182">        user.setNickname(nicknameField.getText());</span>
+<span class="nc" id="L183">        user.setName(nameField.getText());</span>
+<span class="nc" id="L184">        user.setPhone(phoneField.getText());</span>
+<span class="nc" id="L185">        user.setEmail(emailField.getText());</span>
+<span class="nc" id="L186">        user.setAds(null);</span>
+<span class="nc" id="L187">        user.setPrivateDes(privDescField.getText());</span>
+<span class="nc" id="L188">        user.setPublicDes(pubDescField.getText());</span>
+<span class="nc" id="L189">        user.setUserRole(roleBox.getSelectionModel().getSelectedItem());</span>
+<span class="nc" id="L190">        user.setLanguage(languageBox.getSelectionModel().getSelectedItem());</span>
+<span class="nc" id="L191">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L192">        Date date = new Date();</span>
+<span class="nc" id="L193">        user.setDatePassword(&quot;2000-10-10&quot;);</span>
+<span class="nc" id="L194">        user.setPassword(passwordField.getText());</span>
+<span class="nc" id="L195">        user.setMemberSince(dateFormat.format(date));</span>
+
+<span class="nc" id="L197">        return user;</span>
+    }
+
+    /*
+     * Special Stuff in User STATE 
+     */
+    @Override
+    protected void setRead() {
+<span class="nc" id="L205">        createUserButton.setVisible(false);</span>
+<span class="nc" id="L206">        resetPassButton.setVisible(false);</span>
+<span class="nc" id="L207">        cancelButton.setVisible(false);</span>
+        // Set Interface to READ:VIEW
+<span class="nc bnc" id="L209" title="All 2 branches missed.">        for (TextInputControl tf : textFields) {</span>
+<span class="nc" id="L210">            tf.setEditable(false);</span>
+<span class="nc" id="L211">            tf.setMouseTransparent(true);</span>
+<span class="nc" id="L212">            tf.setFocusTraversable(false);</span>
+<span class="nc" id="L213">        }</span>
+<span class="nc" id="L214">    }</span>
+
+    @Override
+    protected void setNew() {
+<span class="nc" id="L218">        cancelButton.setVisible(true);</span>
+<span class="nc" id="L219">        createUserButton.setVisible(true);</span>
+<span class="nc" id="L220">        createUserButton.setText(&quot;Create&quot;);</span>
+<span class="nc" id="L221">        resetPassButton.setDisable(false);</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        for (TextInputControl tf : textFields) {</span>
+<span class="nc" id="L223">            tf.toString();</span>
+<span class="nc" id="L224">            tf.setText(&quot;&quot;);</span>
+<span class="nc" id="L225">            tf.setEditable(true);</span>
+<span class="nc" id="L226">            tf.setMouseTransparent(false);</span>
+<span class="nc" id="L227">            tf.setFocusTraversable(true);</span>
+<span class="nc" id="L228">        }</span>
+<span class="nc" id="L229">    }</span>
+
+    @Override
+    protected void setEdit() {
+<span class="nc" id="L233">        createUserButton.setDisable(false);</span>
+<span class="nc" id="L234">        createUserButton.setText(&quot;update user&quot;);</span>
+<span class="nc" id="L235">        resetPassButton.setDisable(false);</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        for (TextInputControl tf : textFields) {</span>
+<span class="nc" id="L237">            tf.toString();</span>
+<span class="nc" id="L238">            tf.setEditable(true);</span>
+<span class="nc" id="L239">            tf.setMouseTransparent(false);</span>
+<span class="nc" id="L240">            tf.setFocusTraversable(true);</span>
+<span class="nc" id="L241">        }</span>
+<span class="nc" id="L242">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

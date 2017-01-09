@@ -9,6 +9,7 @@ package magrathea.marvin.desktop.app.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import magrathea.marvin.desktop.app.service.LoginService;
 
 /**
  * FXML Controller class
@@ -20,9 +21,15 @@ public class TabHomeController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    LoginService application;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    public void setApp(LoginService application){
+          this.application = application;
+    }
     
 }

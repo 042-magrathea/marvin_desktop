@@ -12,52 +12,56 @@
 /* . = class, # = id */
 
 /*  1er lvl ROOT Pane, usually AnchorPane --CYAN-- */
-.root_pane { 
+#root_pane { 
     /*-fx-background-color: #f4f4f4; /* Default */
     -fx-background-image: url(marvin/space_marvin_main.jpg);
+    -fx-pref-width: 1024;
+    -fx-pref-height: 730;
 }
 
 /* 2nd level layout VBox  -- GREEN --*/
-.root_vertical {
+#root_vertical {
     -fx-spacing: 15;
     -fx-padding: 10 20 20 20;
 }
 
 /* 3er lvl TABLE red */
-.table_section { 
+#table_section { 
     -fx-spacing: 15;
 }
 
-.table_list_subsection { 
-    -fx-max-height: 240;
+#table_list_subsection {
+    -fx-pref-height: 300px;
+    -fx-max-height: 600px;
 }
 
-.table_tools_subsection { 
+#table_tools_subsection { 
     -fx-spacing: 30px;
     -fx-border-color: #c8c8c8; /* Gray like table border */
     -fx-border-width: 1;
     -fx-background-color: #e6ffff; /*light blue*/
     -fx-padding: 5;
 }
-.table_crud_buttons {
+#table_crud_buttons {
+    -fx-pref-width: 140;
     
 }
-.search_spacer{
+#search_spacer{
     -fx-max-width: 1000;
     -fx-pref-width: 500;
     
 }
 
-.table_search { 
+#table_search { 
     -fx-text-align: right;
 }
 
 /* 3er lvl FORM-ASIDE red */    
-.form_aside_section {
+#form_aside_section {
     -fx-spacing: 20px;
 }
 
-.form_subsection {
+#form_subsection {
     -fx-padding: 10 15 10 15;
     -fx-border-color: #c8c8c8; /* Gray like table border */
     -fx-border-width: 1;
@@ -65,7 +69,7 @@
     -fx-pref-width: 596;  /* 1024/2.618*1.618 633-37px (padding) = gold ratio (big) */ 
 }
 
-.form_grid {}
+#form_grid {}
 .form_grid > .label {
     /* All labels inside grid to adjust baseline to textfield*/
     -fx-padding: 4 0 0 0;
@@ -79,7 +83,7 @@
     -fx-alignment: CENTER_RIGHT;
 }
 
-.separator_aside{}
+#separator_aside{}
 
 .aside_subsection {
     /*tab*/
@@ -94,9 +98,13 @@
 }
 
 /* 3er lvl FOOTER red */
-.footer_section {
-    -fx-padding: 10;
+#footer_section {
+    -fx-padding: 5 5 5 15;
     -fx-border-color: #c8c8c8; /* Gray like table border */
     -fx-border-width: 1;
     -fx-background-color: white;
+}
+
+.footer_section > * {
+    -fx-font-size: 11;
 }

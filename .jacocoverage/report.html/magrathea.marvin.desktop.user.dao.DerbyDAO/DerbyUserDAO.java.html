@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DerbyUserDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.dao.DerbyDAO</a> &gt; <span class="el_source">DerbyUserDAO.java</span></div><h1>DerbyUserDAO.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DerbyUserDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.user.dao.DerbyDAO</a> &gt; <span class="el_source">DerbyUserDAO.java</span></div><h1>DerbyUserDAO.java</h1><pre class="source lang-java linenums">/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -24,7 +24,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 <span class="nc" id="L24">    private static final List&lt;User&gt; EMPTY = new ArrayList&lt;&gt;();</span>
     
     @Override
-    public long insertUser(User user) {
+    public int insertUser(User user) {
         try {
 <span class="nc" id="L29">            long id = dbAccess.insert(con,</span>
                     &quot;INSERT INTO \&quot;User\&quot;(nickname,password,email,administrator)&quot;
@@ -32,15 +32,15 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 <span class="nc" id="L32">                    user.getNickname(), user.getPassword(), user.getEmail(), </span>
 <span class="nc" id="L33">                    user.isAdministrator()</span>
 <span class="nc" id="L34">            ).longValue();</span>
-<span class="nc" id="L35">            return id;</span>
+<span class="nc" id="L35">            return (int)id;</span>
 <span class="nc" id="L36">        } catch (Exception e) {</span>
 <span class="nc" id="L37">            e.printStackTrace();</span>
         }
-<span class="nc" id="L39">        return -1L;</span>
+<span class="nc" id="L39">        return -1;</span>
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public int updateUser(User user) {
         try {
 <span class="nc" id="L45">            dbAccess.update(con,</span>
                     &quot;UPDATE \&quot;User\&quot; SET nickname=?,password=?,email=?,administrator=? &quot;
@@ -50,18 +50,18 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 <span class="nc" id="L50">        } catch (Exception e) {</span>
 <span class="nc" id="L51">            e.printStackTrace();</span>
 <span class="nc" id="L52">        }</span>
-<span class="nc" id="L53">        return true;</span>
+<span class="nc" id="L53">        return 1;</span>
     }
 
     @Override
-    public boolean deleteUser(User user) {
+    public int deleteUser(User user) {
         try {
 <span class="nc" id="L59">            dbAccess.update(con, &quot;DELETE FROM \&quot;User\&quot; WHERE id =?&quot;, user.getId());</span>
 
 <span class="nc" id="L61">        } catch (Exception e) {</span>
 <span class="nc" id="L62">            e.printStackTrace();</span>
 <span class="nc" id="L63">        }</span>
-<span class="nc" id="L64">        return true;</span>
+<span class="nc" id="L64">        return 1;</span>
     }
 
     @Override
@@ -113,6 +113,12 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 <span class="nc" id="L113">            e.printStackTrace();</span>
         }
 <span class="nc" id="L115">        return EMPTY;</span>
+    }
+
+    @Override
+    public User validateAuthenticator(String login, String password) {
+<span class="nc" id="L120">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+        // TODO: Implement
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

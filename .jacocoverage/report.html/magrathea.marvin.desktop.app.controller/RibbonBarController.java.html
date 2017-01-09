@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RibbonBarController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.controller</a> &gt; <span class="el_source">RibbonBarController.java</span></div><h1>RibbonBarController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app.controller;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import magrathea.marvin.desktop.app.service.LoginService;
+import magrathea.marvin.desktop.app.service.StyleService;
+
+/**
+ * Load the panes with the FXMLLoader on every use. and put in the center of the
+ * root, The panes should not save state and reload It to avoid get lazy On
+ * every invocation connect to DAO provider Not ORM it's implemented Load the
+ * panes (FXML address) from a layout ( style )
+ *
+ * @author Iván Cañizares Gómez
+ */
+<span class="nc" id="L28">public class RibbonBarController implements Initializable {</span>
+
+    private LoginService application;
+    private ResourceBundle resources;
+    private HashMap&lt;String, String&gt; layout;
+    @FXML
+    private HBox ribbonBox;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+<span class="nc" id="L38">        layout = (HashMap) StyleService.getInstance().getLayout();</span>
+
+        // i18n
+<span class="nc" id="L41">        this.resources = resources;</span>
+
+        // Tooltip
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (Node node : ribbonBox.getChildren()) {</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (node instanceof ToggleButton) {</span>
+<span class="nc" id="L46">                Tooltip tt = new Tooltip(resources.getString(&quot;marvin_&quot; + node.getId())); // TOFIX: i18n</span>
+<span class="nc" id="L47">                ((ToggleButton) node).setTooltip(tt);</span>
+            }
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
+
+    public void setApp(LoginService application) {
+<span class="nc" id="L53">        this.application = application;</span>
+<span class="nc" id="L54">    }</span>
+
+    /**
+     * Special action. Not load in center Needs load a diferent root and do
+     * stuff for the actual User login.
+     *
+     * @param event
+     */
+    public void loginOut(ActionEvent event) {
+<span class="nc" id="L63">        System.gc();</span>
+<span class="nc" id="L64">        application.gotoLogin();</span>
+<span class="nc" id="L65">    }</span>
+
+    /**
+     * Capture id from control and charge the view based on layout
+     *
+     * @param event onAction from button/MenuItem (can't equal cast)
+     */
+    @FXML
+    public void changeView(ActionEvent event) {
+        String idControlOnAction;
+        // ItemView extends Object, can't be cast in control/node...
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (event.getSource() instanceof MenuItem) {</span>
+<span class="nc" id="L77">            idControlOnAction = ((MenuItem) event.getSource()).getId();</span>
+        } else {
+<span class="nc" id="L79">            idControlOnAction = ((Node) event.getSource()).getId();</span>
+        }
+<span class="nc" id="L81">        String viewLoadFromLayout = layout.get(idControlOnAction);</span>
+<span class="nc" id="L82">        switchTo(viewLoadFromLayout);</span>
+<span class="nc" id="L83">    }</span>
+
+    /**
+     * Prepare/Load an Anchor Pane in center of root (BorderPane Layout)
+     *
+     * @param fxml View load for these option
+     */
+    private void switchTo(String fxml) {
+        //URL paneURL = getClass().getResource(fxml);
+        //AnchorPane pane = FXMLLoader.load(paneURL);
+        //pane.getStylesheets().clear();
+        //pane.getStylesheets().add(application.getCSS());
+<span class="nc" id="L95">        FXMLLoader centerPaneLoader = new FXMLLoader();</span>
+<span class="nc" id="L96">        AnchorPane centerPane = (AnchorPane) LoginService.getInstance()</span>
+<span class="nc" id="L97">                .loaderFXML(fxml, centerPaneLoader);    // Aux. LoginService</span>
+<span class="nc" id="L98">        centerPane.getStylesheets().clear();</span>
+<span class="nc" id="L99">        centerPane.getStylesheets().add(application.getCSS());</span>
+
+<span class="nc" id="L101">        LoginService.getRoot().setCenter(centerPane);</span>
+
+<span class="nc" id="L103">    }</span>
+
+    // TODO: Ribbon Bar
+    // JavaDoc &amp; Test
+    // CASE: Administrator -&gt; show Adv. Config, Others hide from Menú.
+    //      This can do here or in Service (adv) for load a special Ribbon
+    // Review loginOut for stuff (actual login user = null ...)
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoginUserController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.app.controller</a> &gt; <span class="el_source">LoginUserController.java</span></div><h1>LoginUserController.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.app.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import magrathea.marvin.desktop.app.service.LoginService;
+
+/**
+ * Login Controller.
+ */
+<span class="nc" id="L20">public class LoginUserController extends AnchorPane implements Initializable {</span>
+
+    @FXML
+    TextField userId;
+    @FXML
+    PasswordField password, confirmPassword;
+    @FXML
+    Button login;
+    @FXML
+    Label errorMessage, confirmPwdLabel;
+    @FXML
+    ImageView loginImage;
+
+    private ResourceBundle bundle;
+    private LoginService loginService;
+    
+    // Login Service for callbacks
+    public void setApp(LoginService application){
+<span class="nc" id="L38">        this.loginService = application;</span>
+<span class="nc" id="L39">    }</span>
+        
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+<span class="nc" id="L43">        this.bundle = resources;</span>
+<span class="nc" id="L44">        errorMessage.setText(&quot;&quot;);</span>
+<span class="nc" id="L45">        userId.setPromptText(bundle.getString(&quot;login_username_field_label&quot;));</span>
+<span class="nc" id="L46">        password.setPromptText(bundle.getString(&quot;login_password_field_label&quot;));</span>
+<span class="nc" id="L47">        loginImage.setImage(new Image( &quot;magrathea/marvin/desktop/app/view/img/&quot; +</span>
+<span class="nc" id="L48">                bundle.getString(&quot;login_login_image_src&quot;)));</span>
+<span class="nc" id="L49">    }</span>
+    
+    // needs capture when pwd expires and needs to change
+    public void processLogin(ActionEvent event) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (loginService == null){</span>
+            // We are running in isolated FXML, possibly in Scene Builder. NO-OP.
+<span class="nc" id="L55">            errorMessage.setText(&quot;Hello &quot; + userId.getText());</span>
+        } else {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if ( !loginService.userLogging( userId.getText(), password.getText() )){</span>
+<span class="nc" id="L58">                errorMessage.setText(</span>
+<span class="nc" id="L59">                        String.format(bundle.getString(&quot;login_message_error_login&quot;), userId.getText()));</span>
+            } else {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                if ( password.getText().equals(&quot;marvin42&quot;)){ </span>
+<span class="nc" id="L62">                    showInputPwd();</span>
+                } else {
+<span class="nc" id="L64">                    loginService.gotoProfile();</span>
+                }
+            }
+        }
+<span class="nc" id="L68">    }</span>
+    
+    private void showInputPwd(){
+<span class="nc" id="L71">        errorMessage.setText( String.format(bundle.getString(&quot;login_message_set_password&quot;), userId.getText()));</span>
+<span class="nc" id="L72">        userId.setDisable(true);</span>
+<span class="nc" id="L73">        password.setText(&quot;&quot;);</span>
+<span class="nc" id="L74">        confirmPwdLabel.setVisible(true);</span>
+<span class="nc" id="L75">        confirmPassword.setVisible(true);</span>
+<span class="nc" id="L76">        login.setText(bundle.getString(&quot;login_save-pwd_button_text&quot;));</span>
+<span class="nc" id="L77">    }</span>
+    
+    // TODO: LOGIN CONTROLLER
+    // Write Full Javadoc
+    // Check if password &amp; confirmPassword are equals like in User.
+    // Write Tests for password &amp; response of check logic
+    // Write a states LOGIN | CHANGE
+    // Write a cancel button in CHANGE state for return to LOGIN
+    // Write a logic for pwd expiration in CHANGE State; review message
+    // Change Pwd
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

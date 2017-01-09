@@ -41,9 +41,19 @@
     -fx-text-fill: white;
 }
 
+/* Awesome */
+.mailIcon {
+    -glyph-name: "ENVELOPE";
+    -glyph-size: 48px;
+    -icons-color: blue;
+    -fx-fill: linear-gradient(-icons-color 0%, 
+        derive(-icons-color, 100%) 30%, derive(blueviolet, 30%) 85%);
+}
+
 
 
 /*ICONS*/
+.addSmall{-fx-graphic: url("marvin/icons/addSmall.png");}
 .add-user-col{-fx-graphic: url("marvin/icons/add-user-col.png");}
 .addUserSmall{-fx-graphic: url("marvin/icons/addUserSmall.png");}
 .edit {-fx-graphic: url("marvin/icons/edit.png");}

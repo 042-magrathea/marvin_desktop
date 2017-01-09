@@ -2,6 +2,7 @@ package magrathea.marvin.desktop.app.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.text.Font;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 
 /**
@@ -22,7 +23,6 @@ public class StyleService {
     ////////////////////// SINGLETON ///////////////////////////
     // Bill Pugh singleton pattern
     private static class LazyHolder {
-
         private static final StyleService INSTANCE = new StyleService();
     }
 

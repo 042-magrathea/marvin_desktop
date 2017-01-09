@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;marvin_desktop_ok&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">magrathea.marvin.desktop.game.model</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package magrathea.marvin.desktop.game.model;
+
+import java.net.URL;
+import java.util.Objects;
+
+/**
+ *
+ * @author boscalent
+ */
+public class Game {
+    private long idGame;
+    private String name;
+    private String description;
+    private String image;
+    
+<span class="nc" id="L16">    public Game() {</span>
+<span class="nc" id="L17">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L21">        int hash = 3;</span>
+<span class="nc" id="L22">        hash = 61 * hash + Objects.hashCode(this.name);</span>
+<span class="nc" id="L23">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L29">            return true;</span>
+        }
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L32">            return false;</span>
+        }
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L35">            return false;</span>
+        }
+<span class="nc" id="L37">        final Game other = (Game) obj;</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (!Objects.equals(this.name, other.name)) {</span>
+<span class="nc" id="L39">            return false;</span>
+        }
+<span class="nc" id="L41">        return true;</span>
+    }
+
+        
+    // TO STRING
+    @Override
+    public String toString() {
+<span class="nc" id="L48">        return &quot;Game{&quot; + &quot;idGame=&quot; + idGame </span>
+                + &quot;, name=&quot; + name 
+                + &quot;, description=&quot; + description 
+                + &quot;, image=&quot; + image + '}';
+    }
+
+
+    // GETTER &amp; SETTER
+    public long getIdGame() {
+<span class="nc" id="L57">        return idGame;</span>
+    }
+
+    public void setIdGame(long idGame) {
+<span class="nc" id="L61">        this.idGame = idGame;</span>
+<span class="nc" id="L62">    }</span>
+
+    public String getName() {
+<span class="nc" id="L65">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L69">        this.name = name;</span>
+<span class="nc" id="L70">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L73">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L77">        this.description = description;</span>
+<span class="nc" id="L78">    }</span>
+
+    public String getImage() {
+<span class="nc" id="L81">        return image;</span>
+    }
+
+    public void setImage(String image) {
+<span class="nc" id="L85">        this.image = image;</span>
+<span class="nc" id="L86">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

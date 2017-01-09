@@ -14,7 +14,7 @@
 }
 
 .label-bright {
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
 
@@ -47,11 +47,14 @@
 }
 
 /* From Arnau USER */
-#searchField {
+.searchField {
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-padding: 5;
+    -fx-padding: 5 10 5 10;
     -fx-border: none;
+    -fx-min-width: 270;
+    -fx-pref-height: 30;
+    -fx-max-width:330;
 }
 
 /* Buttons */
@@ -87,4 +90,11 @@
 .description {
     /* description text area like in User*/
     -fx-pref-row-count: 4;
+}
+
+
+/** DIALOG PANE **/
+.dialog-pane:header .header-panel .label {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
 }

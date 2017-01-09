@@ -16,9 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import com.lynden.gmapsfx.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" 
-            stylesheets="@/magrathea/marvin/desktop/app/view/css/marvin.css" 
-            xmlns="http://javafx.com/javafx/8.0.65" 
+<!--
+Scene Builder FIX
+<?import com.lynden.gmapsfx.*?>
+-->
+
+<AnchorPane stylesheets="@/magrathea/marvin/desktop/app/view/css/marvin.css" 
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="magrathea.marvin.desktop.host.controller.HostController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="600.0">
@@ -32,16 +36,16 @@
 
           <TableView fx:id="hostTable" editable="true" prefHeight="200.0" prefWidth="300.0">
               <columns>
-                  <TableColumn fx:id="hostId" maxWidth="40.0" minWidth="20" prefWidth="30.0" text="ID" /> 
-                  <TableColumn fx:id="hostName" maxWidth="900.0" minWidth="300.0" prefWidth="430.0" text="Name" /> 
-                  <TableColumn fx:id="hostPhone" maxWidth="120.0" minWidth="80.0" prefWidth="100.0" text="Phone" />
+                  <TableColumn fx:id="hostId" maxWidth="40.0" minWidth="20" prefWidth="30.0" text="%user_id" /> 
+                  <TableColumn fx:id="hostName" maxWidth="900.0" minWidth="300.0" prefWidth="430.0" text="%user_name" /> 
+                  <TableColumn fx:id="hostPhone" maxWidth="120.0" minWidth="80.0" prefWidth="100.0" text="%user_phone" />
               </columns>
           </TableView>
             
             <Separator prefWidth="200.0" />
             <HBox prefHeight="28.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Button minWidth="70.0" onAction="#newHost" mnemonicParsing="false" text="New" />
+                  <Button minWidth="70.0" mnemonicParsing="false" onAction="#newHost" text="New" />
                   <Button minWidth="70.0" mnemonicParsing="false" text="Edit" />
                   <Button minWidth="70.0" mnemonicParsing="false" text="Delete" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="10.0" />
@@ -58,7 +62,7 @@
             
             <Separator prefWidth="20.0" />
             
-            <GridPane prefHeight="314.0" prefWidth="600.0" fx:id="form" >
+            <GridPane fx:id="form" prefHeight="314.0" prefWidth="600.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="130.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="522.0" minWidth="10.0" prefWidth="470.0" />
@@ -98,7 +102,7 @@
             <Separator prefWidth="200.0" />
             <HBox alignment="TOP_RIGHT" spacing="10.0">
                <children>
-                  <Button fx:id="cancel" minWidth="70.0" onAction="#fillReadValues"  mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="cancel" minWidth="70.0" mnemonicParsing="false" onAction="#fillReadValues" text="Cancel" />
                   <Button fx:id="OK" minWidth="70.0" mnemonicParsing="false" text="OK" />
                </children>
             </HBox>
