@@ -1,36 +1,28 @@
-package magrathea.marvin.desktop.host.controller;
+package magrathea.marvin.desktop.app.utils;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.PauseTransition;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.util.Duration;
 import magrathea.marvin.desktop.app.utils.Crud;
 import magrathea.marvin.desktop.app.utils.CrudState;
-import magrathea.marvin.desktop.app.utils.MessageHelper;
+import magrathea.marvin.desktop.game.model.Game;
 import magrathea.marvin.desktop.host.model.Host;
 import magrathea.marvin.desktop.host.service.HostService;
-import magrathea.marvin.desktop.user.model.User;
 
 /**
  * FXML Controller class
  *
  * @author boscalent
  */
-public class HostController extends Crud implements MapComponentInitializedListener {
+public class Template_Controller extends Crud implements MapComponentInitializedListener {
 
     // TableView
     @FXML private TableView table_list_subsection;
@@ -48,20 +40,14 @@ public class HostController extends Crud implements MapComponentInitializedListe
     private FilteredList<? extends Object> itemsFilter;
 
     // Wrapper for JS Google Map Lib
-    private volatile boolean map_is_loaded;
     private GoogleMap map;
-    private MapOptions mapOptions;
     private MarkerOptions markerOptions;
     private Marker marker;
-    private InfoWindowOptions infoWindows;
-    private InfoWindow hostInfoWindow;
+    //private InfoWindowOptions infoWindows;
+    //private InfoWindow hostInfoWindow;
 
     // Constructors //
-    static {
-
-    }
-
-    public HostController() {
+    public Template_Controller() {
         this.service = new HostService();
     }
 
@@ -70,15 +56,68 @@ public class HostController extends Crud implements MapComponentInitializedListe
         super.table_list_subsection = table_list_subsection;
         super.initialize(location, resources);
 
-        // SPECIAL Stuff for Host
-        loadMap();
-
         setListenerToSearchField();
         refreshTable();
 
         state = CrudState.READ;
         setInterface();
+
+        // SPECIAL Stuff for Host
+        loadMap();
+
+        /*
+        mapView.setCenter(host.getLatitude(), host.getLongitude());
+        addMarkerToMap(host);
+         */
     }
+
+    /*
+    public void fillReadValues() {
+        state = STATE.READ;
+
+        hostNameField.setText(host.getName());
+        hostPhoneField.setText(host.getPhone());
+        hostAddressField.setText(host.getAddress());
+        hostEmailField.setText(host.getEmail());
+        hostLatitudeField.setText(String.valueOf(host.getLatitude()));
+        hostLongitudeField.setText(String.valueOf(host.getLongitude()));
+        hostPublicMemoField.setText("TODO://");
+        hostPrivateMemoField.setText("TODO://");
+
+
+
+        setInterface();
+    }
+
+    
+
+    // TODO: Same with events from cancel/OK button for every state
+    private void setInterface() {
+        switch (state) {
+            case READ:
+                // Set Interface to READ:VIEW
+                for (TextField tf : hostTextFields) {
+                    tf.setEditable(false);
+                    tf.setMouseTransparent(true);
+                    tf.setFocusTraversable(false);
+                }
+                cancel.setVisible(false);
+                OK.setVisible(false);
+                break;
+            case NEW:
+                for (TextField tf : hostTextFields) {
+                    tf.setText("");
+                    tf.setEditable(true);
+                    tf.setMouseTransparent(false);
+                    tf.setFocusTraversable(true);
+                }
+                cancel.setVisible(true);
+                OK.setVisible(true);
+                break;
+        }
+    }
+    
+     */
 
     private void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -90,57 +129,18 @@ public class HostController extends Crud implements MapComponentInitializedListe
                 // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
                 // Filters                
-                if (((Host) item).getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches name.
-                } else if (((Host) item).getAddress().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches Address.
-                }
-                return false; // Does not match.
+                return ((Game) item).getName().toLowerCase().contains(lowerCaseFilter);
             });
         });
     }
 
     @Override
     protected void fromItemToForm(Object item) {
-        Host host = (Host) item;
-
-        //hostNameField, hostPhoneField, hostAddressField, hostEmailField,
-        //    hostLatitudeField, hostLongitudeField, hostPublicMemoField, hostPrivateMemoField;
-        hostNameField.setText(host.getName());
-        hostPhoneField.setText(host.getPhone());
-        hostEmailField.setText(host.getEmail());
-        hostLatitudeField.setText(String.valueOf(host.getLatitude()));
-        hostLongitudeField.setText(String.valueOf(host.getLongitude()));
-        hostAddressField.setText(host.getAddress());
-        hostPrivateMemoField.setText("TO DO");
-        hostPublicMemoField.setText("TO DO");
-
-        // Or in first attempt the map is not loader and throw an exception
-        if (map_is_loaded) {
-            mapView.setCenter(host.getLatitude(), host.getLongitude());
-            addMarkerToMap(host);
-        }
-
-    }
-    
-        public void onSendMail(ActionEvent event) {
-        if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
-            if (((Host) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail() != null) {
-                String mail = ((Host) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail();
-                String name = ((Host) table_list_subsection.getSelectionModel().getSelectedItem()).getName();
-                MessageHelper.showFakeEmailSender(null, null, name, mail);
-                //System.out.println("mailto:" + mail);
-            } else {
-                System.err.println("ERROR: NULL mail");
-            }
-        } else {
-            System.err.println("ERROR: NO SELECT ITEM");
-        }
+        
     }
 
     @Override
     protected Object fromFormToItem() {
-        // TO DO
         return null;
     }
 
@@ -161,22 +161,7 @@ public class HostController extends Crud implements MapComponentInitializedListe
 
     @Override
     protected void refreshTable() {
-        /*
-         * Very expensive query to server, OK for this project.
-         * SearchField & String is a trick for remember filter on refreshTable
-         */
-        String search = searchField.getText();
-        searchField.setText("");
 
-        items = FXCollections.observableArrayList(service.getAll());
-        // Wrap all data in FilteredList
-        itemsFilter = new FilteredList<>(items, p -> true);
-
-        searchField.setText(search);
-
-        // filter predicate
-        table_list_subsection.setItems(itemsFilter);
-        table_list_subsection.getSelectionModel().selectFirst();
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -190,7 +175,7 @@ public class HostController extends Crud implements MapComponentInitializedListe
     @Override
     public void mapInitialized() {
         //Set the initial properties of the map.
-        mapOptions = new MapOptions();
+        MapOptions mapOptions = new MapOptions();
 
         mapOptions.center(new LatLong(41.390205, 2.154007))
                 .mapType(MapTypeIdEnum.ROADMAP)
@@ -203,10 +188,9 @@ public class HostController extends Crud implements MapComponentInitializedListe
                 .zoom(15);
 
         map = mapView.createMap(mapOptions);
-        map_is_loaded = true;     // Control not load first time by fromItemToForm
-        Host host = (Host) table_list_subsection.getSelectionModel().getSelectedItem();
-        mapView.setCenter(host.getLatitude(), host.getLongitude());
-        addMarkerToMap(host);
+
+        // Wait to map initialize for change to first loc
+        table_list_subsection.getSelectionModel().selectFirst();
     }
 
     /**
@@ -226,11 +210,12 @@ public class HostController extends Crud implements MapComponentInitializedListe
 
         map.addMarker(marker);
 
-        // !!Not implemented, Need big height
+        /* // !!Not implemented, Need big height
         infoWindows = new InfoWindowOptions();
         infoWindows.content(host.getName());
         hostInfoWindow = new InfoWindow(infoWindows);
         hostInfoWindow.open(map, marker);
+         */
     }
 
 }

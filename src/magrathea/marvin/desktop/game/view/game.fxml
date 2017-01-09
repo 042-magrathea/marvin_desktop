@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.glyphfont.Glyph?>
 
 <AnchorPane fx:id="root_pane" stylesheets="@../../app/view/css/marvin.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.game.controller.GameController">
    <children>
@@ -31,8 +32,8 @@
                       <TableView fx:id="table_list_subsection" editable="true">
                     <columns>
                         <TableColumn fx:id="idGame" maxWidth="100.0" minWidth="50.0" prefWidth="70.0" text="ID" /> 
-                        <TableColumn fx:id="name" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" text="Name" />
-                        <TableColumn fx:id="description" maxWidth="800.0" minWidth="300.0" prefWidth="500.0" text="Description" />
+                        <TableColumn fx:id="name" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" text="%game_name" />
+                        <TableColumn fx:id="description" maxWidth="800.0" minWidth="300.0" prefWidth="500.0" text="%game_description" />
                     </columns>
                 </TableView>
                   <HBox fx:id="table_tools_subsection">
@@ -61,7 +62,7 @@
                         <Region fx:id="search_spacer" />
                         <HBox fx:id="table_search" alignment="CENTER_RIGHT" fillHeight="false" styleClass="table_search">
                            <children>
-                              <TextField fx:id="searchField" promptText="%user_insert_filter" styleClass="searchField" />
+                              <TextField fx:id="searchField" promptText="%game_insert_filter" styleClass="searchField" />
                            </children>
                         </HBox>
                      </children>
@@ -85,22 +86,29 @@
                             <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label styleClass="label-bright" text="Name*">
+                              <Label styleClass="label-bright" text="%game_name">
                                  <GridPane.margin>
                                     <Insets top="3.0" />
                                  </GridPane.margin></Label>
-                              <Label alignment="TOP_LEFT" styleClass="label-bright" text="Description" GridPane.rowIndex="1">
+                              <Label alignment="TOP_LEFT" styleClass="label-bright" text="%game_description" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets top="3.0" />
                                  </GridPane.margin></Label>
-                              <Label styleClass="label-bright" text="Image" GridPane.rowIndex="2">
+                              <Label styleClass="label-bright" text="%game_image" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets top="3.0" />
                                  </GridPane.margin></Label>
                               <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="2" />
                               <TextField fx:id="imageField" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <TextArea fx:id="descriptionArea" prefHeight="200.0" styleClass="description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                              <Button fx:id="loadImageButton" mnemonicParsing="false" text="load" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Button fx:id="loadImageButton" mnemonicParsing="false" onAction="#loadImage" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <Glyph />
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="icon_button_small" />
+                                    <String fx:value="reload" />
+                                 </styleClass></Button>
                            </children>
                            <padding>
                               <Insets bottom="10.0" />
@@ -113,7 +121,7 @@
                         </Separator>
                         <HBox alignment="CENTER_RIGHT" fillHeight="false" styleClass="dynamic_buttons_form">
                            <children>
-                              <Button fx:id="createButton" text="Create user">
+                              <Button fx:id="createButton" text="%crud_create">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -129,7 +137,7 @@
                   </VBox>
                   <TabPane fx:id="aside_subsection" prefWidth="200.0" side="BOTTOM" styleClass="aside_subsection" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab fx:id="aside_subsection" text="Untitled Tab 1">
+                      <Tab fx:id="aside_subsection" text="%game_image">
                         <content>
                           <AnchorPane>
                                  <children>
@@ -151,7 +159,7 @@
             </HBox>
             <HBox fx:id="footer_section" styleClass="footer_section">
                <children>
-                  <Label text="%user_info_footer" />
+                  <Label text="%game_info_footer" />
                </children>
             </HBox>
          </children>

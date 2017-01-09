@@ -45,7 +45,7 @@ public class HTTPRequestHostDAO extends HTTPRequestDAO implements HostDAO {
             host.setLongitude(Float.parseFloat(jsonobject.get("longitude").getAsString()));
             host.setPhone(jsonobject.get("phone").getAsString());
             host.setAddress(jsonobject.get("adress").getAsString());
-            host.seteMail(jsonobject.get("eMail").getAsString());
+            host.setEmail(jsonobject.get("eMail").getAsString());
 
             hosts.add(host);
         }

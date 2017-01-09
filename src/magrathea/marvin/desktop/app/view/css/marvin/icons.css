@@ -50,6 +50,14 @@
         derive(-icons-color, 100%) 30%, derive(blueviolet, 30%) 85%);
 }
 
+.loadImage {
+    -glyph-name: "UPLOAD";
+    -glyph-size: 30px;
+    -icons-color: blue;
+    -fx-fill: linear-gradient(-icons-color 0%, 
+        derive(-icons-color, 100%) 30%, derive(blueviolet, 30%) 85%);
+}
+
 
 
 /*ICONS*/

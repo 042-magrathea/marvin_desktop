@@ -26,21 +26,17 @@ import net.coobird.thumbnailator.Thumbnails;
  * @author Arnau, Iván
  */
 public class GameController extends Crud {
-
-    //@FXML private AnchorPane gameAnchorPane;
-    //@FXML private TableView<Game> gameTable;
-    //@FXML private TableColumn<Game, String> gameId, gameName;
-    //@FXML private TextField gameNameField, gameImageField;
-    //@FXML private ImageView gameImageView;
-    //@FXML private GridPane form;
-    // ------------  NEW ----------------------- //
-    // Load special FXML of concrete
+    // TableView
     @FXML private TableView table_list_subsection;
+    
+    // CRUD BUTTONS
+    @FXML private Button loadImageButton, cancelButton, createButton;
+    
+    
     @FXML private TextField nameField, imageField, searchField;
     @FXML private TextArea descriptionArea;
-
-    @FXML private ImageView gameImageView;
-    @FXML private Button loadImageButton, cancelButton, createButton;
+@FXML private ImageView gameImageView;
+    
 
     // Load special vars of concrete
     private GameService service = null;
@@ -74,105 +70,6 @@ public class GameController extends Crud {
         setInterface();
     }
 
-    /*
-        gameTextFields = new ArrayList<>();
-        game = null;
-        image = new Image("/magrathea/marvin/desktop/game/view/notGameImage.png");
-        
-        // Add all instances of TextInputControl in a List for iterate later
-        for (Node node : form.getChildren()) {
-            if (node instanceof TextField) {
-                gameTextFields.add((TextField) node);
-            } else if (node instanceof TextArea) {
-                gameTextFields.add((TextArea) node);
-            }
-        }
-        gameTextFields.add(gameImageField);
-
-        // COLUMNS
-        gameId.setCellValueFactory(new PropertyValueFactory<>("idGame"));
-        gameName.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        // TABLE MODEL
-        ObservableList<Game> games = FXCollections.observableArrayList(service.getAll());
-        gameTable.setEditable(true);
-        gameTable.setItems(games);
-        gameTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar   
-
-        gameTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    game = newValue;
-                    fillReadValues();
-                });
-        gameTable.getSelectionModel().selectFirst(); // First Selected, not void
-     */
- /*
-public void fillReadValues() {
-        state = STATE.READ;
-
-        gameNameField.setText(game.getName());
-        gameDescriptionField.setText(game.getDescription());
-        gameImageField.setText(game.getImage());
-        if (game.getImage() != null || !game.getImage().equals("")) {
-            gameImageView.setImage(new Image(game.getImage(), true));
-        } else {
-            gameImageView.setImage(image);
-        }
-
-        setInterface();
-    }
-
-    public void newGame() {
-        // Do stuff
-        Game newGame = new Game();
-
-        // Set Interface to READ:VIEW
-        state = STATE.NEW;
-        setInterface();
-    }
-    
-    private void saveNewGame(){
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Save Game");
-        alert.setHeaderText("Do stuff for save the game");
-        alert.setContentText("Find a way for save the image of the game");
-        alert.showAndWait();
-    }
-
-    // TODO: Same with events from cancel/OK button for every state
-    protected void setInterface() {
-        switch (state) {
-            case READ:
-                // Set Interface to READ:VIEW
-                for (TextInputControl tf : gameTextFields) {
-                    tf.setEditable(false);
-                    tf.setMouseTransparent(true);
-                    tf.setFocusTraversable(false);
-                }
-                cancel.setVisible(false);
-                OK.setVisible(false);
-                loadImageButton.setDisable(true);
-                break;
-            case NEW:
-                for (TextInputControl tf : gameTextFields) {
-                    tf.toString();
-                    tf.setText("");
-                    tf.setEditable(true);
-                    tf.setMouseTransparent(false);
-                    tf.setFocusTraversable(true);
-                }
-                gameImageField.setText("");         // ¿?
-                gameImageView.setImage(image);
-                cancel.setVisible(true);
-                OK.setText("Save");
-                OK.setOnAction((ActionEvent e) -> {saveNewGame();});    // lamfda exp (equals inner class)
-                OK.setVisible(true);
-                loadImageButton.setDisable(false);
-                break;
-        }
-    }
-
-     */
     private void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             itemsFilter.setPredicate(item -> {
@@ -245,12 +142,20 @@ public void fillReadValues() {
             tf.setMouseTransparent(true);
             tf.setFocusTraversable(false);
         }
-        descriptionArea.setFocusTraversable(true);
     }
 
     @Override
     protected void setNew() {
-
+        createButton.setVisible(false); // TO FIX 
+        loadImageButton.setVisible(true);
+        cancelButton.setVisible(true);
+        // Set Interface to READ:VIEW
+        for (TextInputControl tf : textFields) {
+            tf.setText("");
+            tf.setEditable(true);
+            tf.setMouseTransparent(false);
+            tf.setFocusTraversable(true);
+        }
     }
 
     @Override

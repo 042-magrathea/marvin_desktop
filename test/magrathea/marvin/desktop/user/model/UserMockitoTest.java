@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 // It's only a Test
 public class UserMockitoTest {
 
-    private User userMock;
+    /*private User userMock;
 
     @Before
     public void setUp() {
@@ -63,5 +63,5 @@ public class UserMockitoTest {
             }
             assertThat(result, is(false));
         }
-    }
+    }*/
 }

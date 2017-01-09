@@ -159,14 +159,14 @@ public class HostTest {
     }
 
     /**
-     * Test of seteMail method, of class Host.
+     * Test of setEmail method, of class Host.
      */
     @Test
     public void testSeteMail() {
         System.out.println("seteMail");
         String eMail = "";
         Host instance = new Host();
-        instance.seteMail(eMail);
+        instance.setEmail(eMail);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -256,14 +256,14 @@ public class HostTest {
     }
 
     /**
-     * Test of geteMail method, of class Host.
+     * Test of getEmail method, of class Host.
      */
     @Test
     public void testGeteMail() {
         System.out.println("geteMail");
         Host instance = new Host();
         String expResult = "";
-        String result = instance.geteMail();
+        String result = instance.getEmail();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

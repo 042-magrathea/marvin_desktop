@@ -31,8 +31,13 @@ import magrathea.marvin.desktop.user.service.UserService;
  */
 public class UserController extends Crud {
 
+    // TableView
     @FXML private TableView table_list_subsection;    // updates super
+    
+    // CRUD BUTTONS
     @FXML private Button resetPassButton, createButton, cancelButton;
+    
+    // SPECIAL NODES
     @FXML private ChoiceBox<UserRole> roleBox;
     @FXML private ChoiceBox<PreferedLanguage> languageBox;
     @FXML private TextField nicknameField, nameField, phoneField, emailField, searchField;
@@ -267,9 +272,20 @@ public class UserController extends Crud {
     /*
      * Special Stuff in User STATE 
      */
-    
-    
-    
+    public void onSendMail(ActionEvent event) {
+        if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
+            if (((User) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail() != null) {
+                String mail = ((User) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail();
+                String nickname = ((User) table_list_subsection.getSelectionModel().getSelectedItem()).getNickname();
+                MessageHelper.showFakeEmailSender(null, null, nickname, mail);
+                //System.out.println("mailto:" + mail);
+            } else {
+                System.err.println("ERROR: NULL mail");
+            }
+        } else {
+            System.err.println("ERROR: NO SELECT ITEM");
+        }
+    }
     
     @Override
     protected void setRead() {
@@ -291,7 +307,7 @@ public class UserController extends Crud {
         createButton.setText(resources.getString("crud_create"));
         resetPassButton.setVisible(true);
         for (TextInputControl tf : textFields) {
-            tf.toString();
+            //tf.toString();
             tf.setText("");
             tf.setEditable(true);
             tf.setMouseTransparent(false);

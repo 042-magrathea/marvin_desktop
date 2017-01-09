@@ -13,7 +13,7 @@ public class Host {
     private float longitude;
     private String phone;
     private String address;
-    private String eMail;
+    private String email;
 
     public Host() {
     }
@@ -27,7 +27,7 @@ public class Host {
                 + ", longitude=" + longitude 
                 + ", phone=" + phone 
                 + ", address=" + address 
-                + ", eMail=" + eMail + '}';
+                + ", eMail=" + email + '}';
     }
      
     // Equals % Hashcode
@@ -92,8 +92,8 @@ public class Host {
         this.address = address;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     // Getter
@@ -121,7 +121,7 @@ public class Host {
         return address;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 }

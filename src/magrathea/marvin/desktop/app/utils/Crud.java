@@ -53,7 +53,7 @@ public abstract class Crud implements Initializable {
     public void configureTable() {
         table_list_subsection.setEditable(false);
         refreshTable();
-        table_list_subsection.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);    // no bar
+        table_list_subsection.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
 
         //LISTENER
         table_list_subsection.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
@@ -103,21 +103,6 @@ public abstract class Crud implements Initializable {
     }
 
     public void onDelete() {
-    }
-
-    public void onSendMail(ActionEvent event) {
-        if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
-            if (((User) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail() != null) {
-                String mail = ((User) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail();
-                String nickname = ((User) table_list_subsection.getSelectionModel().getSelectedItem()).getNickname();
-                MessageHelper.showFakeEmailSender(null, null, nickname, mail);
-                //System.out.println("mailto:" + mail);
-            } else {
-                System.err.println("ERROR: USER with NULL mail");
-            }
-        } else {
-            System.err.println("ERROR: NO select USER");
-        }
     }
 
     // STATE

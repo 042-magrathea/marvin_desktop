@@ -203,7 +203,7 @@
                   </VBox.margin>
                </Separator>
                     <HBox alignment="CENTER_RIGHT" fillHeight="false" styleClass="dynamic_buttons_form" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                         <Button fx:id="createButton" onAction="#onAction" text="Create user">
+                         <Button fx:id="createButton" onAction="#onAction" text="%crud_create">
                              <HBox.margin>
                                  <Insets />
                              </HBox.margin>
