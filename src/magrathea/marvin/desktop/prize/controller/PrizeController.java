@@ -34,8 +34,8 @@ import net.coobird.thumbnailator.Thumbnails;
  */
 public class PrizeController implements Initializable {
 
-    @FXML
-    private AnchorPane prizeAnchorPane;
+    //@FXML
+    //private AnchorPane prizeAnchorPane;
 
     @FXML
     private TableView<Prize> prizeTable;
@@ -78,7 +78,7 @@ public class PrizeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         prizeTextFields = new ArrayList<>();
         prize = null;
-        image = new Image("/magrathea/marvin/desktop/prize/view/notPrizeImage.png");
+        //image = new Image("/magrathea/marvin/desktop/prize/view/notPrizeImage.png");
         
         // Add all instances of TextInputControl in a List for iterate later
         for (Node node : form.getChildren()) {
@@ -105,7 +105,7 @@ public class PrizeController implements Initializable {
                     prize = newValue;
                     fillReadValues();
                 });
-        prizeTable.getSelectionModel().selectFirst(); // First Selected, not void
+        prizeTable.getSelectionModel().selectFirst(); // First Selected, not void*/
     }
 
     public void fillReadValues() {

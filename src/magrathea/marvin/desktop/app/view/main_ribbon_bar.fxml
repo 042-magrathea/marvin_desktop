@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
+
 <!-- 
     Select the different options in the App.
     The controller call different view in the action pane
@@ -94,7 +95,7 @@
                 </graphic>
             </ToggleButton>
             <Separator orientation="VERTICAL" />
-            <ToggleButton fx:id="HOME" mnemonicParsing="false" onAction="#changeView" toggleGroup="$MarvinBarGroup">
+            <ToggleButton fx:id="PRIZE" mnemonicParsing="false" onAction="#changeView" toggleGroup="$MarvinBarGroup">
                 <graphic>
                     <FontAwesomeIconView glyphName="TROPHY" />
                 </graphic>

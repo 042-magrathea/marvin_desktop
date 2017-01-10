@@ -42,6 +42,7 @@ public class StyleService {
         layoutDesign.put("HOST", "/magrathea/marvin/desktop/host/view/host.fxml");
         layoutDesign.put("CONFIG", "/magrathea/marvin/desktop/app/view/main_tab_config.fxml");
         layoutDesign.put("GAME", "/magrathea/marvin/desktop/game/view/game.fxml");
+        layoutDesign.put("PRIZE", "/magrathea/marvin/desktop/prize/view/prize.fxml");
         
         // Example in User only
         if ( style.equals("marvin")){

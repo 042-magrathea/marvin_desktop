@@ -1,8 +1,7 @@
 package magrathea.marvin.desktop.prize.model;
 
-import java.net.URL;
-import java.sql.Date;
-import java.util.Objects;
+
+import java.util.Date;
 
 /**
  *
@@ -13,47 +12,14 @@ public class Prize {
     private String name;
     private String description;
     private String image;
+    private long idUser;
+    private long idTournament;
+    private long idPrizeTemplate;
+    private Date date;
     
     public Prize() {
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Prize other = (Prize) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
-    }
-
-        
-    // TO STRING
-    @Override
-    public String toString() {
-        return "Prize{" + "idPrize=" + idPrize 
-                + ", name=" + name 
-                + ", description=" + description 
-                + ", image=" + image + '}';
-    }
-
-
-    // GETTER & SETTER
     public long getIdPrize() {
         return idPrize;
     }
@@ -85,4 +51,39 @@ public class Prize {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
+    }
+
+    public long getIdTournament() {
+        return idTournament;
+    }
+
+    public void setIdTournament(long idTournament) {
+        this.idTournament = idTournament;
+    }
+
+    public long getIdPrizeTemplate() {
+        return idPrizeTemplate;
+    }
+
+    public void setIdPrizeTemplate(long idPrizeTemplate) {
+        this.idPrizeTemplate = idPrizeTemplate;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
+
 }

@@ -14,10 +14,17 @@ import java.sql.Date;
 public class PrizeMerchant extends Prize {
     // If delivered is false, datePick is for user notification.
     // If delivered is true, datePick is the date of delivery.
-    private Date datePick;
     private boolean delivered;
     
-    public PrizeMerchant(){
-        
+    public PrizeMerchant( boolean delivered){
+        this.delivered = delivered;        
+    }
+
+    public boolean isDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
     }
 }

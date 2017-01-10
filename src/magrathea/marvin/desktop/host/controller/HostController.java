@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.util.Duration;
 import magrathea.marvin.desktop.app.utils.Crud;
 import magrathea.marvin.desktop.app.utils.CrudState;
@@ -122,8 +123,8 @@ public class HostController extends Crud implements MapComponentInitializedListe
         }
 
     }
-    
-        public void onSendMail(ActionEvent event) {
+
+    public void onSendMail(ActionEvent event) {
         if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
             if (((Host) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail() != null) {
                 String mail = ((Host) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail();
@@ -146,12 +147,27 @@ public class HostController extends Crud implements MapComponentInitializedListe
 
     @Override
     protected void setRead() {
-
+        createButton.setVisible(false);
+        cancelButton.setVisible(false);
+        // Set Interface to READ:VIEW
+        for (TextInputControl tf : textFields) {
+            tf.setEditable(false);
+            tf.setMouseTransparent(true);
+            tf.setFocusTraversable(false);
+        }
     }
 
     @Override
     protected void setNew() {
-
+        createButton.setVisible(false); // TO FIX 
+        cancelButton.setVisible(true);
+        // Set Interface to READ:VIEW
+        for (TextInputControl tf : textFields) {
+            tf.setText("");
+            tf.setEditable(true);
+            tf.setMouseTransparent(false);
+            tf.setFocusTraversable(true);
+        }
     }
 
     @Override
