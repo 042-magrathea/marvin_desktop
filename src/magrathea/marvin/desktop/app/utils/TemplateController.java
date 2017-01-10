@@ -29,17 +29,18 @@ import magrathea.marvin.desktop.user.service.UserService;
  * Controller for the View in fxml format.
  * @author Arnau, Iván
  */
-public class TemplateController extends Crud {
-
+public class TemplateController /*extends Crud*/ {
+    
     /* Specials nodes of the fxml View for this concrete implementation. 
      * All common stuff for the crud View is stored in the parent class. */
+    /*
     @FXML private TableView table_list_subsection;    // updates super
     @FXML private Button resetPassButton;
     @FXML private ChoiceBox<UserRole> roleBox;
     @FXML private ChoiceBox<PreferedLanguage> languageBox;
     @FXML private TextField nicknameField, nameField, phoneField, emailField;
     @FXML private PasswordField passwordField, passConfirmationField;
-    @FXML private TextArea pubDescField, privDescField;
+    @FXML private TextArea pubDescField, privDescField; */
 
     /* Specials vars that can’t be generalized without a pattern like an adapter 
      * a factory or reflection because needs a dynamic load of class and casting, 
@@ -51,13 +52,15 @@ public class TemplateController extends Crud {
     */
     
     // TODO: Set concrete Service and Observable list
-    private UserService service = null;
+    //private UserService service = null;
     
     
     /**
      * Default constructor of the class for load the Service
      */
-    public TemplateController() {
+    
+    
+    // public TemplateController() {
         /* Load Service that coordinate access to the DAO providers. Usually, every
         class in the model has a service that know about him. Complex View that need 
         access to different models, can have a service that coordinate them.
@@ -66,8 +69,10 @@ public class TemplateController extends Crud {
         - this.service = Service.getInstance();    // Exemple for Singlenton Access */
         
         // TODO: Set Service
-        this.service = new UserService();
+        /*this.service = new UserService();
     }
+    */
+    
 
     /**
      * Implements Interface Initilizable from parent class. When the controller 
@@ -76,6 +81,8 @@ public class TemplateController extends Crud {
      * @param resources i18n resources. Injected by LoginService in top and center
      * layout of the root BorderPane.
      */
+    
+    /*
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Update TableView<? extends Object> in Super with concrete implementation
@@ -204,6 +211,7 @@ public class TemplateController extends Crud {
         }
 
     }
+    */
 
     //-------------------------------------------------------------------------
     //  FORM AUXILIAR METHODS FOR CONCRETE CLASS
@@ -215,11 +223,13 @@ public class TemplateController extends Crud {
     //  5 - setNew()
     //  6 - setEdit()
     //-------------------------------------------------------------------------
+    /*
     @Override
     protected void refreshTable() {
         items = FXCollections.observableArrayList(service.getAll());
         super.refreshTable();
     }
+    */
 
     /**
      * On Change the input text, the table of items is refreshed with new data.
@@ -227,6 +237,8 @@ public class TemplateController extends Crud {
      * type of items.
      * For work need to connected with a TextField named searchField.
      */
+    
+    /*
     protected void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             itemsFilter.setPredicate(item -> {
@@ -283,10 +295,13 @@ public class TemplateController extends Crud {
 
         return user;
     }
+    */
 
     /*
      * Special Stuff in User STATE 
      */
+    
+    /*
     @Override
     protected void setRead() {
         createButton.setVisible(false);
@@ -327,5 +342,5 @@ public class TemplateController extends Crud {
             tf.setMouseTransparent(false);
             tf.setFocusTraversable(true);
         }
-    }
+    } */
 }
