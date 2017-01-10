@@ -128,37 +128,83 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
     }
 
     private List<Prize> makePrizeFromJson(JsonArray jarray) {
-        
-            List<Prize> prizes = new ArrayList<>();
-            Prize prize = null;
-            for (int i = 0; i < jarray.size(); i++) {
-                JsonObject jsonobject = jarray.get(i).getAsJsonObject();
 
-                /*
+        List<Prize> prizes = new ArrayList<>();
+        Prize prize = null;
+        for (int i = 0; i < jarray.size(); i++) {
+            JsonObject jsonobject = jarray.get(i).getAsJsonObject();
+
+            
                 if (jsonobject.has("disc")) {
                     prize = new PrizeDiscount(jsonobject.get("disc").getAsInt());
-                    prize.setDate(new Date(jsonobject.get("expirationDate").getAsString()));
+                    prize.setDate(jsonobject.get("expirationDate").getAsString());
                 } else if (jsonobject.has("claimed")) {
-                    prize = new PrizeMerchant(jsonobject.get("disc").getAsInt() != 0);
-                    prize.setDate(new Date(jsonobject.get("expirationDate").getAsString()));
+                    String rs = jsonobject.get("claimed").getAsString();
+                    int result = Integer.parseInt(rs);
+                    boolean b = result != 0 ;
+                    prize = new PrizeMerchant( b );
+                    prize.setDate(jsonobject.get("expirationDate").getAsString());
                 } else {
                     prize = new Prize();
                     prize.setDate(null);
                 }
-*/
-                prize = new Prize();
+             
+            prize = new Prize();
 
-                prize.setName(jsonobject.get("name").getAsString());
-                prize.setDescription(jsonobject.get("description").getAsString());
-                //prize.setImage(jsonobject.get("image").getAsString());
-
-                prize.setIdPrize(jsonobject.get("idPRIZE").getAsLong());
-                //prize.setIdPrizeTemplate(jsonobject.get("TEMPLATE_idTEMPLATE").getAsLong());
-                //prize.setIdTournament(jsonobject.get("TOURNAMENT_idTOURNAMENT").getAsLong());
-                //prize.setIdUser(jsonobject.get("USER_idUSER").getAsLong());
-
-                prizes.add(prize);
+            if (jsonobject.has("name")) {
+                if (!jsonobject.get("name").isJsonNull()) {
+                    prize.setName(jsonobject.get("name").getAsString());
+                }
             }
-            return prizes;
+            
+            if (jsonobject.has("description")) {
+                if (!jsonobject.get("description") .isJsonNull()) {
+                    prize.setDescription(jsonobject.get("description").getAsString());
+                }
+            }
+            
+            if (jsonobject.has("image")) {
+                if (!jsonobject.get("image").isJsonNull()) {
+                    prize.setImage(jsonobject.get("image").getAsString());
+                }
+            }
+
+            //prize.setName(jsonobject.get("name").getAsString());
+            //prize.setDescription(jsonobject.get("description").getAsString());
+            //prize.setImage(jsonobject.get("image").getAsString());
+
+            if (jsonobject.has("idPRIZE")) {
+                if (!jsonobject.get("idPRIZE").isJsonNull()) {
+                    prize.setIdPrize(jsonobject.get("idPRIZE").getAsLong());
+                }
+            }
+            
+            
+            if (jsonobject.has("TEMPLATE_idTEMPLATE")) {
+                if (!jsonobject.get("TEMPLATE_idTEMPLATE").isJsonNull()) {
+                    prize.setIdPrizeTemplate(jsonobject.get("TEMPLATE_idTEMPLATE").getAsLong());
+                }
+            }
+
+            if (jsonobject.has("TOURNAMENT_idTOURNAMENT")) {
+                if (!jsonobject.get("TOURNAMENT_idTOURNAMENT").isJsonNull()) {
+                    prize.setIdTournament(jsonobject.get("TOURNAMENT_idTOURNAMENT").getAsLong());
+                }
+            }
+
+            if (jsonobject.has("USER_idUSER")) {
+                if (!jsonobject.get("USER_idUSER").isJsonNull()) {
+                    prize.setIdUser(jsonobject.get("USER_idUSER").getAsLong());
+                }
+            }
+
+
+            //prize.setIdPrize(jsonobject.get("idPRIZE").getAsLong());
+            //prize.setIdPrizeTemplate(jsonobject.get("TEMPLATE_idTEMPLATE").getAsLong());
+            //prize.setIdTournament(jsonobject.get("TOURNAMENT_idTOURNAMENT").getAsLong());
+            //prize.setIdUser(jsonobject.get("USER_idUSER").getAsLong());
+            prizes.add(prize);
+        }
+        return prizes;
     }
 }

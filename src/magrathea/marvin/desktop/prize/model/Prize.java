@@ -1,8 +1,6 @@
 package magrathea.marvin.desktop.prize.model;
 
 
-import java.util.Date;
-
 /**
  *
  * @author boscalent
@@ -15,7 +13,7 @@ public class Prize {
     private long idUser;
     private long idTournament;
     private long idPrizeTemplate;
-    private Date date;
+    private String date;
     
     public Prize() {
     }
@@ -76,11 +74,11 @@ public class Prize {
         this.idPrizeTemplate = idPrizeTemplate;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     

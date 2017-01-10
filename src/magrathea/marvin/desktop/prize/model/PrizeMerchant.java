@@ -5,8 +5,6 @@
  */
 package magrathea.marvin.desktop.prize.model;
 
-import java.sql.Date;
-
 /**
  *
  * @author boscalent
