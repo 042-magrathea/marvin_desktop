@@ -2,11 +2,15 @@ package magrathea.marvin.desktop.prize.dao;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.io.Reader;
+import java.net.Proxy;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
+import magrathea.marvin.desktop.app.model.MarvinConfig;
 import magrathea.marvin.desktop.prize.model.Prize;
 import magrathea.marvin.desktop.prize.model.PrizeDiscount;
 import magrathea.marvin.desktop.prize.model.PrizeMerchant;
@@ -21,14 +25,14 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
 
     @Override
     public List<Prize> findAll() {
-        /* try {
+        try {
             
             URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
-                    + "prizeQuery.php");
+                    + "prizesQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
-            params.put("requestName", "allValues");               // User has rights?           
+            //params.put("requestName", "allValues");                        
             byte[] postDataBytes = helper.putParams(params);       // Mètode aux. make POST
 
             // GET READER FROM CONN (SUPER)
@@ -46,8 +50,8 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
         } finally {
             con.disconnect();
         }
-        return EMPTY;
-         */
+        
+        /* 
         String fakeJson = "["
                 + "{'idPrize':'1','name':'Magic The Gathering','description':'Juego de cartas coleccionables',"
                 + "'image':'http://www.allcsgaming.com/wp-content/uploads/2014/03/MTGlogo.jpg'},"
@@ -97,10 +101,14 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
                 + "	  'disc':'10',\n"
                 + "	  'expirationDate':'2016-12-31'}\n"
                 + "]";
-        JsonParser jsonParser = new JsonParser();
+        //JsonParser jsonParser = new JsonParser();
         //JsonArray fakeJsonArray = (JsonArray) jsonParser.parse(fakeJson);
-        JsonArray fakeJsonArray = (JsonArray) jsonParser.parse(fakeJsonTwo);
-        return makePrizeFromJson(fakeJsonArray);
+        //JsonArray fakeJsonArray = (JsonArray) jsonParser.parse(fakeJsonTwo);
+        //return makePrizeFromJson(fakeJsonArray);
+
+        */
+        
+        return null;
     }
 
     @Override
@@ -139,17 +147,12 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
                     prize = new PrizeDiscount(jsonobject.get("disc").getAsInt());
                     prize.setDate(jsonobject.get("expirationDate").getAsString());
                 } else if (jsonobject.has("claimed")) {
-                    String rs = jsonobject.get("claimed").getAsString();
-                    int result = Integer.parseInt(rs);
-                    boolean b = result != 0 ;
-                    prize = new PrizeMerchant( b );
+                    prize = new PrizeMerchant( Integer.parseInt(jsonobject.get("claimed").getAsString()) != 0);
                     prize.setDate(jsonobject.get("expirationDate").getAsString());
                 } else {
                     prize = new Prize();
                     prize.setDate(null);
                 }
-             
-            prize = new Prize();
 
             if (jsonobject.has("name")) {
                 if (!jsonobject.get("name").isJsonNull()) {
@@ -169,10 +172,6 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
                 }
             }
 
-            //prize.setName(jsonobject.get("name").getAsString());
-            //prize.setDescription(jsonobject.get("description").getAsString());
-            //prize.setImage(jsonobject.get("image").getAsString());
-
             if (jsonobject.has("idPRIZE")) {
                 if (!jsonobject.get("idPRIZE").isJsonNull()) {
                     prize.setIdPrize(jsonobject.get("idPRIZE").getAsLong());
@@ -186,23 +185,18 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
                 }
             }
 
-            if (jsonobject.has("TOURNAMENT_idTOURNAMENT")) {
-                if (!jsonobject.get("TOURNAMENT_idTOURNAMENT").isJsonNull()) {
-                    prize.setIdTournament(jsonobject.get("TOURNAMENT_idTOURNAMENT").getAsLong());
+            if (jsonobject.has("userName")) {
+                if (!jsonobject.get("userName").isJsonNull()) {
+                    prize.setIdUser(jsonobject.get("userName").getAsString());
                 }
             }
 
-            if (jsonobject.has("USER_idUSER")) {
-                if (!jsonobject.get("USER_idUSER").isJsonNull()) {
-                    prize.setIdUser(jsonobject.get("USER_idUSER").getAsLong());
+            if (jsonobject.has("tournamentName")) {
+                if (!jsonobject.get("tournamentName").isJsonNull()) {
+                    prize.setIdTournament(jsonobject.get("tournamentName").getAsString());
                 }
             }
 
-
-            //prize.setIdPrize(jsonobject.get("idPRIZE").getAsLong());
-            //prize.setIdPrizeTemplate(jsonobject.get("TEMPLATE_idTEMPLATE").getAsLong());
-            //prize.setIdTournament(jsonobject.get("TOURNAMENT_idTOURNAMENT").getAsLong());
-            //prize.setIdUser(jsonobject.get("USER_idUSER").getAsLong());
             prizes.add(prize);
         }
         return prizes;

@@ -1,4 +1,4 @@
-package magrathea.marvin.desktop.user.controller;
+package magrathea.marvin.desktop.app.utils;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,39 +26,70 @@ import magrathea.marvin.desktop.user.model.User;
 import magrathea.marvin.desktop.user.service.UserService;
 
 /**
- *
+ * Controller for the View in fxml format.
  * @author Arnau, Iván
  */
-public class UserController extends Crud {
-
-    // TableView
+public class TemplateController /*extends Crud*/ {
+    
+    /* Specials nodes of the fxml View for this concrete implementation. 
+     * All common stuff for the crud View is stored in the parent class. */
+    /*
     @FXML private TableView table_list_subsection;    // updates super
-    
-    // CRUD BUTTONS
-    @FXML private Button resetPassButton, createButton, cancelButton;
-    
-    // SPECIAL NODES
+    @FXML private Button resetPassButton;
     @FXML private ChoiceBox<UserRole> roleBox;
     @FXML private ChoiceBox<PreferedLanguage> languageBox;
-    @FXML private TextField nicknameField, nameField, phoneField, emailField, searchField;
+    @FXML private TextField nicknameField, nameField, phoneField, emailField;
     @FXML private PasswordField passwordField, passConfirmationField;
-    @FXML private TextArea pubDescField, privDescField;
+    @FXML private TextArea pubDescField, privDescField; */
 
-    // Load special vars of concrete
-    private UserService service = null;
-    private ObservableList<User> items;
-    private FilteredList<? extends Object> itemsFilter;
-
-    // Constructors //
-    public UserController() {
-        this.service = new UserService();
+    /* Specials vars that can’t be generalized without a pattern like an adapter 
+     * a factory or reflection because needs a dynamic load of class and casting, 
+     * complicated thing for a static language like Java.
+     * The approach is store these vars in the concrete class that’s know about the type.
+     Exemple in User:
+     - private UserService service = null;
+     - private ObservableList<User> items;
+    */
+    
+    // TODO: Set concrete Service and Observable list
+    //private UserService service = null;
+    
+    
+    /**
+     * Default constructor of the class for load the Service
+     */
+    
+    
+    // public TemplateController() {
+        /* Load Service that coordinate access to the DAO providers. Usually, every
+        class in the model has a service that know about him. Complex View that need 
+        access to different models, can have a service that coordinate them.
+        Exemple in User
+        - this.service = new UserService();        // Exemple for new Service
+        - this.service = Service.getInstance();    // Exemple for Singlenton Access */
+        
+        // TODO: Set Service
+        /*this.service = new UserService();
     }
+    */
+    
 
+    /**
+     * Implements Interface Initilizable from parent class. When the controller 
+     * is called from a FXMLoader, the parameters are injected.
+     * @param location
+     * @param resources i18n resources. Injected by LoginService in top and center
+     * layout of the root BorderPane.
+     */
+    
+    /*
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Update TableView<? extends Object> in Super with concrete implementation
         super.table_list_subsection = table_list_subsection;
-        super.initialize(location, resources);     // stuff for all controllers
+        super.initialize(location, resources);
         
+        // Charge Search Items in TableView
         setListenerToSearchField();
         refreshTable();
 
@@ -90,18 +120,17 @@ public class UserController extends Crud {
     //-------------------------------------------------------------------------
     @Override
     public void onDelete() {
-        User user = (User)table_list_subsection.getSelectionModel().getSelectedItem();
+        User user = (User) table_list_subsection.getSelectionModel().getSelectedItem();
         boolean deletionResult = service.deleteItem(user);
         if (deletionResult) {
-            MessageHelper.showSuccessAlert( resources.getString("marvin_USER" ) 
+            MessageHelper.showSuccessAlert(resources.getString("marvin_USER")
                     + " " + user.getNickname() + resources.getString("crud_x_deleted"));
         } else {
-            MessageHelper.showErrorAlert(resources.getString("crud_delete"), 
+            MessageHelper.showErrorAlert(resources.getString("crud_delete"),
                     resources.getString("crud_delete_error") + resources.getString("marvin_USER"));
         }
         refreshTable();
     }
-    
 
     @Override
     public void onCancel(ActionEvent event) {
@@ -151,7 +180,7 @@ public class UserController extends Crud {
 
     private void modify() {
         User userNew = fromFormToItem();
-        userNew.setId(((User)(table_list_subsection.getSelectionModel().getSelectedItem())).getId());
+        userNew.setId(((User) (table_list_subsection.getSelectionModel().getSelectedItem())).getId());
         int modificationResult = service.modifyItem(userNew);
         showResultAlert(modificationResult, "modification");
     }
@@ -160,28 +189,29 @@ public class UserController extends Crud {
     private void showResultAlert(int operationResult, String operationKind) {
         if (operationResult == UserService.NO_MATCH || operationResult == UserService.UNKNOW_ERROR) {
             MessageHelper.showErrorAlert(operationKind, resources.getString("crud_generic_error_text"));
-            
+
         } else if (operationResult == UserService.PUBLICNAME_FOUND) {
-            MessageHelper.showErrorAlert(operationKind, resources.getString("user_nickname") 
-                            + resources.getString("crud_error_exist_text"));
-            
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_nickname")
+                    + resources.getString("crud_error_exist_text"));
+
         } else if (operationResult == UserService.NAME_FOUND) {
-            MessageHelper.showErrorAlert(operationKind, resources.getString("user_name") 
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_name")
                     + resources.getString("crud_error_exist_text"));
-            
+
         } else if (operationResult == UserService.PHONE_FOUND) {
-            MessageHelper.showErrorAlert(operationKind, resources.getString("user_phone")  
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_phone")
                     + resources.getString("crud_error_exist_text"));
-            
+
         } else if (operationResult == UserService.EMAIL_FOUND) {
-            MessageHelper.showErrorAlert(operationKind, resources.getString("user_email")  
+            MessageHelper.showErrorAlert(operationKind, resources.getString("user_email")
                     + resources.getString("crud_error_exist_text"));
 
         } else if (operationResult >= 1) {
-            MessageHelper.showSuccessAlert( operationKind + resources.getString("crud_operation_complete"));
+            MessageHelper.showSuccessAlert(operationKind + resources.getString("crud_operation_complete"));
         }
 
     }
+    */
 
     //-------------------------------------------------------------------------
     //  FORM AUXILIAR METHODS FOR CONCRETE CLASS
@@ -193,32 +223,22 @@ public class UserController extends Crud {
     //  5 - setNew()
     //  6 - setEdit()
     //-------------------------------------------------------------------------
+    /*
     @Override
     protected void refreshTable() {
-        /*
-         * Very expensive query to server, OK for this project.
-         * SearchField & String is a trick for remember filter on refreshTable
-         */
-        String search = searchField.getText();
-        searchField.setText("");
-        
         items = FXCollections.observableArrayList(service.getAll());
-        // Wrap all data in FilteredList
-        itemsFilter = new FilteredList<>(items, p -> true);
-        
-        searchField.setText(search);
-        
-        // Hack for sort columns in Filtered List
-        // http://stackoverflow.com/questions/17958337/javafx-tableview-with-filteredlist-jdk-8-does-not-sort-by-column
-        SortedList<? extends Object> sortableData = new SortedList<>(itemsFilter);
-        sortableData.comparatorProperty().bind(table_list_subsection.comparatorProperty());
-        
-        // filter predicate
-        table_list_subsection.setItems(sortableData);
-        table_list_subsection.getSelectionModel().selectFirst();
+        super.refreshTable();
     }
+    */
 
-    @Override
+    /**
+     * On Change the input text, the table of items is refreshed with new data.
+     * This method needs to be concrete for the casting in the filters for the concrete
+     * type of items.
+     * For work need to connected with a TextField named searchField.
+     */
+    
+    /*
     protected void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             itemsFilter.setPredicate(item -> {
@@ -231,9 +251,9 @@ public class UserController extends Crud {
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // Filters
-                if (((User)item).getNickname().toLowerCase().contains(lowerCaseFilter)) {
+                if (((User) item).getNickname().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches first name.
-                } else if (((User)item).getName().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (((User) item).getName().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches last name.
                 }
                 return false; // Does not match.
@@ -275,25 +295,13 @@ public class UserController extends Crud {
 
         return user;
     }
+    */
 
     /*
      * Special Stuff in User STATE 
      */
-    public void onSendMail(ActionEvent event) {
-        if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
-            if (((User) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail() != null) {
-                String mail = ((User) table_list_subsection.getSelectionModel().getSelectedItem()).getEmail();
-                String nickname = ((User) table_list_subsection.getSelectionModel().getSelectedItem()).getNickname();
-                MessageHelper.showFakeEmailSender(null, null, nickname, mail);
-                //System.out.println("mailto:" + mail);
-            } else {
-                System.err.println("ERROR: NULL mail");
-            }
-        } else {
-            System.err.println("ERROR: NO SELECT ITEM");
-        }
-    }
     
+    /*
     @Override
     protected void setRead() {
         createButton.setVisible(false);
@@ -314,7 +322,7 @@ public class UserController extends Crud {
         createButton.setText(resources.getString("crud_create"));
         resetPassButton.setVisible(true);
         for (TextInputControl tf : textFields) {
-            //tf.toString();
+            tf.toString();
             tf.setText("");
             tf.setEditable(true);
             tf.setMouseTransparent(false);
@@ -334,5 +342,5 @@ public class UserController extends Crud {
             tf.setMouseTransparent(false);
             tf.setFocusTraversable(true);
         }
-    }
+    } */
 }

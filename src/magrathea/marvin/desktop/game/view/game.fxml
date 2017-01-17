@@ -138,20 +138,17 @@
                   <TabPane fx:id="aside_subsection" prefWidth="200.0" side="BOTTOM" styleClass="aside_subsection" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="aside_subsection" text="%game_image">
-                        <content>
-                          <AnchorPane>
+                           <content>
+                              <VBox styleClass="aside_content">
                                  <children>
-                                    <VBox styleClass="aside_content">
-                                       <children>
-                                          <ImageView fx:id="gameImageView" fitHeight="240.0" fitWidth="337.0" pickOnBounds="true" preserveRatio="true">
-                                             <viewport>
-                                                <Rectangle2D />
-                                             </viewport></ImageView>
-                                       </children>
-                                    </VBox>
+                                    <ImageView fx:id="gameImageView" fitHeight="240.0" fitWidth="337.0" pickOnBounds="true" preserveRatio="true">
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
                                  </children>
-                              </AnchorPane>
-                        </content>
+                              </VBox>
+                           </content>
                       </Tab>
                     </tabs>
                   </TabPane>

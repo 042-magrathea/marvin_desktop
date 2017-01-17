@@ -5,26 +5,21 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
-import javafx.util.Duration;
 import magrathea.marvin.desktop.app.utils.Crud;
 import magrathea.marvin.desktop.app.utils.CrudState;
 import magrathea.marvin.desktop.app.utils.MessageHelper;
 import magrathea.marvin.desktop.host.model.Host;
 import magrathea.marvin.desktop.host.service.HostService;
-import magrathea.marvin.desktop.user.model.User;
 
 /**
  * FXML Controller class
@@ -81,7 +76,8 @@ public class HostController extends Crud implements MapComponentInitializedListe
         setInterface();
     }
 
-    private void setListenerToSearchField() {
+    @Override
+    protected void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             itemsFilter.setPredicate(item -> {
                 // If filter text is empty, display all data.
@@ -189,9 +185,14 @@ public class HostController extends Crud implements MapComponentInitializedListe
         itemsFilter = new FilteredList<>(items, p -> true);
 
         searchField.setText(search);
+        
+        // Hack for sort columns in Filtered List
+        // http://stackoverflow.com/questions/17958337/javafx-tableview-with-filteredlist-jdk-8-does-not-sort-by-column
+        SortedList<? extends Object> sortableData = new SortedList<>(itemsFilter);
+        sortableData.comparatorProperty().bind(table_list_subsection.comparatorProperty());
 
         // filter predicate
-        table_list_subsection.setItems(itemsFilter);
+        table_list_subsection.setItems(sortableData);
         table_list_subsection.getSelectionModel().selectFirst();
     }
 

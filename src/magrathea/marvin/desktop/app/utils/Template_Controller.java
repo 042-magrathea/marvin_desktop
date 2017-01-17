@@ -119,7 +119,8 @@ public class Template_Controller extends Crud implements MapComponentInitialized
     
      */
 
-    private void setListenerToSearchField() {
+    @Override
+    protected void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             itemsFilter.setPredicate(item -> {
                 // If filter text is empty, display all data.

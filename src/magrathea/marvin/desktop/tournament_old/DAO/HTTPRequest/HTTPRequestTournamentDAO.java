@@ -1,4 +1,4 @@
-package magrathea.marvin.desktop.tournament.DAO.HTTPRequest;
+package magrathea.marvin.desktop.tournament_old.DAO.HTTPRequest;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
-import magrathea.marvin.desktop.tournament.DAO.TournamentDAO;
-import magrathea.marvin.desktop.tournament.DAO.TournamentSearchType;
-import magrathea.marvin.desktop.tournament.model.Prize;
-import magrathea.marvin.desktop.tournament.model.Tournament;
+import magrathea.marvin.desktop.tournament_old.DAO.TournamentDAO;
+import magrathea.marvin.desktop.tournament_old.DAO.TournamentSearchType;
+import magrathea.marvin.desktop.tournament_old.model.Prize;
+import magrathea.marvin.desktop.tournament_old.model.Tournament;
 import magrathea.marvin.desktop.user.model.User;
 
 /**

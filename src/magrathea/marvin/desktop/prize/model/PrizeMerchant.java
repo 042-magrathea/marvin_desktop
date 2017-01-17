@@ -15,7 +15,16 @@ public class PrizeMerchant extends Prize {
     private boolean delivered;
     
     public PrizeMerchant( boolean delivered){
-        this.delivered = delivered;        
+        this.delivered = delivered;
+        super.setType("PrizeMerchant");
+    }
+    
+    ////////
+    // TO MUCH CASTING IN CONTROLLER
+    ////////
+    @Override
+    public String getTypePrice(){
+        return "PrizeMerchant";
     }
 
     public boolean isDelivered() {

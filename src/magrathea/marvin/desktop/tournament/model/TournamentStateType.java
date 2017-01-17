@@ -7,5 +7,5 @@ package magrathea.marvin.desktop.tournament.model;
  * see Use diagram of Tournament state v2
  */
 public enum TournamentStateType {
-    CREATED, PUBLISHED, CLOSED, BEGINNED, FINISHED, CANCELLED, INTERRUPTED;
+    CREATED, PUBLISHED, CLOSED, BEGINNED, INTERRUPTED, CANCELLED, FINISHED;
 }

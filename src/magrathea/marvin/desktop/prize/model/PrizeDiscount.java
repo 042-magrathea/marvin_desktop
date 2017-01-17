@@ -18,6 +18,7 @@ public class PrizeDiscount extends Prize {
     
     public PrizeDiscount( int disc){
         this.disc = disc;
+        super.setType("PrizeDiscount");
     }
 
     public int getDisc() {

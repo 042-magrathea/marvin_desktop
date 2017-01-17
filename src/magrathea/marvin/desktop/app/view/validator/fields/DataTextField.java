@@ -7,10 +7,8 @@ package magrathea.marvin.desktop.app.view.validator.fields;
 
 
 
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import org.apache.commons.validator.routines.EmailValidator;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,10 +33,10 @@ public class GameController extends Crud {
     // CRUD BUTTONS
     @FXML private Button loadImageButton, cancelButton, createButton;
     
-    
+    // SPECIAL NODES
     @FXML private TextField nameField, imageField, searchField;
     @FXML private TextArea descriptionArea;
-@FXML private ImageView gameImageView;
+    @FXML private ImageView gameImageView;
     
 
     // Load special vars of concrete
@@ -51,9 +52,9 @@ public class GameController extends Crud {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL location, ResourceBundle resources) {
         super.table_list_subsection = table_list_subsection;
-        super.initialize(url, resources);
+        super.initialize(location, resources);
 
         setListenerToSearchField();
         refreshTable();
@@ -70,7 +71,8 @@ public class GameController extends Crud {
         setInterface();
     }
 
-    private void setListenerToSearchField() {
+    @Override
+    protected void setListenerToSearchField() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             itemsFilter.setPredicate(item -> {
                 // If filter text is empty, display all data.
@@ -91,7 +93,8 @@ public class GameController extends Crud {
         nameField.setText(game.getName());
         descriptionArea.setText(game.getDescription());
         imageField.setText(game.getImage());
-        if (game.getImage() != null || !game.getImage().equals("")) {
+        
+        if (game.getImage() != null && !game.getImage().equals("")) {
             gameImageView.setImage(new Image(game.getImage(), true));
         } else {
             gameImageView.setImage(image);
@@ -173,9 +176,14 @@ public class GameController extends Crud {
         itemsFilter = new FilteredList<>(items, p -> true);
 
         searchField.setText(search);
+        
+        // Hack for sort columns in Filtered List
+        // http://stackoverflow.com/questions/17958337/javafx-tableview-with-filteredlist-jdk-8-does-not-sort-by-column
+        SortedList<? extends Object> sortableData = new SortedList<>(itemsFilter);
+        sortableData.comparatorProperty().bind(table_list_subsection.comparatorProperty());
 
         // filter predicate
-        table_list_subsection.setItems(itemsFilter);
+        table_list_subsection.setItems(sortableData);
         table_list_subsection.getSelectionModel().selectFirst();
 
     }

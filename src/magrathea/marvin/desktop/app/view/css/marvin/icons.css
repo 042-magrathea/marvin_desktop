@@ -58,6 +58,10 @@
         derive(-icons-color, 100%) 30%, derive(blueviolet, 30%) 85%);
 }
 
+.exclamation-icon{
+    -glyph-size: 18px;
+    -icons-color: red;
+}
 
 
 /*ICONS*/

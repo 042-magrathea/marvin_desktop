@@ -1,4 +1,4 @@
-package magrathea.marvin.desktop.tournament.controller;
+package magrathea.marvin.desktop.tournament_old.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,9 +13,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import magrathea.marvin.desktop.app.service.LoginService;
-import magrathea.marvin.desktop.tournament.model.Prize;
-import magrathea.marvin.desktop.tournament.model.Tournament;
-import magrathea.marvin.desktop.tournament.service.TournamentService;
+import magrathea.marvin.desktop.tournament_old.model.Prize;
+import magrathea.marvin.desktop.tournament_old.model.Tournament;
+import magrathea.marvin.desktop.tournament_old.service.TournamentService;
 import magrathea.marvin.desktop.user.model.User;
 
 /**

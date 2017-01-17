@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import magrathea.marvin.desktop.app.service.LoginService;
-import magrathea.marvin.desktop.user.model.User;
 
 /**
  *
@@ -216,4 +215,6 @@ public abstract class Crud implements Initializable {
             }
         });
     }
+    
+     protected abstract void setListenerToSearchField();
 }

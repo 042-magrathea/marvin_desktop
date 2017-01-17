@@ -2,6 +2,7 @@ package magrathea.marvin.desktop.app.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
 
@@ -15,6 +16,10 @@ public class StyleService {
     // Active Style
     private Map<String, String> layoutDesign;
 
+    // Default null image
+    private Image nullImage = new Image( "magrathea/marvin/desktop/app/view/img/no_image.png");
+    
+    
     public StyleService() {
         layoutDesign = new HashMap<>();
         chargeLayout();
@@ -56,5 +61,9 @@ public class StyleService {
     
     public Map getLayout(){
         return this.layoutDesign;
+    }
+    
+    public Image getImageNull(){
+        return nullImage;
     }
 }

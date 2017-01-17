@@ -2,6 +2,9 @@ package magrathea.marvin.desktop.tournament.model;
 
 import java.util.List;
 import java.util.Objects;
+import magrathea.marvin.desktop.game.model.Game;
+import magrathea.marvin.desktop.host.model.Host;
+import magrathea.marvin.desktop.prize.model.Prize;
 import magrathea.marvin.desktop.user.model.User;
 
 /**
@@ -10,13 +13,23 @@ import magrathea.marvin.desktop.user.model.User;
  */
 public class Tournament {
     private long id;
+    
+    private int maxPlayers;
+    private int minPlayers;
+    
     private String name;
+    private String publicDes;
+    private String privateDes;
+    private String image;
+    private String date;
     
     private TournamentStateType state;
 
     private Host host;
+    private System system;
     private List<Prize> prizes;
     private List<User> users;
+    
     
     // TODO: add new fields name, publicDes, privateDes, date
     

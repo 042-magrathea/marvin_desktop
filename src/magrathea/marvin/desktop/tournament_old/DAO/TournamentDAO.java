@@ -1,8 +1,8 @@
-package magrathea.marvin.desktop.tournament.DAO;
+package magrathea.marvin.desktop.tournament_old.DAO;
 
 import java.util.List;
 import magrathea.marvin.desktop.app.dao.DAO;
-import magrathea.marvin.desktop.tournament.model.Tournament;
+import magrathea.marvin.desktop.tournament_old.model.Tournament;
 
 // TODO: These methods (Typical CRUD) can be a separate class?
 // And implement params with generics (All classDAO do the same)

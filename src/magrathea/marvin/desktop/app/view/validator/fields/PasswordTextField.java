@@ -7,7 +7,6 @@ package magrathea.marvin.desktop.app.view.validator.fields;
 
 
 
-import javafx.scene.Node;
 import javafx.scene.control.Control;
 import org.controlsfx.control.textfield.CustomPasswordField;
 import org.controlsfx.validation.Severity;

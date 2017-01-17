@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.tournament.controller;
+package magrathea.marvin.desktop.tournament_old.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,9 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import magrathea.marvin.desktop.app.Main;
-import magrathea.marvin.desktop.tournament.model.Prize;
-import magrathea.marvin.desktop.tournament.model.Tournament;
-import magrathea.marvin.desktop.tournament.service.TournamentService;
+import magrathea.marvin.desktop.tournament_old.model.Prize;
+import magrathea.marvin.desktop.tournament_old.model.Tournament;
+import magrathea.marvin.desktop.tournament_old.service.TournamentService;
 import magrathea.marvin.desktop.user.model.User;
 
 /**

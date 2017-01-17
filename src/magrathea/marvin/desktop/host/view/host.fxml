@@ -32,7 +32,7 @@ Scene Builder FIX
             <children>
                 <VBox fx:id="table_section" maxHeight="300.0" styleClass="table_section">
                     <children>
-                        <TableView fx:id="table_list_subsection" styleClass="table_list_subsection">
+                        <TableView fx:id="table_list_subsection" styleClass="table_list_subsection" tableMenuButtonVisible="true">
                             <columns>
                                 <TableColumn fx:id="id" maxWidth="80.0" minWidth="30.0" prefWidth="60.0" text="ID" />
                                 <TableColumn fx:id="name" maxWidth="500.0" minWidth="200.0" prefWidth="300.0" text="%host_name" />

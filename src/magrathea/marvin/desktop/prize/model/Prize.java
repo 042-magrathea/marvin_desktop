@@ -1,23 +1,48 @@
 package magrathea.marvin.desktop.prize.model;
 
-
 /**
  *
  * @author boscalent
  */
 public class Prize {
+
     private long idPrize;
     private String name;
     private String description;
     private String image;
-    private long idUser;
-    private long idTournament;
+    private String idUser;
+    private String idTournament;
     private long idPrizeTemplate;
     private String date;
-    
+    //private String prizeState;
+
+    // Internal stuff
+    private String type;
+
     public Prize() {
+        type = "Prize";
     }
 
+    ////////
+    // TO MUCH CASTING IN CONTROLLER
+    ////////
+    public String getTypePrice() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    public String getPrizeState(){
+        return getPrizeState(false);
+    }
+    
+    public String getPrizeState(boolean verbose){
+        return PrizeMessageFormatter.getInstance().getPrizeInfoMessage(this, verbose);
+    }    
+    ///////////////////////
+    
     public long getIdPrize() {
         return idPrize;
     }
@@ -50,21 +75,22 @@ public class Prize {
         this.image = image;
     }
 
-    public long getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
-    public long getIdTournament() {
+    public String getIdTournament() {
         return idTournament;
     }
 
-    public void setIdTournament(long idTournament) {
+    public void setIdTournament(String idTournament) {
         this.idTournament = idTournament;
     }
+
 
     public long getIdPrizeTemplate() {
         return idPrizeTemplate;
@@ -81,7 +107,5 @@ public class Prize {
     public void setDate(String date) {
         this.date = date;
     }
-    
-    
 
 }
