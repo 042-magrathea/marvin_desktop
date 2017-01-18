@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magrathea.marvin.desktop.tournament_old.service;
+package magrathea.marvin.desktop.tournament.service;
 
 import java.util.List;
-import javafx.fxml.FXMLLoader;
 import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
-import magrathea.marvin.desktop.tournament_old.DAO.TournamentDAO;
-import magrathea.marvin.desktop.tournament_old.model.Tournament;
+import magrathea.marvin.desktop.tournament.dao.TournamentDAO;
+import magrathea.marvin.desktop.tournament.model.Tournament;
+
 
 /**
  *

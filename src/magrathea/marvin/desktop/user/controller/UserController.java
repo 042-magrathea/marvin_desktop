@@ -335,4 +335,8 @@ public class UserController extends Crud {
             tf.setFocusTraversable(true);
         }
     }
+
+    @Override
+    protected void setState(Object object) {
+    }
 }

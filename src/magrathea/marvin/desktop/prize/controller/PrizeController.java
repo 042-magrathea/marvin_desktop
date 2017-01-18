@@ -1,7 +1,6 @@
 package magrathea.marvin.desktop.prize.controller;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,7 +31,6 @@ import net.coobird.thumbnailator.Thumbnails;
 
 /**
  * FXML Controller class
- *
  * @author boscalent
  */
 public class PrizeController extends Crud {
@@ -44,7 +42,7 @@ public class PrizeController extends Crud {
     @FXML private Button loadImageButton, cancelButton, createButton;
 
     // SPECIAL NODES
-    @FXML private TextField prizeNameField, prizeImageField, searchField;
+    @FXML private TextField prizeNameField, prizeImageField;
     @FXML private ImageView prizeImageView;
     @FXML private TextArea prizeDescriptionField, prizeDateField;
     @FXML private TableColumn prizeState;
@@ -83,9 +81,8 @@ public class PrizeController extends Crud {
         // SPECIAL Stuff for Prize  ////////////////////////////////////////////
         image = new Image("/magrathea/marvin/desktop/game/view/notGameImage.png");
         prizeTypeFilter = ((RadioButton) prizeType.getSelectedToggle()).getId();
-        //coloredColum();
-
         // End SPECIAL /////////////////////////////////////////////////////////
+        
         state = CrudState.READ;
         setInterface();
     }
@@ -107,8 +104,11 @@ public class PrizeController extends Crud {
                 prizeImageView.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
                 prizeImageField.setText(file.getName());
             } catch (IOException ex) {
-                //
+                // 
             }
+            // https://coderanch.com/t/227896/sending-image-server-HTTP-connection
+            // Código para subir imágenes al server / 7º post)
+            
         }
     }
 
@@ -265,5 +265,9 @@ public class PrizeController extends Crud {
                 }
             };
         });
+    }
+
+    @Override
+    protected void setState(Object object) {
     }
 }

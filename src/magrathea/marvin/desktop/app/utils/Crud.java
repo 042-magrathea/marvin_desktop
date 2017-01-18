@@ -24,12 +24,13 @@ public abstract class Crud implements Initializable {
     @FXML protected VBox extraFields;
     @FXML protected HBox table_crud_buttons;
     @FXML protected GridPane form_grid;
-
+    @FXML protected TextField searchField;
     protected TableView<? extends Object> table_list_subsection;    // update by concrete
     protected CrudState state;
     protected List<TextInputControl> textFields;
     protected Map<TextInputControl, String> checkFields;
     protected ResourceBundle resources;
+   
 
     public Crud() {
         // For now, bundle is injected in view (fxml) but need a ref in controller
@@ -60,10 +61,12 @@ public abstract class Crud implements Initializable {
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
                 //Check whether item is selected and set value of selected item to Label
                 if (table_list_subsection.getSelectionModel().getSelectedItem() != null) {
-                    Object itemSelected = table_list_subsection.getSelectionModel().getSelectedItem();
-                    fromItemToForm(itemSelected);
+                    //Object itemSelected = table_list_subsection.getSelectionModel().getSelectedItem();
+                    //fromItemToForm(itemSelected);
+                    fromItemToForm(newValue);
                     state = CrudState.READ;
                     setInterface();
+                    setState(newValue);
                 }
             }
         });
@@ -115,7 +118,8 @@ public abstract class Crud implements Initializable {
     /**  Very expensive query to server, OK for this project.
     *    SearchField & String is a trick for remember filter on refreshTable   */
     protected abstract void refreshTable();
-
+    protected abstract void setState( Object object);
+    
     public void onCancel(ActionEvent event) {
         refreshTable();
         for (TextInputControl tf : textFields) {

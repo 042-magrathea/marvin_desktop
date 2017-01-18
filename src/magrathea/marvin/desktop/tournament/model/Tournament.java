@@ -2,7 +2,6 @@ package magrathea.marvin.desktop.tournament.model;
 
 import java.util.List;
 import java.util.Objects;
-import magrathea.marvin.desktop.game.model.Game;
 import magrathea.marvin.desktop.host.model.Host;
 import magrathea.marvin.desktop.prize.model.Prize;
 import magrathea.marvin.desktop.user.model.User;
@@ -23,9 +22,10 @@ public class Tournament {
     private String image;
     private String date;
     
-    private TournamentStateType state;
+    private TournamentStateType tournamentState;
 
-    private Host host;
+    //private Host host;
+    private String host;
     private System system;
     private List<Prize> prizes;
     private List<User> users;
@@ -42,58 +42,110 @@ public class Tournament {
      * Can move to setter?
      */
     public void changeTournamentState(){};
-    
-    // Equals & HashCode
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.host);
-        return hash;
+    public long getId() {
+        return id;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Tournament other = (Tournament) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Tournament{"
-                + "" + "id=" + id 
-                + ", name=" + name 
-                + ", host=" + host 
-                + ", prizes=" + prizes 
-                + ", users=" + users 
-                + ", state=" + state + '}';
+    public int getMaxPlayers() {
+        return maxPlayers;
     }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public int getMinPlayers() {
+        return minPlayers;
+    }
+
+    public void setMinPlayers(int minPlayers) {
+        this.minPlayers = minPlayers;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPublicDes() {
+        return publicDes;
+    }
+
+    public void setPublicDes(String publicDes) {
+        this.publicDes = publicDes;
+    }
+
+    public String getPrivateDes() {
+        return privateDes;
+    }
+
+    public void setPrivateDes(String privateDes) {
+        this.privateDes = privateDes;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public TournamentStateType getTournamentState() {
+        return tournamentState;
+    }
+
+    public void setTournamentState(TournamentStateType tournamentState) {
+        this.tournamentState = tournamentState;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public System getSystem() {
+        return system;
+    }
+
+    public void setSystem(System system) {
+        this.system = system;
+    }
+
+    public List<Prize> getPrizes() {
+        return prizes;
+    }
+
+    public void setPrizes(List<Prize> prizes) {
+        this.prizes = prizes;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+ 
     
-    // Getters & Setters
-    public long getId() {return id;}
-    public String getName() {return name;}
-    public Host getHost() {return host;}
-    public List<Prize> getPrizes() {return prizes;}
-    public List<User> getUsers() {return users;}
-    public TournamentStateType getState() {return state;}
-    
-    public void setId(long id) {this.id = id;}
-    public void setName(String name) {this.name = name;    }
-    public void setHost(Host host) {this.host = host;}
-    public void setPrizes(List<Prize> prizes) {this.prizes = prizes;}
-    public void setUsers(List<User> users) {this.users = users;}
-    public void setState(TournamentStateType state) {this.state = state;}    
 }

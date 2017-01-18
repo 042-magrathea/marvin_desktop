@@ -37,7 +37,7 @@
 
 .icon_button_small:disabled, .icon_button_small:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: none;
     -fx-text-fill: white;
 }
 

@@ -1,4 +1,4 @@
-package magrathea.marvin.desktop.tournament_old.DAO.HTTPRequest;
+package magrathea.marvin.desktop.tournament.dao;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -11,11 +11,9 @@ import java.util.List;
 import java.util.Map;
 import magrathea.marvin.desktop.app.dao.HTTPRequestDAO.HTTPRequestDAO;
 import magrathea.marvin.desktop.app.model.MarvinConfig;
-import magrathea.marvin.desktop.tournament_old.DAO.TournamentDAO;
-import magrathea.marvin.desktop.tournament_old.DAO.TournamentSearchType;
-import magrathea.marvin.desktop.tournament_old.model.Prize;
-import magrathea.marvin.desktop.tournament_old.model.Tournament;
-import magrathea.marvin.desktop.user.model.User;
+import magrathea.marvin.desktop.tournament.model.Tournament;
+import magrathea.marvin.desktop.tournament.model.TournamentStateType;
+
 
 /**
  * Concrete DAO implementation for Tournament Class
@@ -92,13 +90,21 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
     private List<Tournament> makeTournamentsFromJson(JsonArray jarray) {
         List<Tournament> tournaments = new ArrayList<>();
         Tournament tournament;
+        
         for (int i = 0; i < jarray.size(); i++) {
             JsonObject jsonobject = jarray.get(i).getAsJsonObject();
 
             tournament = new Tournament();
             tournament.setId(jsonobject.get("idTOURNAMENT").getAsLong());
-            tournament.setName("Tournament " + i );
+            tournament.setName(jsonobject.get("name").getAsString());
+            tournament.setDate(jsonobject.get("date").getAsString());
+            tournament.setPublicDes(jsonobject.get("publicDes").getAsString());
+            tournament.setPrivateDes(jsonobject.get("privateDes").getAsString());
+            tournament.setHost(jsonobject.get("TOURNAMENT_HOST_idTournamentHost").getAsString());
+            tournament.setTournamentState(TournamentStateType.randomState());
             
+            
+            /*
             // PRIZES --> Move to Json Service
             JsonArray arrayPrize = jsonobject.getAsJsonArray("prizes");
             List<Prize> prizes = new ArrayList<>(arrayPrize.size());
@@ -106,7 +112,7 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
             for ( int j = 0; j < arrayPrize.size(); j++){
                 JsonObject jsonPrize = arrayPrize.get(j).getAsJsonObject();
                 prize = new Prize();
-                prize.setId(jsonPrize.get("idPRIZE").getAsLong());
+                prize.setIdPrize(jsonPrize.get("idPRIZE").getAsLong());
                 prize.setName(jsonPrize.get("name").getAsString());
                 prizes.add(prize);
                 //int order = jsonPrize.get("position").getAsInt();
@@ -125,7 +131,7 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
                 user.setNickname(jsonUser.get("publicName").getAsString());
                 users.add(user);
             }
-            tournament.setUsers(users);
+            tournament.setUsers(users);*/
             tournaments.add(tournament);
         }
         return tournaments;

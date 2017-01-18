@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,7 +11,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -22,20 +20,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root_pane" stylesheets="@../../app/view/css/marvin.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.prize.controller.PrizeController">
+<AnchorPane fx:id="root_pane" stylesheets="@../../app/view/css/marvin.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="magrathea.marvin.desktop.tournament.controller.TournamentController">
    <children>
       <VBox fx:id="root_vertical">
          <children>
-            <VBox fx:id="table_section" maxHeight="500.0" prefHeight="300.0" VBox.vgrow="ALWAYS">
+            <VBox fx:id="table_section" maxHeight="400.0" prefHeight="240.0" VBox.vgrow="ALWAYS">
                <children>
       
                             <TableView fx:id="table_list_subsection" editable="true" tableMenuButtonVisible="true">
                     <columns>
-                        <TableColumn fx:id="idPrize" maxWidth="100.0" minWidth="50.0" prefWidth="70.0" text="ID" /> 
-                        <TableColumn fx:id="name" maxWidth="450.0" minWidth="250.0" prefWidth="350.0" text="%tournament_name" />
-                        <TableColumn fx:id="description" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" text="%tournament_state" />
-                        <TableColumn fx:id="idTournament" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" text="%tournament_date" />
-                        <TableColumn fx:id="idUser" maxWidth="400.0" minWidth="250.0" prefWidth="300.0" text="%system" />
+                        <TableColumn fx:id="id" maxWidth="100.0" minWidth="50.0" prefWidth="70.0" text="ID" /> 
+                        <TableColumn fx:id="name" maxWidth="450.0" minWidth="250.0" prefWidth="300.0" text="%tournament_name" />
+                        <TableColumn fx:id="tournamentState" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%tournament_state" />
+                        <TableColumn fx:id="date" maxWidth="250.0" minWidth="150.0" prefWidth="200.0" text="%tournament_date" />
+                        <TableColumn fx:id="system" maxWidth="300.0" minWidth="150.0" prefWidth="200.0" text="%system" />
+                        <TableColumn fx:id="host" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%marvin_HOST" />
                     </columns>
                 </TableView>
                   <HBox fx:id="table_tools_subsection" maxWidth="1.7976931348623157E308" styleClass="table_tools_subsection">
@@ -48,13 +47,13 @@
                                     <String fx:value="addSmall" />
                                  </styleClass>
                               </Button>
-                              <Button fx:id="crud_edit" minWidth="30" mnemonicParsing="false" onAction="#onEdit">
+                              <Button fx:id="crud_edit" disable="true" minWidth="30" mnemonicParsing="false" onAction="#onEdit">
                                  <styleClass>
                                     <String fx:value="icon_button_small" />
                                     <String fx:value="editSmall" />
                                  </styleClass>
                               </Button>
-                              <Button fx:id="crud_delete" minWidth="30" mnemonicParsing="false" onAction="#onDelete">
+                              <Button fx:id="crud_delete" disable="true" minWidth="30" mnemonicParsing="false" onAction="#onDelete">
                                  <styleClass>
                                     <String fx:value="icon_button_small" />
                                     <String fx:value="trashSmall" />
@@ -65,14 +64,7 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox fx:id="table_search" alignment="CENTER_RIGHT" fillHeight="false" spacing="10.0" styleClass="table_search">
                            <children>
-                              <RadioButton fx:id="all" layoutX="10.0" layoutY="16.0" mnemonicParsing="false" selected="true" text="%prize_filter_all">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="prizeType" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="Prize" mnemonicParsing="false" text="%prize_filter_prize" toggleGroup="$prizeType" />
-                              <RadioButton fx:id="PrizeMerchant" mnemonicParsing="false" text="%prize_filter_merchant" toggleGroup="$prizeType" />
-                              <TextField fx:id="searchField" promptText="%prize_insert_filter" styleClass="searchField" />
+                              <TextField fx:id="searchField" promptText="%tournament_insert_filter" styleClass="searchField" />
                            </children>
                         </HBox>
                      </children>
@@ -93,61 +85,120 @@
                           <rowConstraints>
                             <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                             <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                               <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label styleClass="label-bright" text="%prize_name">
+                              <Label styleClass="label-bright" text="%tournament_name">
                                  <GridPane.margin>
                                     <Insets top="3.0" />
                                  </GridPane.margin></Label>
-                              <TextField fx:id="prizeNameField" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-                              <Label alignment="TOP_LEFT" styleClass="label-bright" text="%prize_description" GridPane.rowIndex="1">
+                              <TextField fx:id="tournamentNameField" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                              <Label alignment="TOP_LEFT" styleClass="label-bright" text="%tournament_public_des" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets top="3.0" />
                                  </GridPane.margin></Label>
-                              <TextArea fx:id="prizeDescriptionField" styleClass="description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                              <TextArea fx:id="publicDescMemo" styleClass="description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="3.0" />
                                  </GridPane.margin></TextArea>
-                              <Label styleClass="label-bright" text="%prize_image" GridPane.rowIndex="2">
+                              <Label styleClass="label-bright" text="%tournament_state" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets top="3.0" />
                                  </GridPane.margin></Label>
-                              <TextField fx:id="prizeImageField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Button fx:id="loadImageButton" minWidth="30.0" mnemonicParsing="false" onAction="#loadImage" prefWidth="30.0" text="load" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <Label styleClass="label-bright" text="%prize_info" GridPane.rowIndex="3" />
-                              <TextArea fx:id="prizeDateField" editable="false" styleClass="description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                              <Label styleClass="label-bright" text="%tournament_private_desc" GridPane.rowIndex="2" />
+                              <TextArea fx:id="privateDescMemo" styleClass="description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="3.0" />
+                                 </GridPane.margin></TextArea>
+                              <TextArea fx:id="tornamentStateMemo" layoutX="190.0" layoutY="134.0" styleClass="description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                         <Separator orientation="horizontal" styleClass="separator_grid" />
-                        <HBox alignment="CENTER_RIGHT" fillHeight="false" styleClass="dynamic_buttons_form">
+                        <HBox fx:id="dynamic_buttons_form" alignment="CENTER_RIGHT" fillHeight="false" styleClass="dynamic_buttons_form">
                            <children>
-                              <Button fx:id="createButton" text="%crud_create">
+                              <Button fx:id="cancelButton111" alignment="CENTER" disable="true" layoutX="457.0" layoutY="15.0" onAction="#onCancel" text="%crud_cancel" visible="false" />
+                              <Button fx:id="createButton" disable="true" onAction="#onAction" text="%crud_create" visible="false">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="cancelButton" alignment="CENTER" onAction="#onCancel" text="%crud_cancel">
+                              <Button fx:id="s3" alignment="CENTER" onAction="#onCancel" text="S3">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </Button>
+                              <Button fx:id="s2" alignment="CENTER" layoutX="457.0" layoutY="15.0" onAction="#onCancel" text="S2" />
+                              <Button fx:id="s1" alignment="CENTER" layoutX="457.0" layoutY="15.0" onAction="#onCancel" text="S1" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <TabPane fx:id="aside_subsection" side="BOTTOM" styleClass="aside_subsection">
                      <tabs>
-                        <Tab closable="false" text="%prize_image">
+                        <Tab closable="false" text="Image">
                            <content>
                               <VBox fx:id="extraFields" alignment="CENTER" styleClass="aside_content">
                                  <padding>
                                     <Insets bottom="5" left="20" right="5" top="10" />
                                  </padding>
                                  <children>
-                                    <ImageView fx:id="prizeImageView" fitHeight="260.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="tournamentImage" fitHeight="260.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab closable="false" text="Upire">
+                           <content>
+                              <VBox fx:id="extraFields1" alignment="CENTER" styleClass="aside_content">
+                                 <padding>
+                                    <Insets bottom="5" left="20" right="5" top="10" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab closable="false" text="Game">
+                           <content>
+                              <VBox fx:id="extraFields11" alignment="CENTER" styleClass="aside_content">
+                                 <padding>
+                                    <Insets bottom="5" left="20" right="5" top="10" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab closable="false" text="User">
+                           <content>
+                              <VBox fx:id="extraFields111" alignment="CENTER" styleClass="aside_content">
+                                 <padding>
+                                    <Insets bottom="5" left="20" right="5" top="10" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab closable="false" text="Host">
+                           <content>
+                              <VBox fx:id="extraFields1111" alignment="CENTER" styleClass="aside_content">
+                                 <padding>
+                                    <Insets bottom="5" left="20" right="5" top="10" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab closable="false" text="Prize">
+                           <content>
+                              <VBox fx:id="extraFields11111" alignment="CENTER" styleClass="aside_content">
+                                 <padding>
+                                    <Insets bottom="5" left="20" right="5" top="10" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab closable="false" text="System">
+                           <content>
+                              <VBox fx:id="extraFields111111" alignment="CENTER" styleClass="aside_content">
+                                 <padding>
+                                    <Insets bottom="5" left="20" right="5" top="10" />
+                                 </padding>
                               </VBox>
                            </content>
                         </Tab>
@@ -157,7 +208,7 @@
             </HBox>
             <HBox fx:id="footer_section" styleClass="footer_section">
                <children>
-                  <Label text="%user_info_footer" />
+                  <Label text="%tournament_info_footer" />
                </children>
             </HBox>
          </children>

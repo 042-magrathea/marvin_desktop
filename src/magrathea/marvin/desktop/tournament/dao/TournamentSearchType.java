@@ -1,4 +1,4 @@
-package magrathea.marvin.desktop.tournament_old.DAO;
+package magrathea.marvin.desktop.tournament.dao;
 
 /**
  * Only contain fields that can be filter of the given class

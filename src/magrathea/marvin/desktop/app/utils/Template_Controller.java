@@ -219,4 +219,10 @@ public class Template_Controller extends Crud implements MapComponentInitialized
          */
     }
 
+    @Override
+    protected void setState(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: Implement
+    }
+
 }

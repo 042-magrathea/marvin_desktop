@@ -187,4 +187,8 @@ public class GameController extends Crud {
         table_list_subsection.getSelectionModel().selectFirst();
 
     }
+
+    @Override
+    protected void setState(Object object) {
+    }
 }

@@ -250,4 +250,8 @@ public class HostController extends Crud implements MapComponentInitializedListe
         hostInfoWindow.open(map, marker);
     }
 
+    @Override
+    protected void setState(Object object) {
+    }
+
 }
