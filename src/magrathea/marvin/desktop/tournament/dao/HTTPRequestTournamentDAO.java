@@ -100,6 +100,8 @@ public class HTTPRequestTournamentDAO extends HTTPRequestDAO implements Tourname
             tournament.setDate(jsonobject.get("date").getAsString());
             tournament.setPublicDes(jsonobject.get("publicDes").getAsString());
             tournament.setPrivateDes(jsonobject.get("privateDes").getAsString());
+            if (!jsonobject.get("SYSTEM_idSYSTEM").isJsonNull())
+            tournament.setSystem(jsonobject.get("SYSTEM_idSYSTEM").getAsString());
             tournament.setHost(jsonobject.get("TOURNAMENT_HOST_idTournamentHost").getAsString());
             tournament.setTournamentState(TournamentStateType.randomState());
             

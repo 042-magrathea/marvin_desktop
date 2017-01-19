@@ -66,6 +66,10 @@
     -fx-text-fill: #d8d8d8;
 }
 
+.runTournamentButton{
+    -fx-background-color: blue;
+}
+
 .button:hover {
     -fx-background-color: #3a3a3a;
 }

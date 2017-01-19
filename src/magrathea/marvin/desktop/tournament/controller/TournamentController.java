@@ -335,8 +335,7 @@ public class TournamentController extends Crud implements RunningTournament {
 
     @Override
     public void onRunning(ActionEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        // TODO: Implement
+        runTournament();
     }
 
     @Override

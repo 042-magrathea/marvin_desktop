@@ -328,7 +328,7 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
         for (int i = 0; i < jarray.size(); i++) {
             JsonObject jsonobject = jarray.get(i).getAsJsonObject();
             user = new User();
-            user.setId(jsonobject.get("idUser").getAsLong());
+            user.setId(jsonobject.get("idUSER").getAsLong());
             user.setNickname(jsonobject.get("publicName").getAsString());
             user.setName(jsonobject.get("name").getAsString());
             user.setPhone(jsonobject.get("phone").getAsString());

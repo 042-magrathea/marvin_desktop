@@ -123,7 +123,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="s3" alignment="CENTER" onAction="#onCancel" text="S3">
+                              <Button fx:id="s3" alignment="CENTER" onAction="#onCancel" styleClass="runTournamentButton" text="S3">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

@@ -26,7 +26,7 @@ public class Tournament {
 
     //private Host host;
     private String host;
-    private System system;
+    private String system;  // String
     private List<Prize> prizes;
     private List<User> users;
     
@@ -123,11 +123,11 @@ public class Tournament {
         this.host = host;
     }
 
-    public System getSystem() {
+    public String getSystem() {
         return system;
     }
 
-    public void setSystem(System system) {
+    public void setSystem(String system) {
         this.system = system;
     }
 

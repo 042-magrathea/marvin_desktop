@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
 import magrathea.marvin.desktop.prize.model.Prize;
 import magrathea.marvin.desktop.tournament.model.Tournament;
 import magrathea.marvin.desktop.tournament.service.TournamentService;
@@ -21,25 +22,28 @@ import magrathea.marvin.desktop.user.model.User;
  * @author boscalent
  */
 public class TournamentFakeResultController {
+
     private TournamentService service = null;
     private Tournament tournament;
-    
-    @FXML
-    ListView<String> listFake = null;
-    
+
+    @FXML ListView<String> listFake = null;
+    @FXML Pane insert_result;
+
     // REFACTOR TO SINGLETON
     public TournamentFakeResultController() {
         //service = new TournamentService( Main.buildDAO("Tournament") );
         service = new TournamentService();
     }
-    
-    public void initialize(){
+
+    public void initialize() {
+        insert_result.setManaged(false);
+        insert_result.setVisible(false);
     }
-    
-    public void setTournament(Tournament tournament){
+
+    public void setTournament(Tournament tournament) {
         this.tournament = tournament;
-        
-        //listFake.getItems().addAll(tournament.getUsers());
+        /*
+        listFake.getItems().addAll(tournament.getUsers());
         List<User> users = tournament.getUsers();
         List<Prize> prizes = tournament.getPrizes();
         Collections.shuffle(users);     // Random order
@@ -57,5 +61,16 @@ public class TournamentFakeResultController {
         }
         
         listFake.getItems().addAll(fakeResult);
+         */
+    }
+
+    public void addResult() {
+        if (insert_result.isManaged()) {
+            insert_result.setManaged(false);
+            insert_result.setVisible(false);
+        } else {
+            insert_result.setManaged(true);
+            insert_result.setVisible(true);
+        }
     }
 }
