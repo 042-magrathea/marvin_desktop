@@ -136,7 +136,7 @@
                   </VBox>
                   <TabPane fx:id="aside_subsection" side="BOTTOM" styleClass="aside_subsection">
                      <tabs>
-                        <Tab closable="false" text="Image">
+                        <Tab closable="false" text="%tournament_image">
                            <content>
                               <VBox fx:id="extraFields" alignment="CENTER" styleClass="aside_content">
                                  <padding>
@@ -148,16 +148,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab closable="false" text="Upire">
-                           <content>
-                              <VBox fx:id="extraFields1" alignment="CENTER" styleClass="aside_content">
-                                 <padding>
-                                    <Insets bottom="5" left="20" right="5" top="10" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </Tab>
-                        <Tab closable="false" text="Game">
+                        <Tab closable="false" text="%marvin_GAME">
                            <content>
                               <VBox fx:id="extraFields11" alignment="CENTER" styleClass="aside_content">
                                  <padding>
@@ -166,7 +157,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab closable="false" text="User">
+                        <Tab closable="false" text="%marvin_USER">
                            <content>
                               <VBox fx:id="extraFields111" alignment="CENTER" styleClass="aside_content">
                                  <padding>
@@ -175,7 +166,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab closable="false" text="Host">
+                        <Tab closable="false" text="%marvin_HOST">
                            <content>
                               <VBox fx:id="extraFields1111" alignment="CENTER" styleClass="aside_content">
                                  <padding>
@@ -184,7 +175,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab closable="false" text="Prize">
+                        <Tab closable="false" text="%marvin_PRIZE">
                            <content>
                               <VBox fx:id="extraFields11111" alignment="CENTER" styleClass="aside_content">
                                  <padding>
@@ -193,7 +184,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab closable="false" text="System">
+                        <Tab closable="false" text="%system">
                            <content>
                               <VBox fx:id="extraFields111111" alignment="CENTER" styleClass="aside_content">
                                  <padding>
