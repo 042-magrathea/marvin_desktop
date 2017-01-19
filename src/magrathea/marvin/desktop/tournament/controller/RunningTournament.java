@@ -15,9 +15,9 @@ public interface RunningTournament {
     void onFinished(ActionEvent event);
     void onInterrup(ActionEvent event);
     void onRunning(ActionEvent event);
-    void publishResults(ActionEvent event);
     void onRestartPublish(ActionEvent event);
     void onRestartClose(ActionEvent event);
     void onCancelInterrupted(ActionEvent event);
     void onRestartBeginned(ActionEvent event);
+    void onPublishResults(ActionEvent event);
 }

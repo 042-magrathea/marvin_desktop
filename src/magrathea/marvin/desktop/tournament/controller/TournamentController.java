@@ -86,7 +86,7 @@ public class TournamentController extends Crud implements RunningTournament {
         // SPECIAL Stuff for Tournament ////////////////////////////////////////
         image = new Image("/magrathea/marvin/desktop/game/view/notGameImage.png");
         tournamentTypeFilter = "";
-        buttons = dynamic_buttons_form.getChildren();
+        
         // End SPECIAL /////////////////////////////////////////////////////////
 
         state = CrudState.READ;
@@ -221,49 +221,37 @@ public class TournamentController extends Crud implements RunningTournament {
     @Override
     protected void setState(Object object) {
         TournamentStateType stateTypeItem = ((Tournament) object).getTournamentState();
-      
+        // need to update b (Managed = true) o NullException for buttons in array Managed=false
+        buttons = dynamic_buttons_form.getChildren();
         for (Node b : buttons) {
             if (b instanceof Button) {
-                b.setManaged(false);
                 b.setVisible(false);
+                b.setManaged(false);
             }
         }
 
         switch (stateTypeItem.name()) {
-            case "CREATED":     setUpButtonTourState(s1, "tournament_action_publish", this::onPublish ); break;
-            case "PUBLISHED":   setUpButtonTourState(s1, "tournament_action_publish", this::onCancelPublished );
-                                setUpButtonTourState(s2, "tournament_action_publish", this::onClose ); break;
-            case "CLOSED":
-                s1.setManaged(true);
-                s1.setText("onBegin()");
-                s2.setManaged(true);
-                s2.setText("onCancelClose()");
-                break;
+            case "CREATED":     
+                setUpButtonTourState(s1, "tournament_action_publish", this::onPublish ); break;
+            case "PUBLISHED":   
+                setUpButtonTourState(s1, "tournament_action_cancel", this::onCancelPublished );                
+                setUpButtonTourState(s2, "tournament_action_close", this::onClose ); break;
+            case "CLOSED":      
+                setUpButtonTourState(s1, "tournament_action_begin", this::onBegin );
+                setUpButtonTourState(s2, "tournament_action_cancel", this::onCancelClose); break;
             case "BEGINNED":
-                s1.setManaged(true);
-                s1.setText("onFinished()");
-                s2.setManaged(true);
-                s2.setText("onInterrup()");
-                s3.setManaged(true);
-                s3.setText("onRunning");
-                break;
+                setUpButtonTourState(s1, "tournament_action_finished", this::onFinished );
+                setUpButtonTourState(s2, "tournament_action_interrup", this::onInterrup );
+                setUpButtonTourState(s3, "tournament_action_running", this::onRunning );break;    
             case "FINISHED":
-                //s1.setManaged(false);
-                s2.setManaged(true);
-                s2.setText("publishResults()");
-                break;
+                setUpButtonTourState(s1, "tournament_action_results", this::onPublishResults );break;
             case "CANCELLED":
-                s1.setManaged(true);
-                s1.setText("onRestartPublish()");
-                s2.setManaged(true);
-                s2.setText("onRestartClose()");
-                break;
+                // ⊕ Mutex Is restarted from CLOSED state or is restarted from PUBLISHED State; not from both States.
+                setUpButtonTourState(s1, "tournament_action_restart_published", this::onRestartPublish );
+                setUpButtonTourState(s1, "tournament_action_restart_closed", this::onRestartClose ); break;
             case "INTERRUPTED":
-                s1.setManaged(true);
-                s1.setText("onCancelInterrupted()");
-                s2.setManaged(true);
-                s2.setText("onRestartBeginned()");
-                break;
+                setUpButtonTourState(s1, "tournament_action_cancel", this::onCancelInterrupted );
+                setUpButtonTourState(s1, "tournament_action_restart_beginned", this::onRestartBeginned ); break;
         }
     }
 
@@ -305,6 +293,7 @@ public class TournamentController extends Crud implements RunningTournament {
 
     @Override
     public void onPublish(ActionEvent event) {
+        // state/guard/entry/exit
         System.out.println("PUBLISH");
     }
 
@@ -351,7 +340,7 @@ public class TournamentController extends Crud implements RunningTournament {
     }
 
     @Override
-    public void publishResults(ActionEvent event) {
+    public void onPublishResults(ActionEvent event) {
         throw new UnsupportedOperationException("Not supported yet.");
         // TODO: Implement
     }
@@ -379,6 +368,8 @@ public class TournamentController extends Crud implements RunningTournament {
         throw new UnsupportedOperationException("Not supported yet.");
         // TODO: Implement
     }
+
+
 
     /**
      * TOURNAMENT STATE METHODS *

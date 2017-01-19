@@ -23,13 +23,12 @@ public class HTTPRequestGameDAO extends HTTPRequestDAO implements GameDAO {
 
     private static final List<Game> EMPTY = new ArrayList<>();
 
-
     @Override
     public List<Game> findAll() {
-        /* try {
-            
-            URL url = new URL( MarvinConfig.getInstance().getProperty("SERVER_ADDRESS") 
-                    + "gameQuery.php");
+        try {
+
+            URL url = new URL(MarvinConfig.getInstance().getProperty("SERVER_ADDRESS")
+                    + "gamesQuery.php");
 
             // PARAMS POST
             Map<String, Object> params = new LinkedHashMap<>();
@@ -44,7 +43,6 @@ public class HTTPRequestGameDAO extends HTTPRequestDAO implements GameDAO {
 
             // MAKE OBJECTS
             return makeGameFromJson(jarray);
-        
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -52,8 +50,8 @@ public class HTTPRequestGameDAO extends HTTPRequestDAO implements GameDAO {
             con.disconnect();
         }
         return EMPTY;
-        */
-        String fakeJson = "["
+
+        /*String fakeJson = "["
                 + "{'idGame':'1','name':'Magic The Gathering','description':'Magic: The Gathering (MTG; also known as Magic) is a trading card game created by Richard Garfield. First published in 1993 by Wizards of the Coast, Magic was the first trading card game produced and it continues to thrive, with approximately twenty million players as of 2015.',"
                 + "'image':'http://www.allcsgaming.com/wp-content/uploads/2014/03/MTGlogo.jpg'},"
                 + "{'idGame':'2','name':'Pokemon TCG','description':'Juego de cartas coleccionables',"
@@ -63,7 +61,7 @@ public class HTTPRequestGameDAO extends HTTPRequestDAO implements GameDAO {
                 + "]";
         JsonParser jsonParser = new JsonParser();
         JsonArray fakeJsonArray = (JsonArray) jsonParser.parse(fakeJson);
-        return makeGameFromJson(fakeJsonArray);
+        return makeGameFromJson(fakeJsonArray);*/
     }
 
     @Override
@@ -97,10 +95,10 @@ public class HTTPRequestGameDAO extends HTTPRequestDAO implements GameDAO {
             JsonObject jsonobject = jarray.get(i).getAsJsonObject();
             game = new Game();
 
-            game.setIdGame(jsonobject.get("idGame").getAsLong());
+            game.setIdGame(jsonobject.get("idGAME").getAsLong());
             game.setName(jsonobject.get("name").getAsString());
             game.setDescription(jsonobject.get("description").getAsString());
-            game.setImage(jsonobject.get("image").getAsString());
+            if (!jsonobject.get("image").isJsonNull()) {game.setImage(jsonobject.get("image").getAsString()); }
             
             games.add(game);
         }
