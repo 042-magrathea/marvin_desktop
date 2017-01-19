@@ -16,7 +16,7 @@ public class PopulateDB {
     
     private static final int NUSERS = 1000;
     private static final int NPRIZES = 200;
-    private static final int NGAMES = 50;
+    private static final int NGAMES = 100;
     private static final int NHOSTS = 200;
     private static final int NSYSTEMS = 200;
     private static final int NTOURNAMENTS = 200;
@@ -156,7 +156,7 @@ public class PopulateDB {
     private static String[] LANG = {"english", "catalan", "spanish"};
     
     private static String[] GAMES = {"Lord", "Sir", "Dragon", "Master", "Runner", "Thunder", "Rage",
-    "Heroes", "Super", "Dungeon", "Rings", "Necks", "Talisman", "Quest", "Chronicles", "Vampire", 
+    "Heroes", "Super", "Dungeon", "Rings", "Necks", "Talisman", "Quest", "Chronicles", "Vampire", "Viking", "Revenge", 
     "Avatar", "Legend", "Space"};
     
     private static String[] GAMES_TYPE = {"Juego de cartas coleccionable", "Juego de cartas no coleccionable", 
