@@ -29,6 +29,9 @@
 /* 3er lvl TABLE red */
 #table_section { 
     -fx-spacing: 15;
+    -fx-padding: 10 0 0 0;
+    -fx-pref-width: 965px;
+    -fx-max-width: 1024px;
 }
 
 #table_list_subsection {
@@ -56,6 +59,7 @@
 #table_search { 
     -fx-text-align: right;
 }
+
 
 /* 3er lvl FORM-ASIDE red */    
 #form_aside_section {

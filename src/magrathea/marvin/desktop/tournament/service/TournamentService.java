@@ -65,6 +65,28 @@ public class TournamentService {
         //info.setHost(userService.makeUsersFromJson((JsonArray) map.get("users")));
         return info;
     }
+    
+    
+    public String[] getInfoContent() {
+        String[] result = new String[2];
+                
+        StringBuilder actualInfoText = new StringBuilder();
+        actualInfoText.append("tornejos en curs: 1\n");
+        actualInfoText.append("tornejos oberts: 3\n");
+        actualInfoText.append("premis per recollir: 5\n");
+        actualInfoText.append("descomptes actius: 3\n");
+        actualInfoText.append("penalitzacions actives: 2");
+        result[0] = actualInfoText.toString();
+        
+        StringBuilder generalInfoText = new StringBuilder();
+        generalInfoText.append("usuaris registrats: 137\n");
+        generalInfoText.append("tornejos celebrats: 35\n");
+        generalInfoText.append("jocs disponibles: 42\n");
+        generalInfoText.append("seus disponibles: 3");
+        result[1] = generalInfoText.toString();
+        
+        return result;
+    }
 
     public void close() {
         try {

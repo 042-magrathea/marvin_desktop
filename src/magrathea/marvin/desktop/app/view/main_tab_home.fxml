@@ -27,7 +27,12 @@
     <children>
         <VBox fx:id="root_vertical">
             <children>
-                <VBox fx:id="table_section" maxHeight="250.0" prefHeight="150.0" VBox.vgrow="ALWAYS" />
+                <HBox fx:id="table_section" maxHeight="250.0" prefHeight="150.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <TextArea fx:id="actualInfo" prefHeight="150.0" />
+                        <TextArea fx:id="generalInfo" prefHeight="150.0" />
+                    </children>
+                </HBox>
                 <HBox fx:id="form_aside_section">
                     <children>
                         <VBox fx:id="form_subsection">

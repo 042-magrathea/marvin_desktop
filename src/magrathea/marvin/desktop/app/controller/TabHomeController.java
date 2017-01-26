@@ -38,13 +38,20 @@ public class TabHomeController implements Initializable {
      * Initializes the controller class.
      */
     @FXML ListView<Pane> listTournament;
-    @FXML TextArea usersWebView;
+    @FXML TextArea usersWebView, actualInfo, generalInfo;
     LoginService application;
     TournamentService tournamentService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         tournamentService = new TournamentService();
+        
+        String[] infoContentText = tournamentService.getInfoContent();
+        
+        actualInfo.setText(infoContentText[0]);
+        generalInfo.setText(infoContentText[1]);
+        
         List<Tournament> tm = tournamentService.getAll();
         for (Tournament tour : tm) {
             TournamentInfo info = tournamentService.getTournamentInfo(tour.getId());
