@@ -322,7 +322,8 @@ public class HTTPRequestUserDAO extends HTTPRequestDAO implements UserDAO {
      * @param jarray  JsonArray amb objectes User en json
      * @return List<User> que es pot retornar a la capa de servei
      */
-    private List<User> makeUsersFromJson(JsonArray jarray) {
+    @Override
+    public List<User> makeUsersFromJson(JsonArray jarray) {
         List<User> users = new ArrayList<>();
         User user;
         for (int i = 0; i < jarray.size(); i++) {

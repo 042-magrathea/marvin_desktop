@@ -5,6 +5,7 @@
  */
 package magrathea.marvin.desktop.user.dao.DerbyDAO;
 
+import com.google.gson.JsonArray;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,12 @@ public class DerbyUserDAO extends DerbyDAO implements UserDAO {
 
     @Override
     public User validateAuthenticator(String login, String password) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: Implement
+    }
+
+    @Override
+    public List<User> makeUsersFromJson(JsonArray jarray) {
         throw new UnsupportedOperationException("Not supported yet.");
         // TODO: Implement
     }

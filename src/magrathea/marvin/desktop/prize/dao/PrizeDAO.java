@@ -5,6 +5,7 @@
  */
 package magrathea.marvin.desktop.prize.dao;
 
+import com.google.gson.JsonArray;
 import java.util.List;
 import magrathea.marvin.desktop.app.dao.DAO;
 import magrathea.marvin.desktop.prize.model.Prize;
@@ -20,4 +21,6 @@ public interface PrizeDAO extends DAO {
     
     public List<Prize> findPrizeByProperties(PrizeSearchType searchType, Object host);
     public List<Prize> findAll();
+    
+    public List<Prize> makePrizeFromJson(JsonArray jarray);
 }

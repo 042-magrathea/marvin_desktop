@@ -39,6 +39,7 @@
     -fx-opacity: 0.4;
     -fx-background-color: none;
     -fx-text-fill: white;
+    
 }
 
 /* Awesome */
@@ -63,7 +64,6 @@
     -icons-color: red;
 }
 
-
 /*ICONS*/
 .addSmall{-fx-graphic: url("marvin/icons/addSmall.png");}
 .add-user-col{-fx-graphic: url("marvin/icons/add-user-col.png");}
@@ -76,4 +76,3 @@
 .reload{-fx-graphic: url("marvin/icons/reload.png");}
 .trash{-fx-graphic: url("marvin/icons/trash.png");}
 .trashSmall{-fx-graphic: url("marvin/icons/trashSmall.png");}
-

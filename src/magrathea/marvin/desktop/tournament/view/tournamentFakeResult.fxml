@@ -63,7 +63,7 @@
                   </HBox>
                   <TableView prefHeight="420.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn minWidth="30.0" prefWidth="70.0" text="Math" />
+                      <TableColumn minWidth="30.0" prefWidth="70.0" text="Match" />
                       <TableColumn prefWidth="70.0" text="P1" />
                         <TableColumn prefWidth="70.0" text="P2" />
                         <TableColumn prefWidth="60.0" text="Result" />

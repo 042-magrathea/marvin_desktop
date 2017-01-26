@@ -6,6 +6,7 @@
  */
 package magrathea.marvin.desktop.user.service;
 
+import com.google.gson.JsonArray;
 import java.util.List;
 import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
 import magrathea.marvin.desktop.user.dao.HTTPRequest.HTTPRequestUserDAO;
@@ -114,5 +115,11 @@ public class UserService {
         } else {
             return UserService.NO_MATCH;
         }
+    }
+    
+    /** Help other services
+     * @return  */
+    public List<User> makeUsersFromJson(JsonArray jarray){
+        return userDAO.makeUsersFromJson(jarray);
     }
 }

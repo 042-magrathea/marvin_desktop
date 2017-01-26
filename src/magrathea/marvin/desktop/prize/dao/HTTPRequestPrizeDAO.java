@@ -133,7 +133,8 @@ public class HTTPRequestPrizeDAO extends HTTPRequestDAO implements PrizeDAO {
         // TODO: Implement
     }
 
-    private List<Prize> makePrizeFromJson(JsonArray jarray) {
+    @Override
+    public List<Prize> makePrizeFromJson(JsonArray jarray) {
 
         List<Prize> prizes = new ArrayList<>();
         Prize prize = null;

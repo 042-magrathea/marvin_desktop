@@ -41,8 +41,8 @@ public class PopulateDB {
         app.header();
 
         //app.query(MODEL.USERS, NUSERS);
-        app.query(MODEL.PRIZES, NPRIZES);
-        //app.query(MODEL.GAMES, NGAMES);
+        //app.query(MODEL.PRIZES, NPRIZES);
+        app.query(MODEL.GAMES, NGAMES);
         //app.query(MODEL.HOSTS, NHOSTS);
         //app.query(MODEL.SYSTEMS, NSYSTEMS);
         //app.query(MODEL.TOURNAMENTS, NTOURNAMENTS);     // compute last
@@ -160,7 +160,7 @@ public class PopulateDB {
     private void queryTournaments(int quantity) {
         // TODO
         /*
-        INSERT INTO `magrathea`.`TOURNAMENT` (`idTOURNAMENT`, `name`, `publicDes`, `privateDes`, `date`, `open`, `started`, `finished`, `cancelled`, `SYSTEM_idSYSTEM`, `TOURNAMENT_HOST_idTournamentHost`, `GAME_idGAME`) VALUES (NULL, 'OPEN DOORS DAY 2006', 'Magic The Gathering 6ºEd', 'Duis aute irure dolor in reprehenderit in voluptate velit', '2006-03-15 00:00:00', '0', '0', '1', '0', '3', '2', '115');
+INSERT INTO `magrathea`.`TOURNAMENT` (`idTOURNAMENT`, `name`, `publicDes`, `privateDes`, `date`, `open`, `started`, `finished`, `cancelled`, `SYSTEM_idSYSTEM`, `TOURNAMENT_HOST_idTournamentHost`, `GAME_idGAME`) VALUES (NULL, 'OPEN DOORS DAY 2006', 'Magic The Gathering 6ºEd', 'Duis aute irure dolor in reprehenderit in voluptate velit', '2006-03-15 00:00:00', '0', '0', '1', '0', '3', '2', '115');
 INSERT INTO `magrathea`.`TOURNAMENT` (`name`, `publicDes`, `privateDes`, `date`, `open`, `started`, `finished`, `cancelled`, `SYSTEM_idSYSTEM`, `TOURNAMENT_HOST_idTournamentHost`, `GAME_idGAME`) VALUES ('OPEN DOORS DAY 2007', 'D&D 3ºED', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', '2007-03-15 00:00:00', '0', '0', '1', '0', '2', '1', '116');
 INSERT INTO `magrathea`.`TOURNAMENT` (`name`, `publicDes`, `privateDes`, `date`, `open`, `started`, `finished`, `cancelled`, `SYSTEM_idSYSTEM`, `TOURNAMENT_HOST_idTournamentHost`, `GAME_idGAME`) VALUES ('OPEN DOORS DAY 2008', 'Star Treck CCG', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', '2008-03-15 00:00:00', '0', '0', '1', '0', '1', '2', '117');
 INSERT INTO `magrathea`.`TOURNAMENT` (`name`, `publicDes`, `privateDes`, `date`, `open`, `started`, `finished`, `cancelled`, `SYSTEM_idSYSTEM`, `TOURNAMENT_HOST_idTournamentHost`, `GAME_idGAME`) VALUES ('OPEN DOORS DAY 2009', 'Super Deck', 'Duis aute irure dolor in reprehenderit in voluptate velit', '2009-03-15 00:00:00', '0', '0', '1', '0', '3', '1', '118');

@@ -1,5 +1,6 @@
 package magrathea.marvin.desktop.prize.service;
 
+import com.google.gson.JsonArray;
 import java.util.List;
 import magrathea.marvin.desktop.app.dao.factoryDAO.DAOFactory;
 import magrathea.marvin.desktop.prize.dao.PrizeDAO;
@@ -24,6 +25,10 @@ public class PrizeService {
 
     public List<Prize> getAll() {
         return prizeDAO.findAll();
+    }
+    
+    public List<Prize> makePrizeFromJson(JsonArray jarray){
+        return prizeDAO.makePrizeFromJson(jarray);
     }
 
     public void close() {

@@ -1,0 +1,32 @@
+/*
+Format the Tournament's' cell in Main
+ . = class, # = id */
+
+/* Root panel in cell*/
+.paneCell{
+    -fx-width: 800;
+    -fx-height: 200;
+}
+.hboxCell{
+    -fx-padding: 10;
+    -fx-spacing:10;
+}
+
+.vboxCellImage{
+    -fx-pref-width: 110;
+    -fx-min-width: 110;
+    -fx-padding: 10;
+    -fx-spacing:10;
+}
+
+.vboxCellTournament {
+    -fx-padding: 10;
+    -fx-spacing:10;
+}
+
+.vboxCelldata {
+    -fx-padding: 10;
+    -fx-spacing:10;    
+}
+
+
